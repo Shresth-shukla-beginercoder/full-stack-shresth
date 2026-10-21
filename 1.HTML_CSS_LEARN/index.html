@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1. HTML &amp; CSS — Examples</title>
+<style>
+  :root { color-scheme: light dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+    padding: 2rem 1.5rem 4rem;
+  }
+  main { max-width: 720px; margin: 0 auto; }
+  h1 { font-size: 1.6rem; margin: 0 0 .25rem; }
+  .sub { color: #94a3b8; margin: 0 0 2rem; }
+  .grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+  a.card {
+    display: block;
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    color: #e2e8f0;
+    text-decoration: none;
+    transition: transform .15s, border-color .15s;
+  }
+  a.card:hover { transform: translateY(-2px); border-color: #38bdf8; }
+  a.card h2 { margin: 0 0 .25rem; font-size: 1rem; color: #38bdf8; }
+  a.card p { margin: 0; color: #94a3b8; font-size: .85rem; }
+  .back { display: inline-block; margin-bottom: 1.25rem; color: #94a3b8; text-decoration: none; }
+  .back:hover { color: #38bdf8; }
+</style>
+</head>
+<body>
+<main>
+  <a class="back" href="/">← All projects</a>
+  <h1>1. HTML &amp; CSS</h1>
+  <p class="sub">Standalone examples from the HTML/CSS learning section.</p>
+  <div class="grid">
+    <a class="card" href="emmetdc.html"><h2>Emmet Cheat Sheet</h2><p>Emmet abbreviations reference page.</p></a>
+    <a class="card" href="table.html"><h2>HTML Table</h2><p>Table markup example.</p></a>
+    <a class="card" href="raceregistration.html"><h2>Race Registration Form</h2><p>Course registration form example.</p></a>
+    <a class="card" href="form.html"><h2>Form Example</h2><p>Form fields and layout.</p></a>
+    <a class="card" href="mediaqueris.html"><h2>Media Queries</h2><p>Responsive behavior with media queries.</p></a>
+    <a class="card" href="Price Tiers.html"><h2>Price Tiers</h2><p>Card layout with icons (uses app.css).</p></a>
+    <a class="card" href="Box Model and Units Explanation.html"><h2>Box Model &amp; Units</h2><p>Explanation of box model and CSS units.</p></a>
+    <a class="card" href="CSS Selectors - Complete Guide.html"><h2>CSS Selectors Guide</h2><p>Complete selectors reference.</p></a>
+    <a class="card" href="CSS Color and Text Example.html"><h2>Color &amp; Text</h2><p>Color and typography example.</p></a>
+    <a class="card" href="CSS Concepts opa,alpha,posi,transi,tranf,hover.html"><h2>CSS Concepts</h2><p>Opacity, alpha, position, transition, transform, hover.</p></a>
+  </div>
+</main>
+</body>
+</html>
