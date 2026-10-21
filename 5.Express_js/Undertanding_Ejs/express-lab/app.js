@@ -95,5 +95,5 @@ app.use((req, res) => res.status(404).render('404'));
 // Error-handling middleware has four parameters, so Express recognizes it as an error handler.
 app.use((err, req, res, next) => res.status(500).render('error', { err }));
 
-// Start listening for HTTP requests on port 3000 and log the local URL.
-app.listen(3000, () => console.log('Express Lab -> http://localhost:3000'));
+// Start listening on the host-provided PORT (e.g. Vercel/Render); falls back to 3000 locally.
+app.listen(process.env.PORT || 3000, () => console.log('Express Lab -> http://localhost:' + (process.env.PORT || 3000)));
