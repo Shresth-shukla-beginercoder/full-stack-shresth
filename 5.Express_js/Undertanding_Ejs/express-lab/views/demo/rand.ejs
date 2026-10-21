@@ -1,0 +1,9 @@
+<%- include('../partials/head', { title: 'Random' }) %>
+<article>
+  <h1>Number: <%= n %></h1>
+  <p>Doubled: <%= n * 2 %></p>
+  <% if (n % 2 === 0) { %><p class="tag">Even</p><% } else { %><p class="tag">Odd</p><% } %>
+  <p>Escaped: <%= '<b>bold</b>' %> | Raw: <%- '<b>bold</b>' %></p>
+  <a class="btn" href="/demo/rand">Roll again</a>
+</article>
+<%- include('../partials/foot') %>

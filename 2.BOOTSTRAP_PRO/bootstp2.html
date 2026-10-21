@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bootstrap Examples - Compact</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+<style>section{margin-bottom:2rem;padding-top:.75rem;border-top:1px dashed #dee2e6}.note{font-size:.85rem;color:#856404;background:#fffbe6;border-left:3px solid #ffc107;padding:.5rem .75rem}</style>
+</head>
+<body>
+<div class="container my-5">
+<h1 class="mb-4">Bootstrap Examples — Compact</h1>
+
+<section>
+<h2>1. Containers</h2>
+<p class="note">.container = centered, fixed max-width | .container-fluid = full width</p>
+<div class="container bg-light p-3 rounded mt-2">.container</div>
+<div class="container-fluid bg-secondary text-white p-3 rounded mt-2">.container-fluid</div>
+</section>
+
+<section>
+<h2>2. Grid</h2>
+<p class="note">12 columns per .row | .col-md-4 = 4/12 width on md+ screens | stacks full-width on mobile</p>
+<div class="row text-center mt-2">
+<div class="col-md-4 bg-primary text-white p-2">col-md-4</div>
+<div class="col-md-4 bg-info text-white p-2">col-md-4</div>
+<div class="col-md-4 bg-primary text-white p-2">col-md-4</div>
+</div>
+</section>
+
+<section>
+<h2>3. Typography</h2>
+<p class="note">.lead, .text-*, .font-weight-bold = quick text styling</p>
+<p class="lead">Lead paragraph</p>
+<p class="text-muted">Muted text</p>
+<p class="font-weight-bold text-primary">Bold + primary color</p>
+</section>
+
+<section>
+<h2>4. Buttons</h2>
+<p class="note">.btn + color class | .btn-sm/.btn-lg = size | .btn-group = joined buttons</p>
+<button class="btn btn-primary">Primary</button>
+<button class="btn btn-outline-danger btn-sm">Small outline</button>
+<div class="btn-group ml-2"><button class="btn btn-secondary">L</button><button class="btn btn-secondary">R</button></div>
+<button id="counterBtn" class="btn btn-info ml-2">Clicked 0x</button>
+</section>
+
+<section>
+<h2>5. Alerts (JS)</h2>
+<p class="note">.alert-dismissible + data-dismiss="alert" = closeable without custom JS</p>
+<div class="alert alert-info alert-dismissible fade show">Dismissible alert<button class="close" data-dismiss="alert">&times;</button></div>
+<button id="createAlertBtn" class="btn btn-outline-success btn-sm">Add alert via JS</button>
+<div id="alertContainer"></div>
+</section>
+
+<section>
+<h2>6. Badges</h2>
+<p class="note">Small labels/counters | .badge-pill = rounded</p>
+<span class="badge badge-pill badge-primary">New</span>
+<button class="btn btn-primary btn-sm">Inbox <span class="badge badge-light">4</span></button>
+</section>
+
+<section>
+<h2>7. Cards</h2>
+<p class="note">.card > .card-body > .card-title/.card-text</p>
+<div class="card" style="max-width:300px">
+<div class="card-body"><h5 class="card-title">Title</h5><p class="card-text">Some text.</p><a href="#" class="btn btn-primary btn-sm">Go</a></div>
+</div>
+</section>
+
+<section>
+<h2>8. Food Cards (JS cart)</h2>
+<p class="note">Same .card pattern | JS below uses event delegation for "Add to cart"</p>
+<div class="row">
+<div class="col-md-4"><div class="card"><div class="card-body"><h6>🍕 Pizza <span class="badge badge-success float-right">₹249</span></h6><button class="btn btn-sm btn-outline-primary">Add to cart</button></div></div></div>
+<div class="col-md-4"><div class="card"><div class="card-body"><h6>🍔 Burger <span class="badge badge-success float-right">₹149</span></h6><button class="btn btn-sm btn-outline-primary">Add to cart</button></div></div></div>
+<div class="col-md-4"><div class="card"><div class="card-body"><h6>🍜 Noodles <span class="badge badge-success float-right">₹129</span></h6><button class="btn btn-sm btn-outline-primary">Add to cart</button></div></div></div>
+</div>
+<p class="mt-2">Cart items: <strong id="cartCount">0</strong></p>
+</section>
+
+<section>
+<h2>9. Forms</h2>
+<p class="note">.form-group wraps label+input | .form-control = styled input</p>
+<form onsubmit="return false;">
+<div class="form-group"><label>Name</label><input class="form-control" placeholder="Enter name"></div>
+<div class="form-check mb-2"><input class="form-check-input" type="checkbox" id="agree"><label class="form-check-label" for="agree">I agree</label></div>
+<button class="btn btn-primary">Submit</button>
+</form>
+</section>
+
+<section>
+<h2>10. Collapse (JS)</h2>
+<p class="note">data-toggle="collapse" + data-target="#id" = show/hide, no custom JS needed</p>
+<button class="btn btn-primary" data-toggle="collapse" data-target="#collapseEx">Toggle</button>
+<div class="collapse mt-2" id="collapseEx"><div class="card card-body">Hidden content, revealed on click.</div></div>
+</section>
+
+<section>
+<h2>11. Modal (JS)</h2>
+<p class="note">data-toggle="modal" + data-target="#id" opens popup</p>
+<button class="btn btn-danger" data-toggle="modal" data-target="#exModal">Open Modal</button>
+<div class="modal fade" id="exModal"><div class="modal-dialog"><div class="modal-content">
+<div class="modal-header"><h5>Title</h5><button class="close" data-dismiss="modal">&times;</button></div>
+<div class="modal-body">Modal body content.</div>
+<div class="modal-footer"><button class="btn btn-secondary" data-dismiss="modal">Close</button></div>
+</div></div></div>
+</section>
+
+<section>
+<h2>12. Tooltip/Popover (JS init)</h2>
+<p class="note">Needs JS: $('[data-toggle="tooltip"]').tooltip() — see script below</p>
+<button class="btn btn-secondary" data-toggle="tooltip" title="I'm a tooltip!">Hover</button>
+<button class="btn btn-secondary" data-toggle="popover" title="Title" data-content="Popover body">Click</button>
+</section>
+
+<section>
+<h2>13. Tabs (JS)</h2>
+<p class="note">.nav-tabs + data-toggle="tab" | href="#id" matches pane id</p>
+<ul class="nav nav-tabs"><li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#t1">One</a></li><li class="nav-item"><a class="nav-link" data-toggle="tab" href="#t2">Two</a></li></ul>
+<div class="tab-content p-2 border"><div class="tab-pane show active" id="t1">Tab One content</div><div class="tab-pane" id="t2">Tab Two content</div></div>
+</section>
+
+<section>
+<h2>14. Progress Bar (JS)</h2>
+<p class="note">.progress > .progress-bar | width set via inline style, updatable by JS</p>
+<div class="progress"><div id="progBar" class="progress-bar bg-success" style="width:25%">25%</div></div>
+<button id="progBtn" class="btn btn-outline-success btn-sm mt-2">+10%</button>
+</section>
+
+<section>
+<h2>15. Toast (JS)</h2>
+<p class="note">Must trigger with JS: $('#id').toast('show')</p>
+<button id="toastBtn" class="btn btn-info">Show Toast</button>
+<div class="toast mt-2" id="myToast" data-delay="3000" style="position:absolute">
+<div class="toast-header"><strong class="mr-auto">Notice</strong><button class="close" data-dismiss="toast">&times;</button></div>
+<div class="toast-body">Action completed!</div>
+</div>
+</section>
+
+<section>
+<h2>16. Utilities</h2>
+<p class="note">.text-center/.d-flex/.justify-content-between/.p-*/.m-* = quick layout & spacing</p>
+<p class="text-center">Centered text</p>
+<div class="d-flex justify-content-between border p-2"><span>Left</span><span>Right</span></div>
+</section>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+$(function(){ $('[data-toggle="tooltip"]').tooltip(); $('[data-toggle="popover"]').popover(); });
+
+let count=0;
+document.getElementById('counterBtn').onclick=e=>e.target.textContent=`Clicked ${++count}x`;
+
+document.getElementById('createAlertBtn').onclick=()=>{
+  document.getElementById('alertContainer').insertAdjacentHTML('beforeend',
+  `<div class="alert alert-success alert-dismissible fade show mt-2">JS-created alert<button class="close" data-dismiss="alert">&times;</button></div>`);
+};
+
+let cart=0;
+document.addEventListener('click',e=>{
+  if(e.target.textContent.trim()==='Add to cart'){ document.getElementById('cartCount').textContent=++cart; }
+});
+
+document.getElementById('progBtn').onclick=()=>{
+  const bar=document.getElementById('progBar');
+  let w=Math.min((parseInt(bar.style.width)||0)+10,100);
+  bar.style.width=w+'%'; bar.textContent=w+'%';
+};
+
+document.getElementById('toastBtn').onclick=()=>$('#myToast').toast('show');
+</script>
+</body>
+</html>

@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DOM Manipulation — Learn by Doing</title>
+<link rel="stylesheet" href="/FULL STACK COLT STEELE/3.JAVASCRIPT/CSS_to_Learn/DOM.CSS">
+</head>
+<body>
+
+<button id="navToggle" class="nav-toggle" aria-label="Toggle menu">☰</button>
+
+<nav id="sidebar" class="sidebar">
+  <h2>DOM Topics</h2>
+  <a href="#intro">1. Intro to DOM</a>
+  <a href="#getbyid">2. getElementById</a>
+  <a href="#getbytagclass">3. getElementsByTagName / ClassName</a>
+  <a href="#queryselector">4. querySelector / All</a>
+  <a href="#content">5. innerHTML / textContent / innerText</a>
+  <a href="#attributes">6. Attributes</a>
+  <a href="#styles">7. Changing Styles</a>
+  <a href="#classlist">8. classList</a>
+  <a href="#traversal">9. Traversing the DOM</a>
+  <a href="#appendremove">10. append / remove</a>
+  <a href="#pokedex">11. Final Demo: Mini Pokédex</a>
+</nav>
+
+<main class="content">
+
+  <header class="hero">
+    <h1>Understanding the DOM</h1>
+    <p>A hands-on JavaScript reference — every topic has an explanation, a live example, and a practice exercise where you write real code.</p>
+  </header>
+
+  <!-- 1. INTRO -->
+  <section id="intro" class="topic">
+    <h2>1. Introduction to the DOM</h2>
+    <ul class="points">
+      <li>The <strong>DOM (Document Object Model)</strong> is a tree-like representation of your HTML page, built by the browser.</li>
+      <li>Every tag becomes a <strong>node</strong> (object) that JavaScript can read and change.</li>
+      <li><code>document</code> is the root object — your entry point into the whole page.</li>
+      <li>Changing the DOM changes what's on screen <em>immediately</em> — no page reload needed.</li>
+      <li>This is how buttons, forms, animations, and dynamic apps all work.</li>
+    </ul>
+    <div class="example">
+      <h3>Live Example</h3>
+      <p>Click the button — it directly changes a DOM node's text.</p>
+      <div class="demo-box">
+        <p id="introText">I am a paragraph node.</p>
+        <button id="introBtn">Change my text</button>
+      </div>
+      <pre class="code-view"><code>const p = document.getElementById("introText");
+const btn = document.getElementById("introBtn");
+btn.addEventListener("click", () => {
+  p.textContent = "The DOM just changed me!";
+});</code></pre>
+    </div>
+  </section>
+
+  <!-- 2. getElementById -->
+  <section id="getbyid" class="topic">
+    <h2>2. document.getElementById()</h2>
+    <ul class="points">
+      <li>Selects <strong>one</strong> element by its unique <code>id</code> attribute.</li>
+      <li>Returns a single element (or <code>null</code> if not found) — never a list.</li>
+      <li>Fastest and most common way to grab a specific element.</li>
+      <li>Syntax: <code>document.getElementById("idName")</code></li>
+    </ul>
+    <div class="example">
+      <h3>Live Example</h3>
+      <div class="demo-box">
+        <div id="idBox">Target box (id="idBox")</div>
+        <button id="idBtn">Turn it orange</button>
+      </div>
+      <pre class="code-view"><code>document.getElementById("idBtn").addEventListener("click", () => {
+  document.getElementById("idBox").style.background = "orange";
+});</code></pre>
+    </div>
+    <div class="exercise" data-exercise="idbox">
+      <h3>🧪 Practice Exercise</h3>
+      <p>Target element: <code>&lt;p id="exId1"&gt;</code> below. Write code to select it by id and change its text to <code>"Selected!"</code>.</p>
+      <div class="playground">
+        <p id="exId1">Change my text using getElementById</p>
+      </div>
+      <textarea class="code-input" placeholder="document.getElementById('exId1').textContent = 'Selected!';"></textarea>
+      <div class="ex-controls">
+        <button class="run-btn">▶ Run</button>
+        <button class="check-btn">✔ Check</button>
+        <span class="ex-result"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. getElementsByTagName / ClassName -->
+  <section id="getbytagclass" class="topic">
+    <h2>3. getElementsByTagName() &amp; getElementsByClassName()</h2>
+    <ul class="points">
+      <li><code>getElementsByTagName("tag")</code> returns a <strong>live HTMLCollection</strong> of all matching tags.</li>
+      <li><code>getElementsByClassName("class")</code> returns a <strong>live HTMLCollection</strong> of all elements with that class.</li>
+      <li>"Live" means the collection auto-updates if the DOM changes later.</li>
+      <li>You must loop through the collection to act on every item (or convert to an array).</li>
+      <li>Syntax: <code>document.getElementsByTagName("li")</code>, <code>document.getElementsByClassName("card")</code></li>
+    </ul>
+    <div class="example">
+      <h3>Live Example</h3>
+      <div class="demo-box">
+        <ul id="tagList">
+          <li class="fruit">Apple</li>
+          <li class="fruit">Banana</li>
+          <li>Carrot</li>
+        </ul>
+        <button id="tagBtn">Highlight all .fruit items</button>
+      </div>
+      <pre class="code-view"><code>document.getElementById("tagBtn").addEventListener("click", () => {
+  const fruits = document.getElementsByClassName("fruit");
+  for (let i = 0; i < fruits.length; i++) {
+    fruits[i].style.color = "green";
+  }
+});</code></pre>
+    </div>
+    <div class="exercise" data-exercise="tagclass">
+      <h3>🧪 Practice Exercise</h3>
+      <p>Select all <code>&lt;li&gt;</code> below by tag name, and set every item's background to <code>"#ffe28a"</code>.</p>
+      <div class="playground">
+        <ul id="exList1"><li>One</li><li>Two</li><li>Three</li></ul>
+      </div>
+      <textarea class="code-input" placeholder="const items = document.getElementsByTagName('li');
+for (let i = 0; i < items.length; i++) items[i].style.background = '#ffe28a';"></textarea>
+      <div class="ex-controls">
+        <button class="run-btn">▶ Run</button>
+        <button class="check-btn">✔ Check</button>
+        <span class="ex-result"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. querySelector / All -->
+  <section id="queryselector" class="topic">
+    <h2>4. querySelector() &amp; querySelectorAll()</h2>
+    <ul class="points">
+      <li>Both accept <strong>any valid CSS selector</strong> — id (<code>#</code>), class (<code>.</code>), tag, attribute, nested selectors, etc.</li>
+      <li><code>querySelector()</code> returns the <strong>first</strong> matching element only.</li>
+      <li><code>querySelectorAll()</code> returns a <strong>static NodeList</strong> of all matches (doesn't auto-update).</li>
+      <li>NodeLists support <code>.forEach()</code> directly — no manual index loop needed.</li>
+      <li>More flexible than getElementById/ClassName because selectors can be complex, e.g. <code>"ul li:first-child"</code>.</li>
+    </ul>
+    <div class="example">
+      <h3>Live Example</h3>
+      <div class="demo-box">
+        <div class="card">Card 1</div>
+        <div class="card">Card 2</div>
+        <div class="card">Card 3</div>
+        <button id="qsBtn">Style all cards</button>
+      </div>
+      <pre class="code-view"><code>document.getElementById("qsBtn").addEventListener("click", () => {
+  document.querySelectorAll(".card").forEach(card => {
+    card.style.border = "2px solid #6c5ce7";
+  });
+});</code></pre>
+    </div>
+    <div class="exercise" data-exercise="qsa">
+      <h3>🧪 Practice Exercise</h3>
+      <p>Use <code>querySelectorAll</code> to select every <code>.dot</code> and turn them all red.</p>
+      <div class="playground">
+        <span class="dot">●</span><span class="dot">●</span><span class="dot">●</span>
+      </div>
+      <textarea class="code-input" placeholder="document.querySelectorAll('.dot').forEach(d => d.style.color = 'red');"></textarea>
+      <div class="ex-controls">
+        <button class="run-btn">▶ Run</button>
+        <button class="check-btn">✔ Check</button>
+        <span class="ex-result"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. innerHTML / textContent / innerText -->
+  <section id="content" class="topic">
+    <h2>5. innerHTML vs textContent vs innerText</h2>
+    <ul class="points">
+      <li><code>innerHTML</code> — reads/writes content <strong>as HTML</strong> (tags get parsed and rendered). Risky with user input (XSS).</li>
+      <li><code>textContent</code> — reads/writes content as <strong>plain text</strong>, including hidden elements. Fast, safe.</li>
+      <li><code>innerText</code> — like textContent, but <strong>aware of CSS</strong> (ignores hidden elements, respects styling like line breaks).</li>
+      <li>Rule of thumb: use <code>textContent</code> for plain text, <code>innerHTML</code> only when you deliberately need to insert markup.</li>
+    </ul>
+    <div class="example">
+      <h3>Live Example</h3>
+      <div class="demo-box">
+        <div id="contentTarget">Original content</div>
+        <button data-mode="html">Set via innerHTML</button>
+        <button data-mode="text">Set via textContent</button>
+      </div>
+      <pre class="code-view"><code>target.innerHTML = "&lt;strong&gt;Bold via innerHTML&lt;/strong&gt;";
+target.textContent = "&lt;strong&gt;Not bold — shown as text&lt;/strong&gt;";</code></pre>
+    </div>
+    <div class="exercise" data-exercise="content">
+      <h3>🧪 Practice Exercise</h3>
+      <p>Set <code>#exContent</code>'s <code>innerHTML</code> so the word "bold" actually renders bold.</p>
+      <div class="playground">
+        <p id="exContent">plain text</p>
+      </div>
+      <textarea class="code-input" placeholder="document.getElementById('exContent').innerHTML = 'this word is <strong>bold</strong>';"></textarea>
+      <div class="ex-controls">
+        <button class="run-btn">▶ Run</button>
+        <button class="check-btn">✔ Check</button>
+        <span class="ex-result"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Attributes -->
+  <section id="attributes" class="topic">
+    <h2>6. Manipulating Attributes</h2>
+    <ul class="points">
+      <li><code>getAttribute("name")</code> — reads an attribute's value.</li>
+      <li><code>setAttribute("name", "value")</code> — sets/creates an attribute.</li>
+      <li><code>removeAttribute("name")</code> — deletes it.</li>
+      <li><code>hasAttribute("name")</code> — returns true/false.</li>
+      <li>Common attributes to manipulate: <code>src</code>, <code>href</code>, <code>alt</code>, <code>disabled</code>, custom <code>data-*</code> attributes.</li>
+    </ul>
+    <div class="example">
+      <h3>Live Example</h3>
+      <div class="demo-box">
+        <img id="attrImg" src="https://placehold.co/80x80" alt="placeholder" width="80">
+        <button id="attrBtn">Change image src</button>
+      </div>
+      <pre class="code-view"><code>document.getElementById("attrBtn").addEventListener("click", () => {
+  document.getElementById("attrImg").setAttribute("src", "https://placehold.co/80x80/6c5ce7/fff");
+});</code></pre>
+    </div>
+    <div class="exercise" data-exercise="attr">
+      <h3>🧪 Practice Exercise</h3>
+      <p>Give button <code>#exBtnAttr</code> a <code>disabled</code> attribute using <code>setAttribute</code>.</p>
+      <div class="playground">
+        <button id="exBtnAttr">Click me (should become disabled)</button>
+      </div>
+      <textarea class="code-input" placeholder="document.getElementById('exBtnAttr').setAttribute('disabled', 'true');"></textarea>
+      <div class="ex-controls">
+        <button class="run-btn">▶ Run</button>
+        <button class="check-btn">✔ Check</button>
+        <span class="ex-result"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Changing Styles -->
+  <section id="styles" class="topic">
+    <h2>7. Changing Styles with JavaScript</h2>
+    <ul class="points">
+      <li><code>element.style.property</code> sets <strong>inline CSS</strong> directly (camelCase, e.g. <code>backgroundColor</code>).</li>
+      <li>Good for one-off, dynamic changes (based on user actions, calculations, etc).</li>
+      <li>For anything reusable, prefer toggling a CSS <strong>class</strong> instead (see classList next).</li>
+      <li><code>getComputedStyle(element)</code> reads the final, rendered style (including from CSS files).</li>
+    </ul>
+    <div class="example">
+      <h3>Live Example</h3>
+      <div class="demo-box">
+        <div id="styleBox" class="style-box"></div>
+        <button id="styleBtn">Randomize style</button>
+      </div>
+      <pre class="code-view"><code>document.getElementById("styleBtn").addEventListener("click", () => {
+  const box = document.getElementById("styleBox");
+  box.style.background = `hsl(${Math.random()*360}, 70%, 60%)`;
+  box.style.borderRadius = Math.random()*50 + "px";
+});</code></pre>
+    </div>
+    <div class="exercise" data-exercise="style">
+      <h3>🧪 Practice Exercise</h3>
+      <p>Change <code>#exStyleBox</code>'s <code>backgroundColor</code> to <code>"teal"</code> and <code>width</code> to <code>"150px"</code>.</p>
+      <div class="playground">
+        <div id="exStyleBox" class="style-box"></div>
+      </div>
+      <textarea class="code-input" placeholder="const b = document.getElementById('exStyleBox');
+b.style.backgroundColor = 'teal';
+b.style.width = '150px';"></textarea>
+      <div class="ex-controls">
+        <button class="run-btn">▶ Run</button>
+        <button class="check-btn">✔ Check</button>
+        <span class="ex-result"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. classList -->
+  <section id="classlist" class="topic">
+    <h2>8. classList</h2>
+    <ul class="points">
+      <li><code>classList.add("name")</code> — adds a class.</li>
+      <li><code>classList.remove("name")</code> — removes a class.</li>
+      <li><code>classList.toggle("name")</code> — adds it if missing, removes it if present.</li>
+      <li><code>classList.contains("name")</code> — returns true/false.</li>
+      <li>Preferred over inline <code>.style</code> for anything reusable — keeps styling in CSS, logic in JS.</li>
+    </ul>
+    <div class="example">
+      <h3>Live Example</h3>
+      <div class="demo-box">
+        <div id="classBox" class="style-box">Toggle me</div>
+        <button id="classBtn">Toggle "active" class</button>
+      </div>
+      <pre class="code-view"><code>document.getElementById("classBtn").addEventListener("click", () => {
+  document.getElementById("classBox").classList.toggle("active");
+});</code></pre>
+    </div>
+    <div class="exercise" data-exercise="classlist">
+      <h3>🧪 Practice Exercise</h3>
+      <p>Add the class <code>"active"</code> to <code>#exClassBox</code> using <code>classList.add</code>.</p>
+      <div class="playground">
+        <div id="exClassBox" class="style-box"></div>
+      </div>
+      <textarea class="code-input" placeholder="document.getElementById('exClassBox').classList.add('active');"></textarea>
+      <div class="ex-controls">
+        <button class="run-btn">▶ Run</button>
+        <button class="check-btn">✔ Check</button>
+        <span class="ex-result"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. Traversal -->
+  <section id="traversal" class="topic">
+    <h2>9. Traversing the DOM (Parent / Child / Sibling)</h2>
+    <ul class="points">
+      <li><code>parentElement</code> — the direct parent node.</li>
+      <li><code>children</code> — an HTMLCollection of direct child elements.</li>
+      <li><code>firstElementChild</code> / <code>lastElementChild</code> — first/last child element.</li>
+      <li><code>nextElementSibling</code> / <code>previousElementSibling</code> — neighbor elements at the same level.</li>
+      <li>These all skip text/whitespace nodes — they only return real elements.</li>
+    </ul>
+    <div class="example">
+      <h3>Live Example</h3>
+      <div class="demo-box">
+        <ul id="family">
+          <li id="parentLi">Parent
+            <ul>
+              <li class="childLi">Child 1</li>
+              <li class="childLi">Child 2</li>
+            </ul>
+          </li>
+        </ul>
+        <button id="travBtn">Highlight all children of Parent</button>
+      </div>
+      <pre class="code-view"><code>document.getElementById("travBtn").addEventListener("click", () => {
+  const parent = document.getElementById("parentLi");
+  [...parent.querySelector("ul").children].forEach(c => c.style.color = "crimson");
+});</code></pre>
+    </div>
+    <div class="exercise" data-exercise="traversal">
+      <h3>🧪 Practice Exercise</h3>
+      <p>Starting from <code>#exMiddle</code>, use <code>nextElementSibling</code> to select the element after it and set its text to <code>"Reached!"</code>.</p>
+      <div class="playground">
+        <ul>
+          <li id="exFirst">First</li>
+          <li id="exMiddle">Middle</li>
+          <li id="exLast">Last</li>
+        </ul>
+      </div>
+      <textarea class="code-input" placeholder="document.getElementById('exMiddle').nextElementSibling.textContent = 'Reached!';"></textarea>
+      <div class="ex-controls">
+        <button class="run-btn">▶ Run</button>
+        <button class="check-btn">✔ Check</button>
+        <span class="ex-result"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. append/remove -->
+  <section id="appendremove" class="topic">
+    <h2>10. append(), appendChild(), remove(), removeChild()</h2>
+    <ul class="points">
+      <li><code>document.createElement("tag")</code> — makes a new element in memory (not on screen yet).</li>
+      <li><code>parent.appendChild(node)</code> — adds a node as the last child (classic, one node only).</li>
+      <li><code>parent.append(...)</code> — modern version; accepts multiple nodes <em>and</em> plain text strings.</li>
+      <li><code>element.remove()</code> — removes the element itself directly. Simplest way to delete.</li>
+      <li><code>parent.removeChild(node)</code> — older syntax; parent must remove its own child explicitly.</li>
+    </ul>
+    <div class="example">
+      <h3>Live Example</h3>
+      <div class="demo-box">
+        <ul id="taskList"><li>Buy milk</li></ul>
+        <button id="addBtn">Add a task</button>
+        <button id="removeLastBtn">Remove last task</button>
+      </div>
+      <pre class="code-view"><code>document.getElementById("addBtn").addEventListener("click", () => {
+  const li = document.createElement("li");
+  li.textContent = "New task " + Date.now() % 1000;
+  document.getElementById("taskList").appendChild(li);
+});
+document.getElementById("removeLastBtn").addEventListener("click", () => {
+  document.getElementById("taskList").lastElementChild?.remove();
+});</code></pre>
+    </div>
+    <div class="exercise" data-exercise="appendremove">
+      <h3>🧪 Practice Exercise</h3>
+      <p>Create a new <code>&lt;li&gt;</code> with text <code>"Practice item"</code> and append it into <code>#exList2</code>.</p>
+      <div class="playground">
+        <ul id="exList2"><li>Existing item</li></ul>
+      </div>
+      <textarea class="code-input" placeholder="const li = document.createElement('li');
+li.textContent = 'Practice item';
+document.getElementById('exList2').appendChild(li);"></textarea>
+      <div class="ex-controls">
+        <button class="run-btn">▶ Run</button>
+        <button class="check-btn">✔ Check</button>
+        <span class="ex-result"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11. FINAL DEMO -->
+  <section id="pokedex" class="topic">
+    <h2>11. Final Demo — Mini Pokédex</h2>
+    <p class="demo-intro">This ties everything together in one working feature: <code>createElement</code>, <code>appendChild</code>, <code>setAttribute</code>, <code>classList</code>, <code>textContent</code>, <code>querySelector</code>, and event traversal — all used to render sprite cards and let you search/filter them.</p>
+    <div class="demo-box pokedex-box">
+      <input id="pokeSearch" type="text" placeholder="Search a Pokémon name...">
+      <div id="pokeGrid" class="poke-grid"></div>
+    </div>
+    <pre class="code-view"><code>// simplified core logic
+pokeList.forEach(p => {
+  const card = document.createElement("div");
+  card.className = "poke-card";
+  card.setAttribute("data-name", p.name);
+
+  const img = document.createElement("img");
+  img.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${p.id}.png`;
+  img.alt = p.name;
+
+  const name = document.createElement("p");
+  name.textContent = p.name;
+
+  card.append(img, name);
+  card.addEventListener("click", () => card.classList.toggle("caught"));
+  pokeGrid.appendChild(card);
+});</code></pre>
+  </section>
+
+  <footer class="site-footer">Built to practice: getElementById • getElementsByTagName/ClassName • querySelector/All • innerHTML/textContent/innerText • attributes • styles • classList • traversal • append/remove</footer>
+
+</main>
+
+<script src="/FULL STACK COLT STEELE/3.JAVASCRIPT/2.Js_to_Learn/DOM.JS"></script>
+</body>
+</html>

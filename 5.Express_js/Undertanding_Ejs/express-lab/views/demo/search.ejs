@@ -1,0 +1,9 @@
+<%- include('../partials/head', { title: 'Search' }) %>
+<article>
+  <h1>Search topics</h1>
+  <form class="row" action="/demo/search"><input name="q" value="<%= q %>" placeholder="e.g. ejs"><input name="limit" type="number" value="<%= limit %>" min="1"><button class="btn">Search</button></form>
+  <p>req.query → <code>q="<%= q %>"</code>, <code>limit=<%= limit %></code></p>
+  <ul class="posts"><% results.forEach(t => { %><li><a href="/topic/<%= t.slug %>"><%= t.title %></a></li><% }) %></ul>
+  <% if (!results.length) { %><p>No matches.</p><% } %>
+</article>
+<%- include('../partials/foot') %>

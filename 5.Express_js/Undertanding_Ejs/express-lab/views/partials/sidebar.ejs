@@ -1,0 +1,8 @@
+<nav class="side">
+<% [...new Set(topics.map(t => t.group))].forEach(g => { %>
+  <h4><%= g %></h4>
+  <% topics.filter(t => t.group === g).forEach(t => { %>
+    <a href="/topic/<%= t.slug %>" class="<%= path === '/topic/' + t.slug ? 'on' : '' %>"><%= t.title %></a>
+  <% }) %>
+<% }) %>
+</nav>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Selectors - Complete Guide</title>
+ <link rel="stylesheet" href="html2.css">
+</head>
+<body>
+    <div id="main-content">
+        <h1>Understanding CSS Selectors</h1>
+        <p>Learn the fundamental CSS selectors to target HTML elements effectively.</p>
+
+        <!-- Universal Selector -->
+        <h2>1. Universal Selector (*)</h2>
+        <p>The universal selector targets all elements on the page. It's often used to reset default styles.</p>
+        <div class="example">
+            <span class="selector-title">Syntax:</span>
+            <div class="code-block">* {
+    margin: 0;
+    padding: 0;
+}</div>
+        </div>
+
+        <!-- Element Selector -->
+        <h2>2. Element Selector</h2>
+        <p>Targets all instances of a specific HTML element.</p>
+        <div class="example">
+            <span class="selector-title">Syntax:</span>
+            <div class="code-block">h1 {
+    color: #333;
+    font-size: 32px;
+}
+
+p {
+    color: #666;
+}</div>
+        </div>
+
+        <!-- ID Selector -->
+        <h2>3. ID Selector (#)</h2>
+        <p>Targets a unique element with a specific ID. Each ID should be used only once per page.</p>
+        <div class="example">
+            <span class="selector-title">HTML:</span>
+            <div class="code-block">&lt;div id="main-content"&gt;
+    Content here
+&lt;/div&gt;</div>
+            <span class="selector-title">CSS:</span>
+            <div class="code-block">#main-content {
+    background-color: white;
+    padding: 30px;
+}</div>
+        </div>
+
+        <!-- Class Selector -->
+        <h2>4. Class Selector (.)</h2>
+        <p>Targets all elements with a specific class. Classes can be reused across multiple elements.</p>
+        <div class="example">
+            <span class="selector-title">HTML:</span>
+            <div class="code-block">&lt;p class="highlight"&gt;This is highlighted&lt;/p&gt;
+&lt;p class="highlight"&gt;This is also highlighted&lt;/p&gt;</div>
+            <span class="selector-title">CSS:</span>
+            <div class="code-block">.highlight {
+    background-color: yellow;
+    color: black;
+}</div>
+        </div>
+
+        <!-- Descendant Selector -->
+        <h2>5. Descendant Selector (space)</h2>
+        <p>Targets all elements that are descendants of a specified element, at any level.</p>
+        <div class="example">
+            <span class="selector-title">HTML:</span>
+            <div class="code-block">&lt;div class="container"&gt;
+    &lt;p&gt;This paragraph is a descendant&lt;/p&gt;
+    &lt;section&gt;
+        &lt;p&gt;This is also a descendant&lt;/p&gt;
+    &lt;/section&gt;
+&lt;/div&gt;</div>
+            <span class="selector-title">CSS:</span>
+            <div class="code-block">.container p {
+    color: blue;
+}</div>
+        </div>
+
+        <!-- Adjacent Sibling Selector -->
+        <h2>6. Adjacent Sibling Selector (+)</h2>
+        <p>Targets an element that comes immediately after another specific element (sibling).</p>
+        <div class="example">
+            <span class="selector-title">HTML:</span>
+            <div class="code-block">&lt;h2&gt;Heading&lt;/h2&gt;
+&lt;p&gt;This paragraph comes right after h2&lt;/p&gt;</div>
+            <span class="selector-title">CSS:</span>
+            <div class="code-block">h2 + p {
+    font-weight: bold;
+}</div>
+        </div>
+
+        <!-- Direct Child Selector -->
+        <h2>7. Direct Child Selector (>)</h2>
+        <p>Targets elements that are direct children of a specified element, not nested deeper.</p>
+        <div class="example">
+            <span class="selector-title">HTML:</span>
+            <div class="code-block">&lt;div class="parent"&gt;
+    &lt;p&gt;Direct child&lt;/p&gt;
+    &lt;section&gt;
+        &lt;p&gt;Not a direct child&lt;/p&gt;
+    &lt;/section&gt;
+&lt;/div&gt;</div>
+            <span class="selector-title">CSS:</span>
+            <div class="code-block">.parent > p {
+    color: green;
+}</div>
+        </div>
+
+        <!-- Attribute Selector -->
+        <h2>8. Attribute Selector ([])</h2>
+        <p>Targets elements based on their attributes. Variations:</p>
+        <div class="example">
+            <span class="selector-title">Exact Match [attr="value"]:</span>
+            <div class="code-block">input[type="text"] {
+    padding: 8px;
+}</div>
+            <span class="selector-title">Starts With [attr^="value"]:</span>
+            <div class="code-block">a[href^="https"] {
+    color: green;
+}</div>
+            <span class="selector-title">Ends With [attr$="value"]:</span>
+            <div class="code-block">a[href$=".pdf"] {
+    color: red;
+}</div>
+            <span class="selector-title">Contains [attr*="value"]:</span>
+            <div class="code-block">a[href*="example"] {
+    text-decoration: underline;
+}</div>
+        </div>
+
+        <!-- Pseudo-classes -->
+        <h2>9. Pseudo-classes (:)</h2>
+        <p>Targets elements based on their state or position. Common pseudo-classes:</p>
+        <div class="example">
+            <span class="selector-title">Link States:</span>
+            <div class="code-block">a:link { color: blue; }
+a:visited { color: purple; }
+a:hover { text-decoration: underline; }
+a:active { color: orange; }</div>
+            <span class="selector-title">Form States:</span>
+            <div class="code-block">input:focus { border: 2px solid blue; }
+input:disabled { background-color: gray; }</div>
+            <span class="selector-title">Child Position:</span>
+            <div class="code-block">li:first-child { font-weight: bold; }
+li:last-child { color: red; }
+li:nth-child(odd) { background-color: #f9f9f9; }</div>
+        </div>
+
+        <!-- Interactive Examples -->
+        <h2>Interactive Examples</h2>
+        <div class="example">
+            <p>Try clicking the button below:</p>
+            <button>Click Me!</button>
+            
+            <p style="margin-top: 20px;">Try typing in the input field:</p>
+            <input type="text" placeholder="Focus on this field...">
+            
+            <p style="margin-top: 20px;">Try hovering over these links:</p>
+            <ul>
+                <li><a href="https://example.com">HTTPS Link</a></li>
+                <li><a href="http://example.com">HTTP Link</a></li>
+                <li><a href="https://example.com/document.pdf">PDF Link</a></li>
+                <li><a href="https://example.com">Another Example Link</a></li>
+            </ul>
+        </div>
+
+        <h2>Summary</h2>
+        <div class="example">
+            <p><strong>Universal:</strong> * - All elements</p>
+            <p><strong>Element:</strong> element - All of that element type</p>
+            <p><strong>ID:</strong> #id - Unique element by ID</p>
+            <p><strong>Class:</strong> .class - Elements with class</p>
+            <p><strong>Descendant:</strong> parent child - All descendants</p>
+            <p><strong>Adjacent:</strong> element + element - Immediately following sibling</p>
+            <p><strong>Direct Child:</strong> parent > child - Direct children only</p>
+            <p><strong>Attribute:</strong> [attr="value"] - By attributes</p>
+            <p><strong>Pseudo-class:</strong> :state - Based on element state or position</p>
+        </div>
+    </div>
+</body>
+</html>

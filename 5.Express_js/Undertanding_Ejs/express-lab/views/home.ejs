@@ -1,0 +1,20 @@
+<%- include('partials/head', { title: 'Home' }) %>
+<article>
+  <h1>Learn Express.js, properly.</h1>
+  <p class="lead">This site is itself an Express + EJS app. Read a topic, open its live demo, then read the matching file.</p>
+  <ol class="points">
+    <li>Run <code>npm install</code> then <code>npm run dev</code>.</li>
+    <li>Open a topic from the sidebar or the cards below.</li>
+    <li>Click the <b>demo button</b> - it hits a real route in <code>app.js</code>.</li>
+    <li>Change code, nodemon restarts, refresh.</li>
+  </ol>
+  <% [...new Set(topics.map(t => t.group))].forEach(g => { %>
+    <h2><%= g %></h2>
+    <div class="grid">
+    <% topics.filter(t => t.group === g).forEach(t => { %>
+      <a class="card" href="/topic/<%= t.slug %>"><b><%= t.title %></b><span><%= t.lead %></span></a>
+    <% }) %>
+    </div>
+  <% }) %>
+</article>
+<%- include('partials/foot') %>

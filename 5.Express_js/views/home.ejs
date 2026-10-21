@@ -1,0 +1,231 @@
+
+<%- include('Partials/head') %>
+<body>
+
+<nav class="navbar">
+    <a href="/" class="logo">EJS<span>.Learn</span></a>
+
+
+<ul class="nav-links">
+    <li><a href="/">Tags</a></li>
+    <li><a href="/rand">Random</a></li>
+</ul>
+
+
+</nav>
+
+<div class="container">
+
+
+<section class="hero">
+    <h1>EJS Tags</h1>
+    <p>
+        Learn how EJS tags work with simple examples and live output.
+    </p>
+</section>
+
+
+<section class="section">
+
+    <h2>&lt;% %&gt; — Scriptlet</h2>
+
+    <p>
+        The &lt;% %&gt; tag is called a Scriptlet tag. It is used to write
+        and execute JavaScript code inside an EJS file. The JavaScript
+        code runs on the server, but it does not directly produce output
+        in the HTML page.
+    </p>
+
+    <div class="demo-card">
+
+        <%
+            let name = "Shresth";
+            let age = 20;
+        %>
+
+        <p>Name: <%= name %></p>
+        <p>Age: <%= age %></p>
+
+    </div>
+
+</section>
+
+
+<section class="section">
+
+    <h2>&lt;%= %&gt; — Output</h2>
+
+    <p>
+        The &lt;%= %&gt; tag outputs the value of a JavaScript variable
+        or expression into the HTML page. EJS automatically HTML-escapes
+        the value.
+    </p>
+
+    <div class="demo-card">
+
+        <p>Hello, <%= name %>!</p>
+
+        <%
+            let message = "<strong>Hello</strong>";
+        %>
+
+        <div class="output">
+            <%= message %>
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="section">
+
+    <h2>&lt;%- %&gt; — Unescaped Output</h2>
+
+    <p>
+        The &lt;%- %&gt; tag outputs a value without HTML escaping.
+        Therefore, HTML contained inside the value can be interpreted
+        by the browser.
+    </p>
+
+    <div class="demo-card">
+
+        <div class="output">
+            <%- message %>
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="section">
+
+    <h2>&lt;%# %&gt; — EJS Comment</h2>
+
+    <p>
+        The &lt;%# %&gt; tag creates an EJS comment. The content is
+        ignored by EJS and does not appear in the generated HTML.
+    </p>
+
+</section>
+
+
+<section class="section">
+
+    <h2>&lt;%_ — Whitespace Slurping</h2>
+
+    <p>
+        The &lt;%_ tag works like a normal Scriptlet tag while also
+        removing whitespace that appears immediately before it.
+    </p>
+
+    <div class="demo-card">
+
+        <%
+            let showMessage = true;
+        %>
+
+        <%_ if (showMessage) { %>
+            <p>This message is visible.</p>
+        <% } %>
+
+    </div>
+
+</section>
+
+
+<section class="section">
+
+    <h2>&lt;%% — Literal EJS Tag</h2>
+
+    <p>
+        The &lt;%% tag is used when you want to display the characters
+        &lt;% literally instead of having EJS interpret them.
+    </p>
+
+    <div class="demo-card">
+
+        <p>
+            Example: &lt;%%
+        </p>
+
+    </div>
+
+</section>
+
+
+<section class="section">
+
+    <h2>%&gt; — Normal Ending</h2>
+
+    <p>
+        The %&gt; tag normally closes an EJS Scriptlet and returns the
+        template to normal HTML.
+    </p>
+
+    <div class="demo-card">
+
+        <%
+            let x = 10;
+        %>
+
+        <p>X = <%= x %></p>
+
+    </div>
+
+</section>
+
+
+<section class="section">
+
+    <h2>-%&gt; — Newline Slurping</h2>
+
+    <p>
+        The -%&gt; tag removes the newline immediately following the
+        EJS tag.
+    </p>
+
+    <div class="demo-card">
+
+        <ul>
+            <% if (true) { -%>
+                <li>Item 1</li>
+                <li>Item 2</li>
+            <% } -%>
+        </ul>
+
+    </div>
+
+</section>
+
+
+<section class="section">
+
+    <h2>_%&gt; — Whitespace Slurping</h2>
+
+    <p>
+        The _%&gt; tag removes whitespace appearing after the EJS tag.
+        It gives you more control over spaces and newlines in the
+        generated HTML.
+    </p>
+
+    <div class="demo-card">
+
+        <% if (true) { _%>
+            <p>This message is visible.</p>
+        <% } %>
+
+    </div>
+
+</section>
+
+
+</div>
+
+<footer>
+    EJS Learning Project • Built with Express + EJS
+</footer>
+
+</body>
+</html>

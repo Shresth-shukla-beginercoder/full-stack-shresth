@@ -1,0 +1,7 @@
+<%- include('../partials/head', { title: 'Notes' }) %>
+<article>
+  <h1>Notes (Router + POST)</h1>
+  <form class="row" method="POST" action="/demo/notes"><input name="text" placeholder="New note" required><button class="btn">Add</button></form>
+  <ul class="posts"><% notes.forEach(n => { %><li><%= n %></li><% }) %></ul>
+</article>
+<%- include('../partials/foot') %>

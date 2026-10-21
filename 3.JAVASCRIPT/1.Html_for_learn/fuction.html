@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JavaScript Functions — Complete Guide</title>
+  <link rel="stylesheet" href="/FULL STACK COLT STEELE/3.JAVASCRIPT/CSS_to_Learn/fuction.css" />
+  <style>
+ 
+
+    pre {
+      margin: 1rem 0 0;
+      background: #0f172a;
+      color: #e2e8f0;
+      border-radius: 12px;
+      padding: 1rem;
+      overflow-x: auto;
+      border: 1px solid #334155;
+    }
+
+    code {
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 0.9rem;
+    }
+
+    pre code {
+      display: block;
+      white-space: pre-wrap;
+      line-height: 1.6;
+    }
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>JavaScript Functions</h1>
+    <p>Click each "Run" button to see the concept in action. Open the browser console too (F12) — most demos also log there.</p>
+  </header>
+
+  <main>
+
+    <!-- 1. INTRO TO FUNCTIONS -->
+    <section class="card">
+      <h2>1. Intro to Functions — Your First Function</h2>
+      <p>A function is a reusable block of code that runs when you "call" it.</p>
+      <button onclick="greet()">Run</button>
+      <p class="output" id="out1"></p>
+      <pre><code>function greet() {
+      document.getElementById("out1").textContent = "Hello!";
+    }
+
+    greet();</code></pre>
+    </section>
+
+    <!-- 2. ARGUMENTS INTRO -->
+    <section class="card">
+      <h2>2. Arguments — Passing Data In</h2>
+      <p>Arguments let you send values into a function so it can use them.</p>
+      <button onclick="greetPerson('Shresth')">Run</button>
+      <p class="output" id="out2"></p>
+      <pre><code>function greetPerson(name) {
+      document.getElementById("out2").textContent = `Hello, ${name}!`;
+    }
+
+    greetPerson("Shresth");</code></pre>
+    </section>
+
+    <!-- 3. MULTIPLE ARGUMENTS -->
+    <section class="card">
+      <h2>3. Function with Multiple Arguments</h2>
+      <p>A function can accept more than one piece of data at once.</p>
+      <button onclick="addNumbers(7, 5)">Run (7 + 5)</button>
+      <p class="output" id="out3"></p>
+      <pre><code>function addNumbers(a, b) {
+      document.getElementById("out3").textContent = a + b;
+    }
+
+    addNumbers(7, 5);</code></pre>
+    </section>
+
+    <!-- 4. RETURN KEYWORD -->
+    <section class="card">
+      <h2>4. The <code>return</code> Keyword</h2>
+      <p><code>return</code> sends a value back out of the function, so you can store or reuse it.</p>
+      <button onclick="showSquare(6)">Run (square of 6)</button>
+      <p class="output" id="out4"></p>
+      <pre><code>function square(number) {
+      return number * number;
+    }
+
+    const result = square(6); // 36</code></pre>
+    </section>
+
+    <!-- 5. FUNCTION SCOPE -->
+    <section class="card">
+      <h2>5. Function Scope</h2>
+      <p>Variables declared with <code>var</code>/<code>let</code>/<code>const</code> inside a function only exist inside that function.</p>
+      <button onclick="demoFunctionScope()">Run</button>
+      <p class="output" id="out5"></p>
+      <pre><code>function demoFunctionScope() {
+      const message = "I'm inside the function";
+      console.log(message);
+    }
+
+    demoFunctionScope();</code></pre>
+    </section>
+
+    <!-- 6. BLOCK SCOPE -->
+    <section class="card">
+      <h2>6. Block Scope</h2>
+      <p><code>let</code> and <code>const</code> are confined to the nearest <code>{ }</code> block, e.g. an <code>if</code> or a loop.</p>
+      <button onclick="demoBlockScope()">Run</button>
+      <p class="output" id="out6"></p>
+      <pre><code>if (true) {
+      let message = "I'm inside this block";
+      console.log(message);
+    }
+    // message is not available here</code></pre>
+    </section>
+
+    <!-- 7. LEXICAL SCOPE -->
+    <section class="card">
+      <h2>7. Lexical Scope</h2>
+      <p>An inner function can "see" the variables of the function it's physically written inside, based on where it's defined — not where it's called.</p>
+      <button onclick="demoLexicalScope()">Run</button>
+      <p class="output" id="out7"></p>
+      <pre><code>function outer() {
+  const message = "From the outer function";
+
+  function inner() {
+    return message; // sees outer's variable
+  }
+
+  return inner();
+}</code></pre>
+    </section>
+
+    <!-- 8. FUNCTION EXPRESSIONS -->
+    <section class="card">
+      <h2>8. Function Expressions</h2>
+      <p>A function stored inside a variable, instead of declared with the <code>function</code> keyword on its own.</p>
+      <button onclick="multiply(4, 3)">Run (4 × 3)</button>
+      <p class="output" id="out8"></p>
+      <pre><code>const multiply = function (a, b) {
+      return a * b;
+    };
+
+    multiply(4, 3); // 12</code></pre>
+    </section>
+
+    <!-- 9. HIGHER ORDER FUNCTIONS -->
+    <section class="card">
+      <h2>9. Higher Order Functions</h2>
+      <p>A function that takes another function as an argument, or returns one.</p>
+      <button onclick="demoHigherOrder()">Run</button>
+      <p class="output" id="out9"></p>
+      <pre><code>function calculate(a, b, operation) {
+      return operation(a, b);
+    }
+
+    calculate(7, 5, (x, y) =&gt; x + y); // 12</code></pre>
+    </section>
+
+    <!-- 10. RETURNING FUNCTIONS (CLOSURES) -->
+    <section class="card">
+      <h2>10. Returning a Function (Closures)</h2>
+      <p>A function can build and return another function, which "remembers" the variables around it.</p>
+      <button onclick="demoReturningFunction()">Run</button>
+      <p class="output" id="out10"></p>
+      <pre><code>function makeGreeter(name) {
+  return function () {
+    return `Hello, ${name}!`;
+  };
+}
+
+const greetShresth = makeGreeter("Shresth");
+greetShresth(); // "Hello, Shresth!"</code></pre>
+    </section>
+
+    <!-- 11. DEFINING METHODS -->
+    <section class="card">
+      <h2>11. Defining Methods</h2>
+      <p>A method is simply a function stored as a property of an object.</p>
+      <button onclick="demoMethods()">Run</button>
+      <p class="output" id="out11"></p>
+      <pre><code>const person = {
+  name: "Shresth",
+  greet() {
+    return `Hello, ${this.name}!`;
+  }
+};
+
+person.greet();</code></pre>
+    </section>
+
+  </main>
+
+  <script src="/FULL STACK COLT STEELE/3.JAVASCRIPT/2.Js_to_Learn/fuction.js"></script>
+</body>
+</html>

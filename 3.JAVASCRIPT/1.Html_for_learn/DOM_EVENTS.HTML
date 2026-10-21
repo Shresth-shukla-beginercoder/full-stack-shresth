@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DOM Events — Learn by Doing</title>
+<link rel="stylesheet" href="/FULL STACK COLT STEELE/3.JAVASCRIPT/CSS_to_Learn/DOM_EVENT.CSS">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">⚡ DOM Events Lab</div>
+  <button id="menuToggle" class="menu-toggle">☰ Topics</button>
+</header>
+
+<div class="layout">
+
+  <!-- SIDEBAR NAV -->
+  <nav class="sidebar" id="sidebar">
+    <p class="sidebar-title">Topics</p>
+    <button class="nav-btn active" data-target="intro">1. Intro to DOM Events</button>
+    <button class="nav-btn" data-target="inline">2. Inline Event Handlers</button>
+    <button class="nav-btn" data-target="onclick-listener">3. onclick vs addEventListener</button>
+    <button class="nav-btn" data-target="this-keyword">4. The <code>this</code> Keyword</button>
+    <button class="nav-btn" data-target="event-object">5. The Event Object</button>
+    <button class="nav-btn" data-target="form-events">6. Form Events & preventDefault</button>
+    <button class="nav-btn" data-target="input-change">7. Input & Change Events</button>
+    <button class="nav-btn" data-target="bubbling">8. Event Bubbling</button>
+    <button class="nav-btn" data-target="delegation">9. Event Delegation</button>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main class="content">
+
+    <!-- ============ TOPIC 1: INTRO ============ -->
+    <section class="topic active" id="intro">
+      <h1>1. Introduction to DOM Events</h1>
+      <div class="explain">
+        <ul>
+          <li><b>Event</b> = something that happens in the browser: a click, a key press, a page load, a form submit, a mouse move, etc.</li>
+          <li>JavaScript can <b>"listen"</b> for these events and run code in response — this is called <b>event-driven programming</b>.</li>
+          <li>Three ways to attach an event handler, from oldest to modern:
+            <ol>
+              <li>Inline HTML attribute — <code>&lt;button onclick="..."&gt;</code></li>
+              <li>DOM property — <code>element.onclick = function(){}</code></li>
+              <li><code>element.addEventListener('click', function(){})</code> — the modern, recommended way</li>
+            </ol>
+          </li>
+          <li>Common event categories:</li>
+        </ul>
+        <table class="ref-table">
+          <tr><th>Category</th><th>Examples</th></tr>
+          <tr><td>Mouse</td><td>click, dblclick, mouseover, mouseout, mousemove, mousedown, mouseup</td></tr>
+          <tr><td>Keyboard</td><td>keydown, keyup, keypress</td></tr>
+          <tr><td>Form</td><td>submit, change, input, focus, blur</td></tr>
+          <tr><td>Window/Document</td><td>load, resize, scroll, DOMContentLoaded</td></tr>
+        </table>
+      </div>
+
+      <div class="demo-box">
+        <p class="demo-label">Live demo — hover and click this box:</p>
+        <div id="introDemoBox" class="playground-box">Hover / Click me</div>
+        <div id="introDemoLog" class="log-line">Waiting for an event…</div>
+      </div>
+
+      <div class="exercise" data-id="ex-intro">
+        <p class="exercise-header">🧪 Practice — fire your first event</p>
+        <p class="task">Select the button with id <code>introBtn</code> and add a click listener that logs <code>"Button was clicked!"</code> using the provided <code>log()</code> function.</p>
+        <div class="sandbox" id="ex-intro-output">
+          <button id="introBtn">Click Me</button>
+        </div>
+        <textarea id="ex-intro-code" class="code-editor" spellcheck="false"></textarea>
+        <div class="exercise-controls">
+          <button class="run-btn" data-id="ex-intro">▶ Run</button>
+          <button class="reset-btn" data-id="ex-intro">↺ Reset</button>
+          <button class="hint-btn" data-id="ex-intro">💡 Hint</button>
+        </div>
+        <p class="hint" id="ex-intro-hint" hidden>Use: <code>document.getElementById('introBtn').addEventListener('click', () => log('Button was clicked!'));</code></p>
+        <pre class="console-out" id="ex-intro-console"></pre>
+      </div>
+    </section>
+
+    <!-- ============ TOPIC 2: INLINE EVENTS ============ -->
+    <section class="topic" id="inline">
+      <h1>2. Inline Event Handlers</h1>
+      <div class="explain">
+        <ul>
+          <li>Written directly in HTML as an attribute: <code>&lt;button onclick="sayHi()"&gt;</code></li>
+          <li>The attribute's value is treated as JS code that runs on that event.</li>
+          <li><code>element.setAttribute('onclick', 'code')</code> does the exact same thing from JavaScript — it's the same mechanism under the hood.</li>
+          <li><b>Downsides:</b> mixes HTML and JS (hard to maintain), can only attach <u>one</u> handler per event, security/CSP issues, code as a string is easy to break.</li>
+          <li>Rarely used in real projects today — shown here mainly so you recognize it and understand <i>why</i> we prefer <code>addEventListener</code>.</li>
+        </ul>
+      </div>
+
+      <div class="demo-box">
+        <p class="demo-label">Live demo — this button uses a real inline attribute:</p>
+        <button onclick="document.getElementById('inlineDemoLog').textContent = 'Inline onclick fired at ' + new Date().toLocaleTimeString();" class="playground-btn">Inline onclick button</button>
+        <div id="inlineDemoLog" class="log-line">Waiting…</div>
+        <p class="code-peek">&lt;button onclick="…date logic…"&gt;Inline onclick button&lt;/button&gt;</p>
+      </div>
+
+      <div class="exercise" data-id="ex-inline">
+        <p class="exercise-header">🧪 Practice — recreate an inline handler from JS</p>
+        <p class="task">The button below (<code>#inlineBtn</code>) has NO handler yet. Use <code>setAttribute('onclick', "...")</code> to give it an inline-style handler that logs <code>"Inline style works!"</code>. (Hint: inline handlers can only call things that exist globally, so call <code>window.log(...)</code> inside the string.)</p>
+        <div class="sandbox" id="ex-inline-output">
+          <button id="inlineBtn">No handler yet</button>
+        </div>
+        <textarea id="ex-inline-code" class="code-editor" spellcheck="false"></textarea>
+        <div class="exercise-controls">
+          <button class="run-btn" data-id="ex-inline">▶ Run</button>
+          <button class="reset-btn" data-id="ex-inline">↺ Reset</button>
+          <button class="hint-btn" data-id="ex-inline">💡 Hint</button>
+        </div>
+        <p class="hint" id="ex-inline-hint" hidden>Use: <code>document.getElementById('inlineBtn').setAttribute('onclick', "window.log('Inline style works!')");</code></p>
+        <pre class="console-out" id="ex-inline-console"></pre>
+      </div>
+    </section>
+
+    <!-- ============ TOPIC 3: onclick property vs addEventListener ============ -->
+    <section class="topic" id="onclick-listener">
+      <h1>3. <code>onclick</code> Property vs <code>addEventListener</code></h1>
+      <div class="explain">
+        <table class="ref-table">
+          <tr><th></th><th><code>element.onclick = fn</code></th><th><code>addEventListener('click', fn)</code></th></tr>
+          <tr><td>Multiple handlers?</td><td>❌ No — new one overwrites old</td><td>✅ Yes — stack as many as you want</td></tr>
+          <tr><td>Remove handler?</td><td><code>el.onclick = null</code></td><td><code>removeEventListener</code> (needs named fn)</td></tr>
+          <tr><td>Extra options?</td><td>❌ No</td><td>✅ capture, once, passive, etc.</td></tr>
+          <tr><td>Recommended?</td><td>Okay for quick/simple cases</td><td>✅ Best practice</td></tr>
+        </table>
+        <ul>
+          <li><code>addEventListener(type, handler, options?)</code> is the modern standard — always prefer it in real code.</li>
+        </ul>
+      </div>
+
+      <div class="demo-box">
+        <p class="demo-label">Live demo — same event, two techniques:</p>
+        <button id="propDemoBtn" class="playground-btn">Set via .onclick</button>
+        <button id="listenerDemoBtn" class="playground-btn">Set via addEventListener (x2 handlers!)</button>
+        <div id="ocDemoLog" class="log-line">Waiting…</div>
+      </div>
+
+      <div class="exercise" data-id="ex-color">
+        <p class="exercise-header">🧪 Practice — Random Color Changer</p>
+        <p class="task">Add a click listener (using <code>addEventListener</code>) to <code>#colorBox</code> that sets its background to a random RGB color each click, e.g. <code>rgb(r, g, b)</code> with r,g,b random 0–255. Log the color string you generated.</p>
+        <div class="sandbox" id="ex-color-output">
+          <div id="colorBox" class="color-box">Click to change my color</div>
+        </div>
+        <textarea id="ex-color-code" class="code-editor" spellcheck="false"></textarea>
+        <div class="exercise-controls">
+          <button class="run-btn" data-id="ex-color">▶ Run</button>
+          <button class="reset-btn" data-id="ex-color">↺ Reset</button>
+          <button class="hint-btn" data-id="ex-color">💡 Hint</button>
+        </div>
+        <p class="hint" id="ex-color-hint" hidden>Use: <code>Math.floor(Math.random()*256)</code> for each of r, g, b, build a template string, set <code>el.style.backgroundColor</code>.</p>
+        <pre class="console-out" id="ex-color-console"></pre>
+      </div>
+    </section>
+
+    <!-- ============ TOPIC 4: this keyword ============ -->
+    <section class="topic" id="this-keyword">
+      <h1>4. The <code>this</code> Keyword in Event Handlers</h1>
+      <div class="explain">
+        <ul>
+          <li>Inside a <b>regular function</b> passed to <code>addEventListener</code>, <code>this</code> refers to the element the listener is attached to (same as <code>event.currentTarget</code>).</li>
+          <li>Inside an <b>arrow function</b>, <code>this</code> is <i>not</i> rebound — it keeps whatever <code>this</code> was in the surrounding scope (often <code>window</code> or <code>undefined</code>).</li>
+          <li>Rule of thumb: use a regular <code>function(){}</code> when you need <code>this</code> to mean "the clicked element"; use an arrow function when you don't care about <code>this</code>.</li>
+        </ul>
+      </div>
+
+      <div class="demo-box">
+        <p class="demo-label">Live demo — click any tile, it identifies itself via <code>this</code>:</p>
+        <div class="tile-row">
+          <div class="tile" data-name="A">A</div>
+          <div class="tile" data-name="B">B</div>
+          <div class="tile" data-name="C">C</div>
+        </div>
+        <div id="thisDemoLog" class="log-line">Waiting…</div>
+      </div>
+
+      <div class="exercise" data-id="ex-this">
+        <p class="exercise-header">🧪 Practice — style the clicked button using <code>this</code></p>
+        <p class="task">Three buttons share the class <code>.pick</code>. Loop over them with <code>querySelectorAll</code>, add a click listener (regular function, not arrow) to each, and inside it use <code>this</code> to set the clicked button's background to <code>"gold"</code> and log <code>this.textContent</code>.</p>
+        <div class="sandbox" id="ex-this-output">
+          <button class="pick">Pick 1</button>
+          <button class="pick">Pick 2</button>
+          <button class="pick">Pick 3</button>
+        </div>
+        <textarea id="ex-this-code" class="code-editor" spellcheck="false"></textarea>
+        <div class="exercise-controls">
+          <button class="run-btn" data-id="ex-this">▶ Run</button>
+          <button class="reset-btn" data-id="ex-this">↺ Reset</button>
+          <button class="hint-btn" data-id="ex-this">💡 Hint</button>
+        </div>
+        <p class="hint" id="ex-this-hint" hidden>Use: <code>document.querySelectorAll('.pick').forEach(btn => btn.addEventListener('click', function(){ this.style.background='gold'; log(this.textContent); }));</code></p>
+        <pre class="console-out" id="ex-this-console"></pre>
+      </div>
+    </section>
+
+    <!-- ============ TOPIC 5: Event Object ============ -->
+    <section class="topic" id="event-object">
+      <h1>5. The Event Object</h1>
+      <div class="explain">
+        <ul>
+          <li>Every handler automatically receives an <b>event object</b> (conventionally named <code>e</code> or <code>event</code>) describing what happened.</li>
+        </ul>
+        <table class="ref-table">
+          <tr><th>Property</th><th>Meaning</th></tr>
+          <tr><td><code>e.type</code></td><td>The event name, e.g. "click"</td></tr>
+          <tr><td><code>e.target</code></td><td>The exact element that triggered the event</td></tr>
+          <tr><td><code>e.currentTarget</code></td><td>The element the listener is attached to</td></tr>
+          <tr><td><code>e.clientX / e.clientY</code></td><td>Mouse position (mouse events)</td></tr>
+          <tr><td><code>e.key / e.code</code></td><td>Which key was pressed (keyboard events)</td></tr>
+          <tr><td><code>e.preventDefault()</code></td><td>Stops the browser's default behavior</td></tr>
+          <tr><td><code>e.stopPropagation()</code></td><td>Stops the event from bubbling further</td></tr>
+        </table>
+      </div>
+
+      <div class="demo-box">
+        <p class="demo-label">Live demo — move your mouse and type in the boxes:</p>
+        <div id="mouseTrackBox" class="playground-box tall">Move mouse here</div>
+        <input type="text" id="keyTrackInput" placeholder="Type here to see e.key">
+        <div id="eventObjDemoLog" class="log-line">Waiting…</div>
+      </div>
+
+      <div class="exercise" data-id="ex-eventobj">
+        <p class="exercise-header">🧪 Practice — read the event object</p>
+        <p class="task">Add a click listener to the list <code>#fruitList</code>'s items (there are 3 <code>&lt;li&gt;</code>). On click, log <code>e.target.textContent</code> and <code>e.type</code>.</p>
+        <div class="sandbox" id="ex-eventobj-output">
+          <ul id="fruitList" class="fruit-list">
+            <li class="fruit">Apple</li>
+            <li class="fruit">Banana</li>
+            <li class="fruit">Cherry</li>
+          </ul>
+        </div>
+        <textarea id="ex-eventobj-code" class="code-editor" spellcheck="false"></textarea>
+        <div class="exercise-controls">
+          <button class="run-btn" data-id="ex-eventobj">▶ Run</button>
+          <button class="reset-btn" data-id="ex-eventobj">↺ Reset</button>
+          <button class="hint-btn" data-id="ex-eventobj">💡 Hint</button>
+        </div>
+        <p class="hint" id="ex-eventobj-hint" hidden>Use: <code>document.querySelectorAll('.fruit').forEach(li => li.addEventListener('click', e => log(e.target.textContent, '|', e.type)));</code></p>
+        <pre class="console-out" id="ex-eventobj-console"></pre>
+      </div>
+    </section>
+
+    <!-- ============ TOPIC 6: Form events & preventDefault ============ -->
+    <section class="topic" id="form-events">
+      <h1>6. Form Events & <code>preventDefault()</code></h1>
+      <div class="explain">
+        <ul>
+          <li>The <code>submit</code> event fires on the <code>&lt;form&gt;</code> element (not the button) when it's submitted.</li>
+          <li>By default, submitting a form <b>reloads the page</b> (or navigates) — almost always NOT what you want in a JS app.</li>
+          <li><code>e.preventDefault()</code> inside the submit handler stops that default reload, letting you handle the data with JS instead (validation, fetch/AJAX, etc.).</li>
+          <li>Always attach the listener to the <code>form</code>'s <code>submit</code> event — not a click on the button — so it also works when the user presses Enter.</li>
+        </ul>
+        <pre class="code-block">form.addEventListener('submit', function(e) {
+  e.preventDefault();      // stop page reload
+  const data = form.elements['username'].value;
+  // ...validate / use data...
+});</pre>
+      </div>
+
+      <div class="demo-box">
+        <p class="demo-label">Live demo — try submitting (page will NOT reload):</p>
+        <form id="demoForm" class="demo-form">
+          <input type="text" id="demoName" placeholder="Your name" required>
+          <button type="submit">Submit</button>
+        </form>
+        <div id="formDemoLog" class="log-line">Waiting…</div>
+      </div>
+
+      <div class="exercise" data-id="ex-form">
+        <p class="exercise-header">🧪 Practice — validate a form</p>
+        <p class="task">Add a <code>submit</code> listener to <code>#practiceForm</code>. Call <code>e.preventDefault()</code>. If the input <code>#emailInput</code> is empty, log <code>"Email required!"</code>. Otherwise log <code>"Submitted: " + value</code>.</p>
+        <div class="sandbox" id="ex-form-output">
+          <form id="practiceForm" class="demo-form">
+            <input type="text" id="emailInput" placeholder="Enter email">
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+        <textarea id="ex-form-code" class="code-editor" spellcheck="false"></textarea>
+        <div class="exercise-controls">
+          <button class="run-btn" data-id="ex-form">▶ Run</button>
+          <button class="reset-btn" data-id="ex-form">↺ Reset</button>
+          <button class="hint-btn" data-id="ex-form">💡 Hint</button>
+        </div>
+        <p class="hint" id="ex-form-hint" hidden>Use: <code>document.getElementById('practiceForm').addEventListener('submit', function(e){ e.preventDefault(); const v = document.getElementById('emailInput').value; log(v ? 'Submitted: '+v : 'Email required!'); });</code></p>
+        <pre class="console-out" id="ex-form-console"></pre>
+      </div>
+    </section>
+
+    <!-- ============ TOPIC 7: Input & change events ============ -->
+    <section class="topic" id="input-change">
+      <h1>7. Input & Change Events</h1>
+      <div class="explain">
+        <table class="ref-table">
+          <tr><th>Event</th><th>Fires when…</th></tr>
+          <tr><td><code>input</code></td><td>The value changes, on <b>every keystroke</b> (live, real-time)</td></tr>
+          <tr><td><code>change</code></td><td>The value has changed AND the element <b>loses focus</b> (or for select/checkbox, immediately on selection)</td></tr>
+        </table>
+        <ul>
+          <li>Use <code>input</code> for live feedback: character counters, live search, live preview.</li>
+          <li>Use <code>change</code> for things you only care about once the user is "done": dropdowns, checkboxes, finalized text fields.</li>
+        </ul>
+      </div>
+
+      <div class="demo-box">
+        <p class="demo-label">Live demo — live character counter (input) and a select (change):</p>
+        <input type="text" id="counterInput" placeholder="Type here…" maxlength="40">
+        <div id="charCountLog" class="log-line">0 / 40 characters</div>
+        <select id="colorSelect">
+          <option value="">-- choose a color --</option>
+          <option value="tomato">Tomato</option>
+          <option value="dodgerblue">Dodger Blue</option>
+          <option value="mediumseagreen">Sea Green</option>
+        </select>
+        <div id="selectDemoLog" class="log-line">Waiting…</div>
+      </div>
+
+      <div class="exercise" data-id="ex-inputchange">
+        <p class="exercise-header">🧪 Practice — live preview text</p>
+        <p class="task">Add an <code>input</code> listener to <code>#previewInput</code> that copies its value into <code>#previewOutput</code>'s text content as the user types. Also add a <code>change</code> listener that logs <code>"Finalized: " + value</code> once the user leaves the field.</p>
+        <div class="sandbox" id="ex-inputchange-output">
+          <input type="text" id="previewInput" placeholder="Type something…">
+          <p>Preview: <span id="previewOutput"></span></p>
+        </div>
+        <textarea id="ex-inputchange-code" class="code-editor" spellcheck="false"></textarea>
+        <div class="exercise-controls">
+          <button class="run-btn" data-id="ex-inputchange">▶ Run</button>
+          <button class="reset-btn" data-id="ex-inputchange">↺ Reset</button>
+          <button class="hint-btn" data-id="ex-inputchange">💡 Hint</button>
+        </div>
+        <p class="hint" id="ex-inputchange-hint" hidden>Use: <code>const inp = document.getElementById('previewInput'); inp.addEventListener('input', e => document.getElementById('previewOutput').textContent = e.target.value); inp.addEventListener('change', e => log('Finalized: ' + e.target.value));</code></p>
+        <pre class="console-out" id="ex-inputchange-console"></pre>
+      </div>
+    </section>
+
+    <!-- ============ TOPIC 8: Bubbling ============ -->
+    <section class="topic" id="bubbling">
+      <h1>8. Event Bubbling</h1>
+      <div class="explain">
+        <ul>
+          <li>When an event fires on an element, it first runs on that element, then <b>"bubbles up"</b> and also runs on every ancestor's listener for the same event type.</li>
+          <li>Order: <code>target → parent → grandparent → … → document</code>.</li>
+          <li><code>e.stopPropagation()</code> stops the bubble from going any further up.</li>
+          <li>Bubbling is <i>why</i> event delegation (next topic) works.</li>
+        </ul>
+      </div>
+
+      <div class="demo-box">
+        <p class="demo-label">Live demo — click anywhere inside, watch the bubble order:</p>
+        <div id="outerBox" class="nest-box outer">Outer
+          <div id="middleBox" class="nest-box middle">Middle
+            <div id="innerBox" class="nest-box inner">Inner (click me)</div>
+          </div>
+        </div>
+        <label class="stop-toggle"><input type="checkbox" id="stopPropToggle"> stop propagation at Middle</label>
+        <div id="bubbleDemoLog" class="log-line">Waiting…</div>
+      </div>
+
+      <div class="exercise" data-id="ex-bubble">
+        <p class="exercise-header">🧪 Practice — observe the bubble path</p>
+        <p class="task">Attach a click listener to <b>all three</b> boxes (<code>#pOuter</code>, <code>#pMiddle</code>, <code>#pInner</code>). Each listener should log its own id via <code>e.currentTarget.id</code>. Click the innermost box and check the order logged.</p>
+        <div class="sandbox" id="ex-bubble-output">
+          <div id="pOuter" class="nest-box outer">Outer
+            <div id="pMiddle" class="nest-box middle">Middle
+              <div id="pInner" class="nest-box inner">Inner</div>
+            </div>
+          </div>
+        </div>
+        <textarea id="ex-bubble-code" class="code-editor" spellcheck="false"></textarea>
+        <div class="exercise-controls">
+          <button class="run-btn" data-id="ex-bubble">▶ Run</button>
+          <button class="reset-btn" data-id="ex-bubble">↺ Reset</button>
+          <button class="hint-btn" data-id="ex-bubble">💡 Hint</button>
+        </div>
+        <p class="hint" id="ex-bubble-hint" hidden>Use: <code>['pOuter','pMiddle','pInner'].forEach(id => document.getElementById(id).addEventListener('click', e => log(e.currentTarget.id)));</code></p>
+        <pre class="console-out" id="ex-bubble-console"></pre>
+      </div>
+    </section>
+
+    <!-- ============ TOPIC 9: Delegation ============ -->
+    <section class="topic" id="delegation">
+      <h1>9. Event Delegation</h1>
+      <div class="explain">
+        <ul>
+          <li><b>Event delegation:</b> instead of adding a listener to every child, add <b>one</b> listener on a common parent and use <code>e.target</code> to figure out which child was actually clicked.</li>
+          <li>Why: fewer listeners (better performance), and it automatically works for elements <b>added later</b> (dynamically created), since the listener lives on the parent.</li>
+          <li>Pattern:</li>
+        </ul>
+        <pre class="code-block">parent.addEventListener('click', function(e) {
+  if (e.target.matches('.item')) {
+    // e.target is the specific child clicked
+  }
+});</pre>
+      </div>
+
+      <div class="demo-box">
+        <p class="demo-label">Live demo — one listener on the list handles all items, even new ones:</p>
+        <ul id="delegateList" class="delegate-list">
+          <li class="ditem">Task 1</li>
+          <li class="ditem">Task 2</li>
+          <li class="ditem">Task 3</li>
+        </ul>
+        <button id="addDemoItem" class="playground-btn">+ Add item</button>
+        <div id="delegateDemoLog" class="log-line">Click any task (old or new)…</div>
+      </div>
+
+      <div class="exercise" data-id="ex-delegate">
+        <p class="exercise-header">🧪 Practice — delegate clicks on a growing list</p>
+        <p class="task">Add <b>one</b> click listener to the parent <code>#practiceList</code> (not to each <code>li</code>). Inside it, check if <code>e.target.classList.contains('pitem')</code>; if so, toggle a <code>"done"</code> class on <code>e.target</code> (it strikes the text through — CSS already handles that) and log its text. Then click "+ Add task" to prove new items work too without new listeners.</p>
+        <div class="sandbox" id="ex-delegate-output">
+          <ul id="practiceList" class="delegate-list">
+            <li class="pitem">Buy milk</li>
+            <li class="pitem">Walk dog</li>
+          </ul>
+          <button id="addPracticeItem" class="playground-btn">+ Add task</button>
+        </div>
+        <textarea id="ex-delegate-code" class="code-editor" spellcheck="false"></textarea>
+        <div class="exercise-controls">
+          <button class="run-btn" data-id="ex-delegate">▶ Run</button>
+          <button class="reset-btn" data-id="ex-delegate">↺ Reset</button>
+          <button class="hint-btn" data-id="ex-delegate">💡 Hint</button>
+        </div>
+        <p class="hint" id="ex-delegate-hint" hidden>Use: <code>document.getElementById('practiceList').addEventListener('click', function(e){ if(e.target.classList.contains('pitem')){ e.target.classList.toggle('done'); log(e.target.textContent); } });</code></p>
+        <pre class="console-out" id="ex-delegate-console"></pre>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer class="foot">Built for learning DOM Events — edit the code boxes and hit Run to test your understanding.</footer>
+
+<script src="/FULL STACK COLT STEELE/3.JAVASCRIPT/2.Js_to_Learn/DOM_EVENTS.JS"></script>
+</body>
+</html>

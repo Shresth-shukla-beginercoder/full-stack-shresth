@@ -1,0 +1,13 @@
+<%- include('../partials/head', { title: 'r/' + sub }) %>
+<article>
+  <h1>r/<%= sub %></h1><p class="lead"><%= description %></p>
+  <p><span class="tag"><%= subscribers.toLocaleString() %> members</span>
+  <% if (subscribers > 100000) { %><span class="tag hot">🔥 Popular</span><% } %></p>
+  <% if (posts.length) { %>
+    <ul class="posts"><% posts.forEach(p => { %>
+      <li><b><%= p.title %></b><small>u/<%= p.author %> · <%= p.votes %> votes</small></li>
+    <% }) %></ul>
+  <% } else { %><p>No posts yet. (empty-state conditional)</p><% } %>
+  <p>Try: <a href="/demo/r/cats">cats</a> · <a href="/demo/r/dogs">dogs</a> · <a href="/demo/r/webdev">webdev</a> · <a href="/demo/r/nope">nope</a></p>
+</article>
+<%- include('../partials/foot') %>

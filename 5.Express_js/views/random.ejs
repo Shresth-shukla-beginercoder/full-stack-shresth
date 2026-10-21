@@ -1,0 +1,54 @@
+<%- include('Partials/head') %>
+
+<body>
+
+<nav class="navbar">
+
+
+<a href="/" class="logo">
+    EJS<span>.Learn</span>
+</a>
+
+<ul class="nav-links">
+    <li><a href="/">Tags</a></li>
+    <li><a href="/random">Random</a></li>
+</ul>
+
+
+</nav>
+
+<main class="random-page">
+
+
+<div class="random-card">
+
+    <h1>
+        Random Number:
+        <span class="random-number"><%= rand %></span>
+    </h1>
+
+    <% if (rand % 2 === 0) { %>
+
+        <p class="even-message">
+            This number is even, so this message is visible.
+        </p>
+
+    <% } else { %>
+
+        <p class="odd-message">
+            This number is odd, so this message is visible in an odd way ^^.
+        </p>
+
+    <% } %>
+
+    <a href="/rand" class="btn">
+        Generate Again
+    </a>
+
+</div>
+
+
+</main>
+
+</body>
+</html>

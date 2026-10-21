@@ -1,0 +1,154 @@
+/* ============ Page theme ============ */
+:root {
+  --bg: #0f172a;
+  --card: #1e293b;
+  --card-border: #334155;
+  --text: #e2e8f0;
+  --muted: #94a3b8;
+  --accent: #4ecdc4;
+  --accent-2: #ff6b6b;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: linear-gradient(160deg, #0f172a 0%, #1e1b4b 100%);
+  min-height: 100vh;
+  color: var(--text);
+}
+
+/* ============ Page shell ============ */
+.page {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 32px 20px 64px;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  background: linear-gradient(90deg, var(--accent), #ffe66d);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.page-header p {
+  color: var(--muted);
+  margin: 8px 0 0;
+}
+
+/* ============ Responsive card grid ============ */
+/* auto-fit + minmax = "as many 340px+ columns as fit, wrap on phones".
+   No media queries needed for the grid itself. */
+.demo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 20px;
+}
+
+/* Each lesson demo lives in a card */
+.card {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+
+.card h2,
+.card h3 {
+  margin-top: 0;
+}
+
+.card .card-label {
+  display: inline-block;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(78, 205, 196, 0.12);
+  border-radius: 999px;
+  padding: 3px 10px;
+  margin-bottom: 8px;
+}
+
+/* cards that hold wider demos (lists, the todo app) span full width on desktop */
+.card--wide {
+  grid-column: 1 / -1;
+}
+
+/* MUI cards need a white background so their components stay readable */
+.card--light {
+  background: #fff;
+  color: #1e293b;
+}
+
+/* ============ Inputs & buttons, globally (non-MUI) ============ */
+input[type='text']:not([class*="Mui"]),
+input:not([type]):not([class*="Mui"]),
+input[type='email']:not([class*="Mui"]),
+input[type='password']:not([class*="Mui"]),
+input[type='number']:not([class*="Mui"]) {
+  padding: 8px 10px;
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  background: #0f172a;
+  color: var(--text);
+  min-width: 0;
+}
+
+select:not([class*="Mui"]) {
+  padding: 8px 10px;
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  background: #0f172a;
+  color: var(--text);
+}
+
+button:not([class*="Mui"]) {
+  cursor: pointer;
+  border: 1px solid var(--card-border);
+  background: #0f172a;
+  color: var(--text);
+  border-radius: 8px;
+  padding: 6px 12px;
+  transition: transform 0.1s ease, background 0.15s ease;
+}
+
+button:not([class*="Mui"]):hover {
+  background: var(--accent);
+  color: #0f172a;
+}
+
+button:not([class*="Mui"]):active {
+  transform: scale(0.97);
+}
+
+ul {
+  padding-left: 20px;
+}
+
+/* ============ Small screens ============ */
+@media (max-width: 600px) {
+  .page {
+    padding: 20px 12px 48px;
+  }
+
+  .demo-grid {
+    gap: 14px;
+  }
+
+  .card {
+    padding: 14px;
+  }
+}

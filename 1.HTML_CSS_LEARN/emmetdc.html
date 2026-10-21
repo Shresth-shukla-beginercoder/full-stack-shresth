@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emmet</title>
+</head>
+<body>
+    <!-- Emmet is a plugin for many popular text editors which greatly improves HTML & CSS workflow. It allows you to type shortcuts that expand into full pieces of code. For example, typing "ul>li*5" and pressing the Emmet expand key will generate a list with 5 list items. -->
+
+    <p>Example of Emmet shortcuts that help developers write code faster and stay productive:</p>
+    <ul>
+        <li><code>ul&gt;li*5</code> expands to a list with 5 items. Useful for creating repeated elements quickly.</li>
+        <li><code>div.container&gt;header+main+footer</code> expands to a page layout structure with three sibling sections. Good for starting a layout skeleton fast.</li>
+        <li><code>section&gt;article*2&gt;h2+p</code> creates two article sections each with a heading and paragraph. Perfect for repeating content blocks.</li>
+        <li><code>nav&gt;ul&gt;li*4&gt;a{Item $}</code> generates a navigation menu with 4 links labeled Item 1 through Item 4. Great for prototyping menus.</li>
+        <li><code>form#contact&gt;label[for=name]{Name}+input#name[type=text]+label[for=email]{Email}+input#email[type=email]+button[type=submit]{Send}</code> expands to a contact form structure. Saves time typing common form markup.</li>
+    </ul>
+    <p>Use <code>></code> for nesting children, <code>+</code> for siblings, <code>*</code> for multiplication, square brackets for attributes, and braces for inner text. These shortcuts are essential for fast HTML/CSS workflow.</p>
+
+    <!-- Use HTML comments like this to explain code, leave notes, or temporarily disable sections. -->
+    <p>Comments start with <code>&lt;!--</code> and end with <code>--&gt;</code>.</p>
+
+    <section>
+        <header>
+            <h1>Portfolio</h1>
+            <p>Welcome to my portfolio website.</p>
+        </header>
+        <main>
+            <section>
+                <h2>About Me</h2>
+                <p>Brief introduction and skills overview.</p>
+            </section>
+            <section>
+                <h2>Projects</h2>
+                <article>
+                    <h3>Project One</h3>
+                    <p>Description of the first project.</p>
+                </article>
+                <article>
+                    <h3>Project Two</h3>
+                    <p>Description of the second project.</p>
+                </article>
+            </section>
+            <section>
+                <h2>Contact</h2>
+                <p>How to reach me by email or social media.</p>
+            </section>
+        </main>
+        <footer>
+            <p>© 2026 My Portfolio</p>
+        </footer>
+    </section>
+</body>
+</html>

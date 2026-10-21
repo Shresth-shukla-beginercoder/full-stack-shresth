@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JavaScript Fundamentals — Console-Driven Notes</title>
+<link rel="stylesheet" href="/FULL STACK COLT STEELE/3.JAVASCRIPT/CSS_to_Learn/bacis.css">
+</head>
+<body>
+
+<nav id="sidebar">
+  <h1>&lt;JS/&gt; Fundamentals</h1>
+  <div class="tagline">Console-driven notes · click Run, watch the dock ↓</div>
+  <a href="#s1"><span>01</span>Console & Primitives</a>
+  <a href="#s2"><span>02</span>Numbers</a>
+  <a href="#s3"><span>03</span>Variables & Naming</a>
+  <a href="#s4"><span>04</span>Updating & Increment Ops</a>
+  <a href="#s5"><span>05</span>Strings, Index & Length</a>
+  <a href="#s6"><span>06</span>undefined vs null</a>
+  <a href="#s7"><span>07</span>Random & Math Object</a>
+  <a href="#s8"><span>08</span>Running JS: script/alert/prompt</a>
+  <a href="#s9"><span>09</span>Comparison: == vs ===</a>
+  <a href="#s10"><span>10</span>if / else if / else</a>
+  <a href="#s11"><span>11</span>Truthy & Falsy</a>
+  <a href="#s12"><span>12</span>Logical &&  ||  !</a>
+  <a href="#s13"><span>13</span>switch Statement</a>
+  <a href="#s14"><span>14</span>Arrays: Intro & Index</a>
+  <a href="#s15"><span>15</span>Array Methods</a>
+  <a href="#s16"><span>16</span>Reference Type & Multi-D</a>
+</nav>
+
+<main id="main">
+
+  <header class="hero">
+    <div class="eyebrow">// 16 sections, in the order you actually learn them</div>
+    <h2>JavaScript Fundamentals</h2>
+    <p>Every code block below is real, running JavaScript. Press <b style="color:var(--green)">Run</b> and the output lands in the console dock at the bottom of the screen — the exact same place <code>console.log</code> would print inside a browser's DevTools when JS runs on an HTML page.</p>
+  </header>
+
+  <!-- 1 -->
+  <section class="topic" id="s1">
+    <div class="num">01</div>
+    <h3>The Console & JavaScript Primitives</h3>  
+    <ul>
+      <li>The <b>console</b> is a tool built into every browser (DevTools → Console tab) that shows messages your JS code prints — used constantly for debugging.</li>
+      <li><code>console.log()</code> prints normal info; <code>console.warn()</code> prints a yellow warning; <code>console.error()</code> prints a red error.</li>
+      <li>A <b>primitive</b> is the most basic kind of value in JS — it's not an object and has no methods of its own. There are 7: <code>number</code>, <code>string</code>, <code>boolean</code>, <code>undefined</code>, <code>null</code>, <code>bigint</code>, <code>symbol</code>.</li>
+      <li><code>typeof</code> tells you which primitive type a value is.</li>
+    </ul>
+    <table class="quickref">
+      <tr><th>Primitive</th><th>Example</th><th>typeof result</th></tr>
+      <tr><td>Number</td><td><code>42</code>, <code>3.14</code></td><td><code>"number"</code></td></tr>
+      <tr><td>String</td><td><code>"hello"</code></td><td><code>"string"</code></td></tr>
+      <tr><td>Boolean</td><td><code>true</code>, <code>false</code></td><td><code>"boolean"</code></td></tr>
+      <tr><td>Undefined</td><td><code>undefined</code></td><td><code>"undefined"</code></td></tr>
+      <tr><td>Null</td><td><code>null</code></td><td><code>"object"</code> (a famous JS quirk)</td></tr>
+    </table>
+    <div class="html-link"><b>Connects to HTML:</b> this whole page is an HTML file with one <code>&lt;script&gt;</code> tag at the bottom. Every "Run" button below calls a real JS function defined in that script — that's literally how JS attaches to a webpage.</div>
+    <div class="demo" data-code="console.log('Hello, console!');
+console.log(typeof 42);
+console.log(typeof 'hi');
+console.log(typeof true);
+console.warn('This prints as a warning');">
+      <div class="demo-label">example.js</div>
+      <pre><span class="kw">console</span>.log(<span class="str">'Hello, console!'</span>);
+<span class="kw">console</span>.log(<span class="kw">typeof</span> <span class="num">42</span>);
+<span class="kw">console</span>.log(<span class="kw">typeof</span> <span class="str">'hi'</span>);
+<span class="kw">console</span>.log(<span class="kw">typeof</span> <span class="kw">true</span>);
+<span class="kw">console</span>.warn(<span class="str">'This prints as a warning'</span>);</pre>
+      <div class="demo-run"><button class="run-btn">▶ Run</button><span class="hint">Watch the dock below</span></div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="topic" id="s2">
+    <div class="num">02</div>
+    <h3>JavaScript Numbers</h3>
+    <ul>
+      <li>JS has only <b>one</b> number type — no separate "int" or "float". Both <code>10</code> and <code>10.5</code> are just <code>number</code>.</li>
+      <li>Supports all arithmetic: <code>+ - * /</code>, <code>%</code> (remainder/modulo), and <code>**</code> (exponent).</li>
+      <li><code>NaN</code> ("Not a Number") appears when a math operation fails, e.g. <code>"abc" * 2</code>.</li>
+      <li><code>Number("5")</code> converts a string to a number; <code>String(5)</code> does the reverse.</li>
+    </ul>
+    <div class="demo" data-code="console.log(10 + 5);
+console.log(10 % 3);
+console.log(2 ** 4);
+console.log(Number('25') + 5);
+console.log('abc' * 2);">
+      <div class="demo-label">example.js</div>
+      <pre><span class="kw">console</span>.log(<span class="num">10</span> + <span class="num">5</span>);
+<span class="kw">console</span>.log(<span class="num">10</span> % <span class="num">3</span>); <span class="cm">// remainder</span>
+<span class="kw">console</span>.log(<span class="num">2</span> ** <span class="num">4</span>);  <span class="cm">// exponent</span>
+<span class="kw">console</span>.log(<span class="kw">Number</span>(<span class="str">'25'</span>) + <span class="num">5</span>);
+<span class="kw">console</span>.log(<span class="str">'abc'</span> * <span class="num">2</span>); <span class="cm">// NaN</span></pre>
+      <div class="demo-run"><button class="run-btn">▶ Run</button></div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="topic" id="s3">
+    <div class="num">03</div>
+    <h3>Variables & Naming Conventions</h3>
+    <ul>
+      <li>A <b>variable</b> is a named box that stores a value. Declare with <code>let</code>, <code>const</code>, or the older <code>var</code>.</li>
+      <li><code>let</code> — value can change later. <code>const</code> — value can never be reassigned. <code>var</code> — old-style, function-scoped, avoid in new code.</li>
+      <li><b>Naming rules:</b> letters, digits, <code>_</code>, <code>$</code> only; can't start with a digit; case-sensitive.</li>
+      <li><b>Naming convention:</b> use <code>camelCase</code> (e.g. <code>userAge</code>), give names that describe what's stored, and write <code>CONSTANT_LIKE_THIS</code> for fixed config values.</li>
+    </ul>
+    <table class="quickref">
+      <tr><th>Keyword</th><th>Reassignable?</th><th>Scope</th></tr>
+      <tr><td><code>let</code></td><td>Yes</td><td>Block <code>{ }</code></td></tr>
+      <tr><td><code>const</code></td><td>No</td><td>Block <code>{ }</code></td></tr>
+      <tr><td><code>var</code></td><td>Yes</td><td>Whole function (legacy)</td></tr>
+    </table>
+    <div class="demo" data-code="let userName = 'Shresth';
+const birthYear = 2004;
+let userAge = 21;
+console.log(userName, userAge, birthYear);">
+      <div class="demo-label">example.js</div>
+      <pre><span class="kw">let</span> userName = <span class="str">'Shresth'</span>;
+<span class="kw">const</span> birthYear = <span class="num">2004</span>;
+<span class="kw">let</span> userAge = <span class="num">21</span>;
+<span class="kw">console</span>.log(userName, userAge, birthYear);</pre>
+      <div class="demo-run"><button class="run-btn">▶ Run</button></div>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="topic" id="s4">
+    <div class="num">04</div>
+    <h3>Updating Variables & Increment/Decrement Operators</h3>
+    <ul>
+      <li>Reassign a <code>let</code> variable anytime: <code>userAge = 22;</code></li>
+      <li>Shorthand math-assign operators update in place: <code>+=</code>, <code>-=</code>, <code>*=</code>, <code>/=</code>.</li>
+      <li><code>x++</code> (increment) adds 1; <code>x--</code> (decrement) subtracts 1 — shorthand for <code>x = x + 1</code>.</li>
+      <li><b>Postfix vs prefix:</b> <code>x++</code> returns the old value then increments; <code>++x</code> increments first then returns the new value.</li>
+    </ul>
+    <div class="demo" data-code="let score = 10;
+score += 5;
+console.log(score);
+score++;
+console.log(score);
+let x = 5;
+console.log(x++);
+console.log(x);
+console.log(++x);">
+      <div class="demo-label">example.js</div>
+      <pre><span class="kw">let</span> score = <span class="num">10</span>;
+score += <span class="num">5</span>;
+<span class="kw">console</span>.log(score); <span class="cm">// 15</span>
+score++;
+<span class="kw">console</span>.log(score); <span class="cm">// 16</span>
+<span class="kw">let</span> x = <span class="num">5</span>;
+<span class="kw">console</span>.log(x++); <span class="cm">// 5 (old value)</span>
+<span class="kw">console</span>.log(x);   <span class="cm">// 6</span>
+<span class="kw">console</span>.log(++x); <span class="cm">// 7 (new value)</span></pre>
+      <div class="demo-run"><button class="run-btn">▶ Run</button></div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section class="topic" id="s5">
+    <div class="num">05</div>
+    <h3>Strings — Indices, Length & Methods (with arguments)</h3>
+    <ul>
+      <li>A <b>string</b> is text in quotes. Each character has an <b>index</b> starting at <code>0</code>: <code>"cat"[0]</code> is <code>"c"</code>.</li>
+      <li><code>.length</code> is a property (no parentheses) giving the character count.</li>
+      <li>Common methods that take <b>arguments</b>: <code>.slice(start, end)</code>, <code>.toUpperCase()</code>, <code>.toLowerCase()</code>, <code>.includes(text)</code>, <code>.replace(old, new)</code>, <code>.trim()</code>, <code>.split(separator)</code>.</li>
+    </ul>
+    <table class="quickref">
+      <tr><th>Method</th><th>Argument(s)</th><th>Example → Result</th></tr>
+      <tr><td><code>.slice()</code></td><td>start, end</td><td><code>"hello".slice(1,3)</code> → <code>"el"</code></td></tr>
+      <tr><td><code>.includes()</code></td><td>substring</td><td><code>"hello".includes("ell")</code> → <code>true</code></td></tr>
+      <tr><td><code>.replace()</code></td><td>target, replacement</td><td><code>"cat".replace("c","b")</code> → <code>"bat"</code></td></tr>
+      <tr><td><code>.split()</code></td><td>separator</td><td><code>"a,b,c".split(",")</code> → <code>["a","b","c"]</code></td></tr>
+    </table>
+    <div class="html-link"><b>Connects to HTML:</b> if a page has <code>&lt;input id="name"&gt;</code>, then <code>document.getElementById('name').value</code> returns a <em>string</em> — everything typed into an HTML form is a string until you convert it.</div>
+    <div class="demo" data-code="let word = 'JavaScript';
+console.log(word[0]);
+console.log(word.length);
+console.log(word.slice(0, 4));
+console.log(word.toUpperCase());
+console.log(word.includes('Script'));">
+      <div class="demo-label">example.js</div>
+      <pre><span class="kw">let</span> word = <span class="str">'JavaScript'</span>;
+<span class="kw">console</span>.log(word[<span class="num">0</span>]);          <span class="cm">// 'J'</span>
+<span class="kw">console</span>.log(word.length);      <span class="cm">// 10</span>
+<span class="kw">console</span>.log(word.slice(<span class="num">0</span>, <span class="num">4</span>)); <span class="cm">// 'Java'</span>
+<span class="kw">console</span>.log(word.toUpperCase());
+<span class="kw">console</span>.log(word.includes(<span class="str">'Script'</span>));</pre>
+      <div class="demo-run"><button class="run-btn">▶ Run</button></div>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section class="topic" id="s6">
+    <div class="num">06</div>
+    <h3><code>undefined</code> vs <code>null</code></h3>
+    <ul>
+      <li><code>undefined</code> — JS's own default. A variable that's been declared but never given a value <em>is</em> <code>undefined</code>.</li>
+      <li><code>null</code> — a value <b>you</b> deliberately assign to mean "empty / no value on purpose".</li>
+      <li>Rule of thumb: <code>undefined</code> = "forgotten", <code>null</code> = "intentionally empty".</li>
+      <li><code>undefined == null</code> is <code>true</code> (loose), but <code>undefined === null</code> is <code>false</code> (strict — different types).</li>
+    </ul>
+    <div class="demo" data-code="let a;
+let b = null;
+console.log(a);
+console.log(b);
+console.log(a == b);
+console.log(a === b);">
+      <div class="demo-label">example.js</div>
+      <pre><span class="kw">let</span> a;          <span class="cm">// declared, no value</span>
+<span class="kw">let</span> b = <span class="kw">null</span>;  <span class="cm">// intentionally empty</span>
+<span class="kw">console</span>.log(a); <span class="cm">// undefined</span>
+<span class="kw">console</span>.log(b); <span class="cm">// null</span>
+<span class="kw">console</span>.log(a == b);  <span class="cm">// true</span>
+<span class="kw">console</span>.log(a === b); <span class="cm">// false</span></pre>
+      <div class="demo-run"><button class="run-btn">▶ Run</button></div>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section class="topic" id="s7">
+    <div class="num">07</div>
+    <h3>Random Numbers & the Math Object</h3>
+    <ul>
+      <li><code>Math</code> is a built-in object holding math constants and functions — never needs a <code>new</code>, just call it directly.</li>
+      <li><code>Math.random()</code> returns a decimal between <code>0</code> (inclusive) and <code>1</code> (exclusive).</li>
+      <li>To get a random <b>whole number</b> in a range, scale it: <code>Math.floor(Math.random() * (max - min + 1)) + min</code>.</li>
+      <li>Other useful members: <code>Math.round()</code>, <code>Math.floor()</code>, <code>Math.ceil()</code>, <code>Math.max()</code>, <code>Math.min()</code>, <code>Math.abs()</code>, <code>Math.PI</code>.</li>
+    </ul>
+    <div class="html-link"><b>Connects to HTML:</b> a "random background color" or "shuffle quiz questions" feature on a webpage is just <code>Math.random()</code> feeding into a CSS style or array order.</div>
+    <div class="demo" data-code="console.log(Math.random());
+let dice = Math.floor(Math.random() * 6) + 1;
+console.log('Dice roll:', dice);
+console.log(Math.round(4.6));
+console.log(Math.max(3, 9, 1));
+console.log(Math.PI);">
+      <div class="demo-label">example.js</div>
+      <pre><span class="kw">console</span>.log(Math.random()); <span class="cm">// 0 to <1</span>
+<span class="kw">let</span> dice = Math.floor(Math.random() * <span class="num">6</span>) + <span class="num">1</span>;
+<span class="kw">console</span>.log(<span class="str">'Dice roll:'</span>, dice);
+<span class="kw">console</span>.log(Math.round(<span class="num">4.6</span>));
+<span class="kw">console</span>.log(Math.max(<span class="num">3</span>, <span class="num">9</span>, <span class="num">1</span>));
+<span class="kw">console</span>.log(Math.PI);</pre>
+      <div class="demo-run"><button class="run-btn">▶ Run</button></div>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section class="topic" id="s8">
+    <div class="num">08</div>
+    <h3>Running JavaScript: Script Tag, alert, prompt, console</h3>
+    <ul>
+      <li>JS runs on a webpage via <code>&lt;script src="app.js"&gt;&lt;/script&gt;</code> (external file) or an inline <code>&lt;script&gt;...&lt;/script&gt;</code> block, usually right before <code>&lt;/body&gt;</code>.</li>
+      <li><code>alert("message")</code> — pops a blocking dialog box on the page.</li>
+      <li><code>prompt("question")</code> — pops a dialog with a text input and <b>returns what the user typed as a string</b> (or <code>null</code> if cancelled).</li>
+      <li><code>console.log()</code> — prints to DevTools only, invisible to a normal visitor; used for debugging, not user-facing messages.</li>
+    </ul>
+    <div class="html-link"><b>This is literally how this page runs:</b> view-source on this file and you'll find <code>&lt;script&gt;</code> near the bottom of <code>&lt;body&gt;</code> defining every function these buttons call.</div>
+    <div class="demo" data-code="// alert('Welcome!');           // uncomment to try — pauses the page
+// let name = prompt('Your name?'); // returns typed text as a string
+console.log('This is how JS talks to a webpage.');
+console.log('alert() and prompt() talk to the user;');
+console.log('console.log() talks to the developer.');">
+      <div class="demo-label">example.js</div>
+      <pre><span class="cm">// alert('Welcome!');            // pauses the whole page</span>
+<span class="cm">// let name = prompt('Your name?'); // returns a string</span>
+<span class="kw">console</span>.log(<span class="str">'alert() / prompt() talk to the user.'</span>);
+<span class="kw">console</span>.log(<span class="str">'console.log() talks to the developer.'</span>);</pre>
+      <div class="demo-run"><button class="run-btn">▶ Run</button><span class="hint">alert/prompt disabled in this demo dock on purpose</span></div>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section class="topic" id="s9">
+    <div class="num">09</div>
+    <h3>Decision Making: Comparison Operators (== vs ===)</h3>
+    <ul>
+      <li>Comparisons return a <b>boolean</b>: <code>&gt; &lt; &gt;= &lt;=</code> compare size; <code>==</code>/<code>===</code> compare equality; <code>!=</code>/<code>!==</code> compare inequality.</li>
+      <li><code>==</code> (loose equality) converts types before comparing — <code>"5" == 5</code> is <code>true</code>.</li>
+      <li><code>===</code> (strict equality) compares value <b>and</b> type, no conversion — <code>"5" === 5</code> is <code>false</code>.</li>
+      <li><b>Best practice: always use <code>===</code> and <code>!==</code></b> to avoid surprising type-conversion bugs.</li>
+    </ul>
+    <div class="demo" data-code="console.log(5 == '5');
+console.log(5 === '5');
+console.log(10 > 3);
+console.log(10 !== 10);
+console.log(7 >= 7);">
+      <div class="demo-label">example.js</div>
+      <pre><span class="kw">console</span>.log(<span class="num">5</span> == <span class="str">'5'</span>);  <span class="cm">// true  (loose)</span>
+<span class="kw">console</span>.log(<span class="num">5</span> === <span class="str">'5'</span>); <span class="cm">// false (strict)</span>
+<span class="kw">console</span>.log(<span class="num">10</span> > <span class="num">3</span>);
+<span class="kw">console</span>.log(<span class="num">10</span> !== <span class="num">10</span>);
+<span class="kw">console</span>.log(<span class="num">7</span> >= <span class="num">7</span>);</pre>
+      <div class="demo-run"><button class="run-btn">▶ Run</button></div>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section class="topic" id="s10">
+    <div class="num">10</div>
+    <h3>if / else if / else & Nesting</h3>
+    <ul>
+      <li><code>if (condition) { ... }</code> runs the block only when the condition is <code>true</code>.</li>
+      <li><code>else if</code> checks another condition if the first was false; <code>else</code> catches everything else.</li>
+      <li><b>Nesting</b> = putting an <code>if</code> inside another <code>if</code>'s block, for a condition that only matters once the outer one is true.</li>
+    </ul>
+    <div class="html-link"><b>Connects to HTML:</b> a form-validation script checks <code>if (email.includes('@'))</code> before letting the HTML <code>&lt;form&gt;</code> submit.</div>
+    <div class="demo" data-code="let marks = 72;
+if (marks >= 90) {
+  console.log('Grade: A');
+} else if (marks >= 75) {
+  console.log('Grade: B');
+} else if (marks >= 60) {
+  console.log('Grade: C');
+  if (marks >= 65) {
+    console.log('  (close to a B!)');
+  }
+} else {
+  console.log('Grade: F');
+}">
+      <div class="demo-label">example.js</div>
+      <pre><span class="kw">let</span> marks = <span class="num">72</span>;
+<span class="kw">if</span> (marks >= <span class="num">90</span>) {
+  <span class="kw">console</span>.log(<span class="str">'Grade: A'</span>);
+} <span class="kw">else if</span> (marks >= <span class="num">75</span>) {
+  <span class="kw">console</span>.log(<span class="str">'Grade: B'</span>);
+} <span class="kw">else if</span> (marks >= <span class="num">60</span>) {
+  <span class="kw">console</span>.log(<span class="str">'Grade: C'</span>);
+  <span class="kw">if</span> (marks >= <span class="num">65</span>) { <span class="cm">// nested if</span>
+    <span class="kw">console</span>.log(<span class="str">'  (close to a B!)'</span>);
+  }
+} <span class="kw">else</span> {
+  <span class="kw">console</span>.log(<span class="str">'Grade: F'</span>);
+}</pre>
+      <div class="demo-run"><button class="run-btn">▶ Run</button></div>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section class="topic" id="s11">
+    <div class="num">11</div>
+    <h3>Truthy & Falsy Values</h3>
+    <ul>
+      <li>Inside an <code>if</code>, JS converts <em>any</em> value to <code>true</code> or <code>false</code> — even if it's not a boolean.</li>
+      <li><b>Falsy</b> (there are only 6): <code>false</code>, <code>0</code>, <code>""</code> (empty string), <code>null</code>, <code>undefined</code>, <code>NaN</code>.</li>
+      <li><b>Truthy</b> = everything else, including <code>"0"</code> (a non-empty string!), <code>[]</code>, and <code>{}</code>.</li>
+    </ul>
+    <div class="demo" data-code="if (0) { console.log('shown'); } else { console.log('0 is falsy'); }
+if ('') { console.log('shown'); } else { console.log('empty string is falsy'); }
+if ('0') { console.log('\"0\" the string is truthy'); }
+if ([]) { console.log('empty array is truthy'); }">
+      <div class="demo-label">example.js</div>
+      <pre><span class="kw">if</span> (<span class="num">0</span>) { ... } <span class="kw">else</span> { <span class="kw">console</span>.log(<span class="str">'0 is falsy'</span>); }
+<span class="kw">if</span> (<span class="str">''</span>) { ... } <span class="kw">else</span> { <span class="kw">console</span>.log(<span class="str">'empty string is falsy'</span>); }
+<span class="kw">if</span> (<span class="str">'0'</span>) { <span class="kw">console</span>.log(<span class="str">'"0" the string is truthy'</span>); }
+<span class="kw">if</span> ([]) { <span class="kw">console</span>.log(<span class="str">'empty array is truthy'</span>); }</pre>
+      <div class="demo-run"><button class="run-btn">▶ Run</button></div>
+    </div>
+  </section>
+
+  <!-- 12 -->
+  <section class="topic" id="s12">
+    <div class="num">12</div>
+    <h3>Logical Operators: AND, OR, NOT</h3>
+    <ul>
+      <li><code>&&</code> (AND) — <code>true</code> only if <b>both</b> sides are true.</li>
+      <li><code>||</code> (OR) — <code>true</code> if <b>at least one</b> side is true.</li>
+      <li><code>!</code> (NOT) — flips a boolean: <code>!true</code> is <code>false</code>.</li>
+      <li>Very common for combining conditions: <code>if (age >= 18 && hasID) { ... }</code>.</li>
+    </ul>
+    <div class="demo" data-code="let age = 20;
+let hasID = true;
+console.log(age >= 18 && hasID);
+console.log(age < 18 || hasID);
+console.log(!hasID);">
+      <div class="demo-label">example.js</div>
+      <pre><span class="kw">let</span> age = <span class="num">20</span>;
+<span class="kw">let</span> hasID = <span class="kw">true</span>;
+<span class="kw">console</span>.log(age >= <span class="num">18</span> && hasID); <span class="cm">// AND → true</span>
+<span class="kw">console</span>.log(age < <span class="num">18</span> || hasID);  <span class="cm">// OR  → true</span>
+<span class="kw">console</span>.log(!hasID);                <span class="cm">// NOT → false</span></pre>
+      <div class="demo-run"><button class="run-btn">▶ Run</button></div>
+    </div>
+  </section>
+
+  <!-- 13 -->
+  <section class="topic" id="s13">
+    <div class="num">13</div>
+    <h3>The <code>switch</code> Statement</h3>
+    <ul>
+      <li><code>switch</code> compares one value against several possible <code>case</code>s — a cleaner alternative to a long <code>if/else if</code> chain.</li>
+      <li>Each <code>case</code> needs <code>break</code>, or execution "falls through" into the next case.</li>
+      <li><code>default</code> runs when no case matched — like a final <code>else</code>.</li>
+      <li><code>switch</code> compares with strict equality (<code>===</code>) internally.</li>
+    </ul>
+    <div class="demo" data-code="let day = 3;
+switch (day) {
+  case 1:
+    console.log('Monday');
+    break;
+  case 2:
+    console.log('Tuesday');
+    break;
+  case 3:
+    console.log('Wednesday');
+    break;
+  default:
+    console.log('Some other day');
+}">
+      <div class="demo-label">example.js</div>
+      <pre><span class="kw">let</span> day = <span class="num">3</span>;
+<span class="kw">switch</span> (day) {
+  <span class="kw">case</span> <span class="num">1</span>: <span class="kw">console</span>.log(<span class="str">'Monday'</span>); <span class="kw">break</span>;
+  <span class="kw">case</span> <span class="num">2</span>: <span class="kw">console</span>.log(<span class="str">'Tuesday'</span>); <span class="kw">break</span>;
+  <span class="kw">case</span> <span class="num">3</span>: <span class="kw">console</span>.log(<span class="str">'Wednesday'</span>); <span class="kw">break</span>;
+  <span class="kw">default</span>: <span class="kw">console</span>.log(<span class="str">'Some other day'</span>);
+}</pre>
+      <div class="demo-run"><button class="run-btn">▶ Run</button></div>
+    </div>
+  </section>
+
+  <!-- 14 -->
+  <section class="topic" id="s14">
+    <div class="num">14</div>
+    <h3>Arrays — Introduction & Indices</h3>
+    <ul>
+      <li>An <b>array</b> stores an ordered list of values in one variable: <code>let fruits = ['apple', 'banana', 'mango'];</code></li>
+      <li>Items are accessed by a zero-based <b>index</b>: <code>fruits[0]</code> is <code>'apple'</code>.</li>
+      <li><code>.length</code> gives the number of items; the last item is always <code>arr[arr.length - 1]</code>.</li>
+      <li>Arrays can mix types and even hold other arrays or objects.</li>
+    </ul>
+    <div class="html-link"><b>Connects to HTML:</b> a to-do list app stores tasks in an array, then loops over it with <code>.forEach()</code> to build <code>&lt;li&gt;</code> elements on the page.</div>
+    <div class="demo" data-code="let fruits = ['apple', 'banana', 'mango'];
+console.log(fruits[0]);
+console.log(fruits.length);
+console.log(fruits[fruits.length - 1]);">
+      <div class="demo-label">example.js</div>
+      <pre><span class="kw">let</span> fruits = [<span class="str">'apple'</span>, <span class="str">'banana'</span>, <span class="str">'mango'</span>];
+<span class="kw">console</span>.log(fruits[<span class="num">0</span>]);
+<span class="kw">console</span>.log(fruits.length);
+<span class="kw">console</span>.log(fruits[fruits.length - <span class="num">1</span>]); <span class="cm">// last item</span></pre>
+      <div class="demo-run"><button class="run-btn">▶ Run</button></div>
+    </div>
+  </section>
+
+  <!-- 15 -->
+  <section class="topic" id="s15">
+    <div class="num">15</div>
+    <h3>Array Methods</h3>
+    <ul>
+      <li><code>.push(x)</code> adds to the end; <code>.pop()</code> removes from the end.</li>
+      <li><code>.unshift(x)</code> adds to the start; <code>.shift()</code> removes from the start.</li>
+      <li><code>.concat(arr2)</code> joins two arrays into a new one, without changing the originals.</li>
+      <li><code>.indexOf(x)</code> returns the position of <code>x</code>, or <code>-1</code> if not found. <code>.includes(x)</code> returns <code>true</code>/<code>false</code>.</li>
+      <li><code>.reverse()</code> flips the order in place. <code>.slice(start, end)</code> copies a range <em>without</em> changing the original. <code>.splice(start, deleteCount, ...items)</code> removes/inserts and <em>does</em> change the original.</li>
+    </ul>
+    <table class="quickref">
+      <tr><th>Method</th><th>Changes original?</th><th>What it does</th></tr>
+      <tr><td><code>push / pop / shift / unshift / splice</code></td><td>Yes</td><td>Mutates the array directly</td></tr>
+      <tr><td><code>slice / concat / indexOf / includes / reverse*</code></td><td>slice/concat/indexOf/includes: No</td><td>reverse mutates in place too</td></tr>
+    </table>
+    <div class="demo" data-code="let nums = [1, 2, 3];
+nums.push(4);
+nums.unshift(0);
+console.log(nums);
+nums.pop();
+console.log(nums);
+console.log(nums.indexOf(2));
+console.log(nums.includes(99));
+console.log(nums.slice(1, 3));
+nums.splice(1, 1, 'X', 'Y');
+console.log(nums);">
+      <div class="demo-label">example.js</div>
+      <pre><span class="kw">let</span> nums = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>];
+nums.push(<span class="num">4</span>);      <span class="cm">// [1,2,3,4]</span>
+nums.unshift(<span class="num">0</span>);   <span class="cm">// [0,1,2,3,4]</span>
+<span class="kw">console</span>.log(nums);
+nums.pop();       <span class="cm">// removes last</span>
+<span class="kw">console</span>.log(nums.indexOf(<span class="num">2</span>));
+<span class="kw">console</span>.log(nums.includes(<span class="num">99</span>));
+<span class="kw">console</span>.log(nums.slice(<span class="num">1</span>, <span class="num">3</span>)); <span class="cm">// copy, original untouched</span>
+nums.splice(<span class="num">1</span>, <span class="num">1</span>, <span class="str">'X'</span>, <span class="str">'Y'</span>); <span class="cm">// remove 1, insert 2</span>
+<span class="kw">console</span>.log(nums);</pre>
+      <div class="demo-run"><button class="run-btn">▶ Run</button></div>
+    </div>
+  </section>
+
+  <!-- 16 -->
+  <section class="topic" id="s16">
+    <div class="num">16</div>
+    <h3>Arrays Are Reference Types + Multidimensional Arrays</h3>
+    <ul>
+      <li>Primitives (number, string, boolean) are copied <b>by value</b>. Arrays and objects are copied <b>by reference</b> — a variable holds a pointer to the same data in memory.</li>
+      <li>So <code>let b = a;</code> does <b>not</b> clone array <code>a</code> — both names point to the same array, and changing one changes the other.</li>
+      <li>To test if two arrays are "equal" in content (not identity), compare element by element or use <code>JSON.stringify()</code> — <code>===</code> only checks if they're the exact same reference.</li>
+      <li>A <b>multidimensional array</b> is an array of arrays — e.g. a grid or matrix: <code>arr[row][col]</code>.</li>
+    </ul>
+    <div class="demo" data-code="let a = [1, 2, 3];
+let b = a;
+b.push(4);
+console.log(a);
+console.log(a === b);
+console.log(JSON.stringify(a) === JSON.stringify([1,2,3,4]));
+
+let grid = [[1,2,3],[4,5,6],[7,8,9]];
+console.log(grid[1][2]);">
+      <div class="demo-label">example.js</div>
+      <pre><span class="kw">let</span> a = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>];
+<span class="kw">let</span> b = a;       <span class="cm">// b points to the SAME array</span>
+b.push(<span class="num">4</span>);
+<span class="kw">console</span>.log(a); <span class="cm">// [1,2,3,4] — a changed too!</span>
+<span class="kw">console</span>.log(a === b); <span class="cm">// true, same reference</span>
+<span class="kw">console</span>.log(<span class="kw">JSON</span>.stringify(a) === <span class="kw">JSON</span>.stringify([<span class="num">1</span>,<span class="num">2</span>,<span class="num">3</span>,<span class="num">4</span>]));
+
+<span class="kw">let</span> grid = [[<span class="num">1</span>,<span class="num">2</span>,<span class="num">3</span>],[<span class="num">4</span>,<span class="num">5</span>,<span class="num">6</span>],[<span class="num">7</span>,<span class="num">8</span>,<span class="num">9</span>]];
+<span class="kw">console</span>.log(grid[<span class="num">1</span>][<span class="num">2</span>]); <span class="cm">// row 1, col 2 → 6</span></pre>
+      <div class="demo-run"><button class="run-btn">▶ Run</button></div>
+    </div>
+  </section>
+
+</main>
+
+<div id="console-dock">
+  <div id="console-head">
+    <span class="title">▸ console</span>
+    <button id="clear-console">clear</button>
+  </div>
+  <div id="console-body"><div class="empty">// output will appear here — press any Run button above</div></div>
+</div>
+
+
+<script src="/FULL STACK COLT STEELE/3.JAVASCRIPT/2.Js_to_Learn/bacisEvery.js"></script>
+</body>
+</html>

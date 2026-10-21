@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Tables Small Example</title>
+</head>
+<body>
+    <h2>Simple HTML Table</h2>
+    <p>Use plain HTML only, no CSS. Important table elements are <code>&lt;table&gt;</code>, <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>, <code>&lt;tr&gt;</code>, <code>&lt;th&gt;</code> and <code>&lt;td&gt;</code>.</p>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Language</th>
+                <th>Type</th>
+                <th>Year</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Python</td>
+                <td>Interpreted</td>
+                <td>1991</td>
+            </tr>
+            <tr>
+                <td>Java</td>
+                <td>Compiled</td>
+                <td>1995</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Colspan and Rowspan</h2>
+    <p><code>colspan</code> joins cells across columns. <code>rowspan</code> joins cells across rows.</p>
+
+    <table border="1">
+        <caption>Colspan and Rowspan Example</caption>
+        <tr>
+            <th colspan="2">Subject</th>
+            <th>Score</th>
+        </tr>
+        <tr>
+            <td rowspan="2">Alice</td>
+            <td>Math</td>
+            <td>90</td>
+        </tr>
+        <tr>
+            <td>Science</td>
+            <td>85</td>
+        </tr>
+    </table>
+
+    <h2>How it works</h2>
+    <p><strong>colspan="2"</strong> makes the header span two columns. <strong>rowspan="2"</strong> makes the first cell span two rows.</p>
+</body>
+</html>

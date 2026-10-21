@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Async JS, AJAX &amp; APIs — Learning Site</title>
+<link rel="stylesheet" href="/FULL STACK COLT STEELE/3.JAVASCRIPT/CSS_to_Learn/Async_Apax_APIS.css">
+</head>
+<body>
+
+<button id="menuToggle" aria-label="Toggle menu">☰ Topics</button>
+
+<nav id="sidebar">
+  <h1>Async JS &amp; APIs</h1>
+
+  <p class="group-label">Async JS Foundations</p>
+  <a href="#topic-1" class="nav-link">1. Call Stack</a>
+  <a href="#topic-2" class="nav-link">2. Web APIs</a>
+  <a href="#topic-3" class="nav-link">3. Event Loop</a>
+  <a href="#topic-4" class="nav-link">4. Fake Request — Callbacks</a>
+  <a href="#topic-5" class="nav-link">5. Fake Request — Promises</a>
+  <a href="#topic-6" class="nav-link">6. Magic of Promises</a>
+  <a href="#topic-7" class="nav-link">7. Creating Your Own Promise</a>
+  <a href="#topic-8" class="nav-link">8. The async Keyword</a>
+  <a href="#topic-9" class="nav-link">9. The await Keyword</a>
+  <a href="#topic-10" class="nav-link">10. Errors in async Functions</a>
+
+  <p class="group-label">AJAX, APIs &amp; HTTP</p>
+  <a href="#topic-11" class="nav-link">11. Intro to AJAX</a>
+  <a href="#topic-12" class="nav-link">12. Intro to APIs</a>
+  <a href="#topic-13" class="nav-link">13. What is JSON</a>
+  <a href="#topic-14" class="nav-link">14. HTTP Verbs</a>
+  <a href="#topic-15" class="nav-link">15. HTTP Status Codes</a>
+  <a href="#topic-16" class="nav-link">16. Using Postman</a>
+  <a href="#topic-17" class="nav-link">17. Query Strings</a>
+  <a href="#topic-18" class="nav-link">18. HTTP Headers</a>
+
+  <p class="group-label">Fetch, Axios &amp; Project</p>
+  <a href="#topic-19" class="nav-link">19. XHR &amp; Fetch API</a>
+  <a href="#topic-20" class="nav-link">20. Introducing Axios</a>
+  <a href="#topic-21" class="nav-link">21. Headers with Axios</a>
+  <a href="#topic-22" class="nav-link">22. Project: TV Show Search</a>
+</nav>
+
+<main id="content">
+
+<!-- ============ TOPIC 1: CALL STACK ============ -->
+<section id="topic-1" class="topic">
+  <h2>1. The Call Stack</h2>
+  <div class="explain">
+    <ul>
+      <li>The call stack is where JavaScript keeps track of <strong>what function is currently running</strong>.</li>
+      <li>It works LIFO — <strong>Last In, First Out</strong>. The last function pushed on is the first one popped off.</li>
+      <li>Every time a function is called, a new "frame" is pushed. When it returns, that frame is popped.</li>
+      <li>JavaScript is <strong>single-threaded</strong> — it has exactly one call stack, so it can only do one thing at a time.</li>
+      <li>If the stack never empties (infinite recursion), you get a <code>"Maximum call stack size exceeded"</code> error.</li>
+    </ul>
+  </div>
+  <div class="example">
+    <h3>Example</h3>
+    <pre><code>function multiply(a, b) {
+  return a * b;
+}
+function square(n) {
+  return multiply(n, n);   // multiply() pushed
+}
+function printSquare(n) {
+  const result = square(n); // square() pushed
+  console.log(result);
+}
+printSquare(5); // printSquare -> square -> multiply, then unwind</code></pre>
+    <button class="run-demo" data-demo="stack1">▶ Run &amp; Visualize Stack</button>
+    <div class="output" id="out-demo-stack1"></div>
+  </div>
+  <div class="practice" data-id="1">
+    <h3>Practice Question</h3>
+    <p>Write three functions <code>a()</code>, <code>b()</code>, and <code>c()</code> where <code>a</code> calls <code>b</code>, and <code>b</code> calls <code>c</code>. Each should <code>console.log</code> its own name when it starts. Call <code>a()</code> and predict the order of logs.</p>
+    <button class="hint-toggle">Show Hint</button>
+    <p class="hint">The stack is LIFO, but the logs happen on the way IN (when each function starts), so the order you see is simply a, then b, then c — the order they were called, not the order they return.</p>
+    <textarea class="practice-code" rows="6">function a() {
+  console.log("a");
+  b();
+}
+// write b() and c(), then call a()
+</textarea>
+    <button class="run-practice">▶ Run My Code</button>
+    <div class="output"></div>
+  </div>
+</section>
+
+<!-- ============ TOPIC 2: WEB APIs ============ -->
+<section id="topic-2" class="topic">
+  <h2>2. Web APIs</h2>
+  <div class="explain">
+    <ul>
+      <li>The JS engine itself (V8, SpiderMonkey, etc.) only understands the language — it has no idea what <code>setTimeout</code>, <code>fetch</code>, or the DOM are.</li>
+      <li>Those features are given to JS by the <strong>browser</strong> (or Node.js) — they are called <strong>Web APIs</strong>.</li>
+      <li>Common Web APIs: <code>setTimeout</code>/<code>setInterval</code>, the DOM, <code>fetch</code>, geolocation, <code>localStorage</code>.</li>
+      <li>When you call <code>setTimeout(fn, 1000)</code>, JS hands the timer off to the browser and keeps running — the browser calls <code>fn</code> back later. This is what makes async behavior possible in a single-threaded language.</li>
+    </ul>
+  </div>
+  <div class="example">
+    <h3>Example</h3>
+    <pre><code>console.log("1: start");
+setTimeout(() => {
+  console.log("2: this runs later (handled by the browser's timer API)");
+}, 1000);
+console.log("3: end (runs before the timeout, even though it's written after)");</code></pre>
+    <button class="run-demo" data-demo="webapi1">▶ Run Example</button>
+    <div class="output" id="out-demo-webapi1"></div>
+  </div>
+  <div class="practice" data-id="2">
+    <h3>Practice Question</h3>
+    <p>Use <code>console.log</code> to print "A", then use <code>setTimeout</code> to print "B" after 500ms, then print "C" immediately after the setTimeout call. What order do they appear in?</p>
+    <button class="hint-toggle">Show Hint</button>
+    <p class="hint">setTimeout hands the callback to the Web API — your synchronous code (A, then C) always finishes first, no matter how small the delay is.</p>
+    <textarea class="practice-code" rows="6">console.log("A");
+// add setTimeout for "B" here
+console.log("C");
+</textarea>
+    <button class="run-practice">▶ Run My Code</button>
+    <div class="output"></div>
+  </div>
+</section>
+
+<!-- ============ TOPIC 3: EVENT LOOP ============ -->
+<section id="topic-3" class="topic">
+  <h2>3. Single-Threaded JS &amp; The Event Loop</h2>
+  <div class="explain">
+    <ul>
+      <li>JS has ONE call stack → it can run only one line of code at a time (single-threaded).</li>
+      <li>Async work (timers, network requests) is delegated to Web APIs, which run outside the JS engine.</li>
+      <li>When that work finishes, its callback doesn't jump straight onto the call stack — it waits in the <strong>callback queue</strong> (task queue).</li>
+      <li>The <strong>event loop</strong> constantly checks: "Is the call stack empty?" If yes, it takes the next item from the queue and pushes it onto the stack.</li>
+      <li>This is why <code>setTimeout(fn, 0)</code> still runs <em>after</em> all synchronous code — the stack has to be empty first.</li>
+    </ul>
+  </div>
+  <div class="example">
+    <h3>Example</h3>
+    <pre><code>console.log("1");
+setTimeout(() => console.log("2 (from queue)"), 0);
+console.log("3");
+// Output order: 1, 3, 2 — even with a 0ms delay!</code></pre>
+    <button class="run-demo" data-demo="eventloop1">▶ Run &amp; Watch the Queue</button>
+    <div class="output" id="out-demo-eventloop1"></div>
+  </div>
+  <div class="practice" data-id="3">
+    <h3>Practice Question</h3>
+    <p>Log "start", then schedule "middle" with <code>setTimeout(..., 0)</code>, then log "end". Before running, write down the order you expect, then run it to check.</p>
+    <button class="hint-toggle">Show Hint</button>
+    <p class="hint">Correct order: start, end, middle — synchronous code always finishes before the event loop pulls anything from the queue.</p>
+    <textarea class="practice-code" rows="6">console.log("start");
+// schedule "middle" here with setTimeout(..., 0)
+console.log("end");
+</textarea>
+    <button class="run-practice">▶ Run My Code</button>
+    <div class="output"></div>
+  </div>
+</section>
+
+<!-- ============ TOPIC 4: FAKE REQUEST - CALLBACKS ============ -->
+<section id="topic-4" class="topic">
+  <h2>4. Demo: Fake Request Using Callbacks</h2>
+  <div class="explain">
+    <ul>
+      <li>Before promises existed, async results were handled with <strong>callback functions</strong> — a function passed into another function, to be run once the work is done.</li>
+      <li>A "fake request" simulates a network call using <code>setTimeout</code> so we can practice async patterns without a real server.</li>
+      <li>Problem: chaining several dependent callbacks leads to deeply nested code — nicknamed <strong>"callback hell"</strong>.</li>
+    </ul>
+  </div>
+  <div class="example">
+    <h3>Example</h3>
+    <pre><code>function fakeRequest(url, callback) {
+  console.log("Requesting:", url);
+  setTimeout(() => {
+    const data = { url, status: 200, body: "Some fake data" };
+    callback(data);
+  }, 1000);
+}
+fakeRequest("/movies/123", (data) => {
+  console.log("Got data:", data);
+});</code></pre>
+    <button class="run-demo" data-demo="cbrequest1">▶ Run Example</button>
+    <div class="output" id="out-demo-cbrequest1"></div>
+  </div>
+  <div class="example">
+    <h3>Callback Hell Example</h3>
+    <pre><code>fakeRequest("/user", (user) => {
+  fakeRequest("/user/" + user.id + "/orders", (orders) => {
+    fakeRequest("/orders/" + orders[0] + "/items", (items) => {
+      console.log("Finally got items:", items); // 3 levels deep!
+    });
+  });
+});</code></pre>
+    <button class="run-demo" data-demo="cbhell1">▶ Run Nested Example</button>
+    <div class="output" id="out-demo-cbhell1"></div>
+  </div>
+  <div class="practice" data-id="4">
+    <h3>Practice Question</h3>
+    <p>Using the <code>fakeRequest(url, callback)</code> function (already loaded on this page), request <code>"/products"</code>, and inside its callback, log the data you receive with a friendly message like <code>"Products:"</code>.</p>
+    <button class="hint-toggle">Show Hint</button>
+    <p class="hint">fakeRequest("/products", (data) => { console.log("Products:", data); });</p>
+    <textarea class="practice-code" rows="5">// fakeRequest is available — call it here
+</textarea>
+    <button class="run-practice">▶ Run My Code</button>
+    <div class="output"></div>
+  </div>
+</section>
+
+<!-- ============ TOPIC 5: FAKE REQUEST - PROMISES ============ -->
+<section id="topic-5" class="topic">
+  <h2>5. Demo: Fake Request Using Promises</h2>
+  <div class="explain">
+    <ul>
+      <li>The same fake request, but returning a <strong>Promise</strong> instead of taking a callback.</li>
+      <li>Now we call <code>.then()</code> to react when it resolves, instead of passing a callback in.</li>
+      <li>Chaining <code>.then()</code> calls reads top-to-bottom instead of nesting deeper and deeper — this is the first big win of promises.</li>
+    </ul>
+  </div>
+  <div class="example">
+    <h3>Example</h3>
+    <pre><code>function fakeRequestPromise(url) {
+  console.log("Requesting:", url);
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const data = { url, status: 200, body: "Some fake data" };
+      resolve(data);
+    }, 1000);
+  });
+}
+fakeRequestPromise("/movies/123")
+  .then((data) => console.log("Got data:", data));</code></pre>
+    <button class="run-demo" data-demo="promreq1">▶ Run Example</button>
+    <div class="output" id="out-demo-promreq1"></div>
+  </div>
+  <div class="example">
+    <h3>Chaining Instead of Nesting</h3>
+    <pre><code>fakeRequestPromise("/user")
+  .then((user) => fakeRequestPromise("/user/" + user.url + "/orders"))
+  .then((orders) => fakeRequestPromise("/orders/" + orders.url + "/items"))
+  .then((items) => console.log("Finally got items:", items));</code></pre>
+    <button class="run-demo" data-demo="promchain1">▶ Run Chained Example</button>
+    <div class="output" id="out-demo-promchain1"></div>
+  </div>
+  <div class="practice" data-id="5">
+    <h3>Practice Question</h3>
+    <p>Using <code>fakeRequestPromise(url)</code> (already loaded), request <code>"/products"</code> and chain a <code>.then()</code> that logs the result.</p>
+    <button class="hint-toggle">Show Hint</button>
+    <p class="hint">fakeRequestPromise("/products").then((data) => console.log(data));</p>
+    <textarea class="practice-code" rows="5">// fakeRequestPromise is available — call it here
+</textarea>
+    <button class="run-practice">▶ Run My Code</button>
+    <div class="output"></div>
+  </div>
+</section>
+
+<!-- ============ TOPIC 6: MAGIC OF PROMISES ============ -->
+<section id="topic-6" class="topic">
+  <h2>6. The Magic of Promises</h2>
+  <div class="explain">
+    <ul>
+      <li>A Promise is an object representing a value that isn't ready yet, but will be — either successfully (<strong>fulfilled</strong>) or not (<strong>rejected</strong>).</li>
+      <li>Three states: <code>pending</code> → <code>fulfilled</code> or <code>pending</code> → <code>rejected</code>. Once settled, a promise never changes state again.</li>
+      <li><code>.then(onSuccess, onError)</code> handles the fulfilled case (and optionally the rejected case).</li>
+      <li><code>.catch(onError)</code> handles rejection — cleaner than passing a second argument to <code>.then</code>.</li>
+      <li><code>.finally()</code> runs regardless of success or failure — great for cleanup like hiding a loading spinner.</li>
+      <li><code>Promise.all([p1, p2])</code> waits for every promise to resolve (or fails fast if any reject).</li>
+    </ul>
+  </div>
+  <div class="example">
+    <h3>Example: then / catch / finally</h3>
+    <pre><code>fakeRequestPromise("/good-url")
+  .then((data) => console.log("Success:", data))
+  .catch((err) => console.log("Error:", err))
+  .finally(() => console.log("Request finished (always runs)"));</code></pre>
+    <button class="run-demo" data-demo="promisemagic1">▶ Run Example</button>
+    <div class="output" id="out-demo-promisemagic1"></div>
+  </div>
+  <div class="example">
+    <h3>Example: Promise.all</h3>
+    <pre><code>Promise.all([
+  fakeRequestPromise("/a"),
+  fakeRequestPromise("/b"),
+  fakeRequestPromise("/c")
+]).then((results) => console.log("All done:", results));</code></pre>
+    <button class="run-demo" data-demo="promiseall1">▶ Run Example</button>
+    <div class="output" id="out-demo-promiseall1"></div>
+  </div>
+  <div class="practice" data-id="6">
+    <h3>Practice Question</h3>
+    <p>Call <code>fakeRequestPromise("/bad-url")</code> (this URL is rigged to reject in the demo — see hint), and handle both success with <code>.then</code> and failure with <code>.catch</code>.</p>
+    <button class="hint-toggle">Show Hint</button>
+    <p class="hint">fakeRequestPromise("/bad-url").then(data =&gt; console.log(data)).catch(err =&gt; console.log("caught:", err));</p>
+    <textarea class="practice-code" rows="5">// try requesting "/bad-url" and catch the error
+</textarea>
+    <button class="run-practice">▶ Run My Code</button>
+    <div class="output"></div>
+  </div>
+</section>
+
+<!-- ============ TOPIC 7: CREATING OWN PROMISE ============ -->
+<section id="topic-7" class="topic">
+  <h2>7. Creating Your Own Promises</h2>
+  <div class="explain">
+    <ul>
+      <li>Build a promise with <code>new Promise((resolve, reject) => { ... })</code>.</li>
+      <li>The function you pass in (the <strong>executor</strong>) runs immediately — call <code>resolve(value)</code> when things succeed, or <code>reject(reason)</code> when they fail.</li>
+      <li>Useful for wrapping ANY async operation — timers, file reads, even wrapping old callback-style APIs so they can be used with <code>.then()</code>.</li>
+    </ul>
+  </div>
+  <div class="example">
+    <h3>Example: a coin-flip promise</h3>
+    <pre><code>function flipCoin() {
+  return new Promise((resolve, reject) => {
+    const result = Math.random() &lt; 0.5 ? "heads" : "tails";
+    setTimeout(() => {
+      if (result === "heads") resolve("You got heads! 🪙");
+      else reject("You got tails — try again.");
+    }, 800);
+  });
+}
+flipCoin()
+  .then((msg) => console.log(msg))
+  .catch((msg) => console.log(msg));</code></pre>
+    <button class="run-demo" data-demo="ownpromise1">▶ Flip the Coin</button>
+    <div class="output" id="out-demo-ownpromise1"></div>
+  </div>
+  <div class="practice" data-id="7">
+    <h3>Practice Question</h3>
+    <p>Write a function <code>rollDice()</code> that returns a new Promise. Resolve it with the rolled number (1–6) if it's 4 or higher, otherwise reject with a message. Call it and log both outcomes.</p>
+    <button class="hint-toggle">Show Hint</button>
+    <p class="hint">Use Math.floor(Math.random() * 6) + 1 to get 1–6, then resolve(n) if n &gt;= 4 else reject("too low: " + n).</p>
+    <textarea class="practice-code" rows="8">function rollDice() {
+  return new Promise((resolve, reject) => {
+    // your logic here
+  });
+}
+// call rollDice() and handle both outcomes
+</textarea>
+    <button class="run-practice">▶ Run My Code</button>
+    <div class="output"></div>
+  </div>
+</section>
+
+<!-- ============ TOPIC 8: ASYNC KEYWORD ============ -->
+<section id="topic-8" class="topic">
+  <h2>8. The <code>async</code> Keyword</h2>
+  <div class="explain">
+    <ul>
+      <li>Putting <code>async</code> in front of a function makes it <strong>always return a Promise</strong> — automatically, even if you just <code>return</code> a plain value.</li>
+      <li>If the function returns a normal value, the promise resolves with that value. If it throws, the promise rejects.</li>
+      <li><code>async</code> functions are still called and used with <code>.then()</code>/<code>.catch()</code> like any promise — but their real power comes from pairing with <code>await</code> (next topic).</li>
+    </ul>
+  </div>
+  <div class="example">
+    <h3>Example</h3>
+    <pre><code>async function greet() {
+  return "Hello!"; // automatically wrapped in a Promise
+}
+greet().then((msg) => console.log(msg)); // "Hello!"
+
+async function willThrow() {
+  throw "Oops!"; // automatically becomes a rejected Promise
+}
+willThrow().catch((err) => console.log("Caught:", err));</code></pre>
+    <button class="run-demo" data-demo="asynckw1">▶ Run Example</button>
+    <div class="output" id="out-demo-asynckw1"></div>
+  </div>
+  <div class="practice" data-id="8">
+    <h3>Practice Question</h3>
+    <p>Write an <code>async function double(n)</code> that returns <code>n * 2</code>. Call it and log the resolved value using <code>.then()</code>.</p>
+    <button class="hint-toggle">Show Hint</button>
+    <p class="hint">async function double(n) { return n * 2; } — then call double(5).then(result =&gt; console.log(result));</p>
+    <textarea class="practice-code" rows="5">async function double(n) {
+  // return n * 2
+}
+</textarea>
+    <button class="run-practice">▶ Run My Code</button>
+    <div class="output"></div>
+  </div>
+</section>
+
+<!-- ============ TOPIC 9: AWAIT KEYWORD ============ -->
+<section id="topic-9" class="topic">
+  <h2>9. The <code>await</code> Keyword</h2>
+  <div class="explain">
+    <ul>
+      <li><code>await</code> can only be used inside an <code>async</code> function.</li>
+      <li>It pauses the async function at that line until the promise settles, then "unwraps" the resolved value — no more <code>.then()</code> chains needed.</li>
+      <li>Code after <code>await</code> reads like normal, synchronous, top-to-bottom code — even though it's async under the hood.</li>
+      <li>Important: <code>await</code> only pauses the <em>current async function</em> — the rest of the program keeps running (JS is still single-threaded and non-blocking).</li>
+    </ul>
+  </div>
+  <div class="example">
+    <h3>Example: rewriting the promise chain with await</h3>
+    <pre><code>async function getOrderItems() {
+  const user = await fakeRequestPromise("/user");
+  const orders = await fakeRequestPromise("/user/" + user.url + "/orders");
+  const items = await fakeRequestPromise("/orders/" + orders.url + "/items");
+  console.log("Finally got items:", items);
+}
+getOrderItems();</code></pre>
+    <button class="run-demo" data-demo="awaitkw1">▶ Run Example</button>
+    <div class="output" id="out-demo-awaitkw1"></div>
+  </div>
+  <div class="practice" data-id="9">
+    <h3>Practice Question</h3>
+    <p>Write an <code>async function loadProduct()</code> that <code>await</code>s <code>fakeRequestPromise("/products")</code>, stores the result in a variable, and logs <code>"Loaded:"</code> plus that variable.</p>
+    <button class="hint-toggle">Show Hint</button>
+    <p class="hint">const data = await fakeRequestPromise("/products"); console.log("Loaded:", data);</p>
+    <textarea class="practice-code" rows="6">async function loadProduct() {
+  // await fakeRequestPromise("/products") here
+}
+loadProduct();
+</textarea>
+    <button class="run-practice">▶ Run My Code</button>
+    <div class="output"></div>
+  </div>
+</section>
+
+<!-- ============ TOPIC 10: ERROR HANDLING IN ASYNC ============ -->
+<section id="topic-10" class="topic">
+  <h2>10. Handling Errors in Async Functions</h2>
+  <div class="explain">
+    <ul>
+      <li>Wrap <code>await</code> calls in a normal <code>try...catch</code> block — this is the standard way to handle promise rejections inside async functions.</li>
+      <li>If an awaited promise rejects, control jumps straight to the <code>catch</code> block, just like a thrown error.</li>
+      <li>You can also add a <code>finally</code> block for cleanup code that must run either way.</li>
+    </ul>
+  </div>
+  <div class="example">
+    <h3>Example</h3>
+    <pre><code>async function safeLoad(url) {
+  try {
+    const data = await fakeRequestPromise(url);
+    console.log("Success:", data);
+  } catch (err) {
+    console.log("Something went wrong:", err);
+  } finally {
+    console.log("Done trying, either way.");
+  }
+}
+safeLoad("/bad-url"); // this URL is rigged to reject in the demo</code></pre>
+    <button class="run-demo" data-demo="asyncerr1">▶ Run Example</button>
+    <div class="output" id="out-demo-asyncerr1"></div>
+  </div>
+  <div class="practice" data-id="10">
+    <h3>Practice Question</h3>
+    <p>Write an <code>async function tryRoll()</code> that calls the <code>rollDice()</code> function from topic 7 inside a <code>try/catch</code>, logging the roll on success or a friendly message on failure. (If you didn't finish topic 7, a working <code>rollDice</code> is already loaded for you.)</p>
+    <button class="hint-toggle">Show Hint</button>
+    <p class="hint">try { const n = await rollDice(); console.log("Rolled:", n); } catch (e) { console.log("Failed:", e); }</p>
+    <textarea class="practice-code" rows="8">async function tryRoll() {
+  // try/catch with await rollDice()
+}
+tryRoll();
+</textarea>
+    <button class="run-practice">▶ Run My Code</button>
+    <div class="output"></div>
+  </div>
+</section>
+
+<!-- ============ TOPIC 11: INTRO TO AJAX ============ -->
+<section id="topic-11" class="topic">
+  <h2>11. Intro to AJAX</h2>
+  <div class="explain">
+    <ul>
+      <li><strong>AJAX</strong> = Asynchronous JavaScript And XML — a technique, not a specific tool or language.</li>
+      <li>It means: use JavaScript to talk to a server <em>in the background</em>, without reloading the whole page.</li>
+      <li>Despite the name, modern AJAX almost always uses <strong>JSON</strong>, not XML.</li>
+      <li>Tools that do AJAX in JS: the old <code>XMLHttpRequest</code>, the modern <code>fetch()</code>, and libraries like <strong>Axios</strong> (all covered later).</li>
+      <li>Classic example: a search box that shows suggestions as you type, without the page refreshing.</li>
+    </ul>
+  </div>
+  <div class="example">
+    <h3>Conceptual Example</h3>
+    <pre><code>// Without AJAX: clicking a link reloads the ENTIRE page
+// With AJAX: JS quietly fetches new data and updates just one part of the DOM
+
+button.addEventListener("click", async () => {
+  const res = await fetch("/api/latest-news");
+  const data = await res.json();
+  newsDiv.innerHTML = data.headline; // only this part of the page changes
+});</code></pre>
+  </div>
+  <div class="practice" data-id="11">
+    <h3>Practice Question</h3>
+    <p>In your own words (as a JS comment), explain the difference between a normal page reload (like clicking a plain link) and an AJAX request. Write at least 2 sentences.</p>
+    <button class="hint-toggle">Show Hint</button>
+    <p class="hint">Think about: does the whole page reload? Does the user lose scroll position / form state? How much data is transferred?</p>
+    <textarea class="practice-code" rows="5">// Write your explanation as comments here
+</textarea>
+    <button class="run-practice">▶ Check</button>
+    <div class="output"></div>
+  </div>
+</section>
+
+<!-- ============ TOPIC 12: INTRO TO APIs ============ -->
+<section id="topic-12" class="topic">
+  <h2>12. Intro to APIs</h2>
+  <div class="explain">
+    <ul>
+      <li><strong>API</strong> = Application Programming Interface — a set of rules that lets one program talk to another.</li>
+      <li>A <strong>web API</strong> is usually a server that responds to HTTP requests with data (often JSON), at specific URLs called <strong>endpoints</strong>.</li>
+      <li>Example: <code>https://api.tvmaze.com/search/shows?q=girls</code> is an endpoint that returns TV show data as JSON.</li>
+      <li>APIs let you build on top of huge datasets (weather, movies, maps) without owning that data yourself.</li>
+      <li>Most public APIs are documented — the docs tell you the available endpoints, required parameters, and response format.</li>
+    </ul>
+  </div>
+  <div class="example">
+    <h3>Live Example: a real public API</h3>
+    <pre><code>fetch("https://api.tvmaze.com/search/shows?q=girls")
+  .then((res) => res.json())
+  .then((data) => console.log(data[0].show.name));</code></pre>
+    <button class="run-demo" data-demo="introapi1">▶ Run Live Request</button>
+    <div class="output" id="out-demo-introapi1"></div>
+  </div>
+  <div class="practice" data-id="12">
+    <h3>Practice Question</h3>
+    <p>Using <code>fetch</code>, request <code>https://api.tvmaze.com/search/shows?q=office</code> and log just the name of the first result's show.</p>
+    <button class="hint-toggle">Show Hint</button>
+    <p class="hint">fetch(url).then(res =&gt; res.json()).then(data =&gt; console.log(data[0].show.name));</p>
+    <textarea class="practice-code" rows="5">fetch("https://api.tvmaze.com/search/shows?q=office")
+  // .then( ... )
+</textarea>
+    <button class="run-practice">▶ Run My Code</button>
+    <div class="output"></div>
+  </div>
+</section>
+
+<!-- ============ TOPIC 13: WHAT IS JSON ============ -->
+<section id="topic-13" class="topic">
+  <h2>13. What is JSON</h2>
+  <div class="explain">
+    <ul>
+      <li><strong>JSON</strong> = JavaScript Object Notation — a lightweight, text-based format for exchanging data.</li>
+      <li>It looks like a JS object/array, but it's <strong>plain text</strong>, and it's stricter: keys must be in double quotes, no trailing commas, no functions or <code>undefined</code>.</li>
+      <li>Almost every API sends/receives JSON, because nearly every language can parse it.</li>
+      <li><code>JSON.stringify(obj)</code> — turns a JS object into a JSON string (to send data).</li>
+      <li><code>JSON.parse(str)</code> — turns a JSON string back into a JS object (to use data you received).</li>
+    </ul>
+  </div>
+  <div class="example">
+    <h3>Example</h3>
+    <pre><code>const user = { name: "Shresth", course: "Engineering", active: true };
+
+const jsonString = JSON.stringify(user);
+console.log(jsonString); // '{"name":"Shresth","course":"Engineering","active":true}'
+console.log(typeof jsonString); // "string"
+
+const parsedBack = JSON.parse(jsonString);
+console.log(parsedBack.name); // "Shresth" — back to a real object</code></pre>
+    <button class="run-demo" data-demo="json1">▶ Run Example</button>
+    <div class="output" id="out-demo-json1"></div>
+  </div>
+  <div class="practice" data-id="13">
+    <h3>Practice Question</h3>
+    <p>Create an object describing a book (title, author, pages). Convert it to a JSON string with <code>JSON.stringify</code>, log it, then parse it back with <code>JSON.parse</code> and log the author.</p>
+    <button class="hint-toggle">Show Hint</button>
+    <p class="hint">const str = JSON.stringify(book); const back = JSON.parse(str); console.log(back.author);</p>
+    <textarea class="practice-code" rows="6">const book = { title: "...", author: "...", pages: 0 };
+</textarea>
+    <button class="run-practice">▶ Run My Code</button>
+    <div class="output"></div>
+  </div>
+</section>
+
+<!-- ============ TOPIC 14: HTTP VERBS ============ -->
+<section id="topic-14" class="topic">
+  <h2>14. HTTP Verbs (Methods)</h2>
+  <div class="explain">
+    <p>HTTP verbs tell the server <em>what kind of action</em> you want to perform on a resource:</p>
+    <table class="ref-table">
+      <tr><th>Verb</th><th>Purpose</th><th>Example</th></tr>
+      <tr><td><code>GET</code></td><td>Read/retrieve data (no changes)</td><td>Get a list of products</td></tr>
+      <tr><td><code>POST</code></td><td>Create new data</td><td>Submit a signup form</td></tr>
+      <tr><td><code>PUT</code></td><td>Replace an entire resource</td><td>Update a whole user profile</td></tr>
+      <tr><td><code>PATCH</code></td><td>Partially update a resource</td><td>Change just a user's email</td></tr>
+      <tr><td><code>DELETE</code></td><td>Remove a resource</td><td>Delete a comment</td></tr>
+    </table>
+    <p>Together with URLs, these verbs form <strong>RESTful</strong> API design — same URL, different verb, different action.</p>
+  </div>
+  <div class="example">
+    <h3>Example: same endpoint, different verbs</h3>
+    <pre><code>fetch("/api/products/12");                          // GET  — read product 12
+fetch("/api/products", { method: "POST", body: ... }); // POST — create a product
+fetch("/api/products/12", { method: "PUT", body: ... });   // PUT  — replace it
+fetch("/api/products/12", { method: "PATCH", body: ... }); // PATCH — edit one field
+fetch("/api/products/12", { method: "DELETE" });     // DELETE — remove it</code></pre>
+  </div>
+  <div class="practice" data-id="14">
+    <h3>Practice Question</h3>
+    <p>As comments, list which HTTP verb you'd use for: (1) fetching a user's profile, (2) creating a new comment, (3) deleting a photo, (4) updating only a user's phone number.</p>
+    <button class="hint-toggle">Show Hint</button>
+    <p class="hint">1: GET, 2: POST, 3: DELETE, 4: PATCH (only one field changing, not the whole resource).</p>
+    <textarea class="practice-code" rows="6">// 1)
+// 2)
+// 3)
+// 4)
+</textarea>
+    <button class="run-practice">▶ Check</button>
+    <div class="output"></div>
+  </div>
+</section>
+
+<!-- ============ TOPIC 15: HTTP STATUS CODES ============ -->
+<section id="topic-15" class="topic">
+  <h2>15. HTTP Status Codes</h2>
+  <div class="explain">
+    <p>Every HTTP response includes a 3-digit status code telling you how it went:</p>
+    <table class="ref-table">
+      <tr><th>Range</th><th>Meaning</th><th>Common Examples</th></tr>
+      <tr><td>1xx</td><td>Informational</td><td>100 Continue</td></tr>
+      <tr><td>2xx</td><td>Success</td><td>200 OK, 201 Created, 204 No Content</td></tr>
+      <tr><td>3xx</td><td>Redirection</td><td>301 Moved Permanently, 304 Not Modified</td></tr>
+      <tr><td>4xx</td><td>Client error (you made a mistake)</td><td>400 Bad Request, 401 Unauthorized, 404 Not Found</td></tr>
+      <tr><td>5xx</td><td>Server error (server's fault)</td><td>500 Internal Server Error, 503 Service Unavailable</td></tr>
+    </table>
+  </div>
+  <div class="example">
+    <h3>Example: checking status with fetch</h3>
+    <pre><code>fetch("https://api.tvmaze.com/shows/1")
+  .then((res) => {
+    console.log("Status code:", res.status);
+    console.log("Was it ok?", res.ok); // true for 200-299
+    return res.json();
+  })
+  .then((data) => console.log("Show name:", data.name));</code></pre>
+    <button class="run-demo" data-demo="status1">▶ Run Example</button>
+    <div class="output" id="out-demo-status1"></div>
+  </div>
+  <div class="practice" data-id="15">
+    <h3>Practice Question</h3>
+    <p>Fetch a URL that doesn't exist: <code>https://api.tvmaze.com/shows/99999999</code>. Log the status code and whether <code>res.ok</code> is true or false.</p>
+    <button class="hint-toggle">Show Hint</button>
+    <p class="hint">A missing show returns status 404, so res.ok will be false — fetch does NOT reject on 404, you have to check res.ok yourself!</p>
+    <textarea class="practice-code" rows="5">fetch("https://api.tvmaze.com/shows/99999999")
+  // .then(res => ...)
+</textarea>
+    <button class="run-practice">▶ Run My Code</button>
+    <div class="output"></div>
+  </div>
+</section>
+
+<!-- ============ TOPIC 16: USING POSTMAN ============ -->
+<section id="topic-16" class="topic">
+  <h2>16. Using Postman</h2>
+  <div class="explain">
+    <ul>
+      <li><strong>Postman</strong> is a free desktop/web app for testing APIs — without writing any code.</li>
+      <li>You pick a verb (GET/POST/etc.), type a URL, optionally add headers/body, hit <strong>Send</strong>, and see the response instantly.</li>
+      <li>Why developers use it: to explore an API before writing JS for it, to debug a request that's failing, and to test POST/PUT bodies without building a form first.</li>
+      <li>Typical workflow: <em>New Request → choose GET → paste URL → Send → inspect the JSON response and status code in the response panel.</em></li>
+      <li>For POST requests: switch to the "Body" tab, choose "raw" + "JSON", and type the JSON object you want to send.</li>
+    </ul>
+  </div>
+  <div class="example">
+    <h3>What a Postman request maps to in code</h3>
+    <pre><code>// Postman: GET https://api.tvmaze.com/search/shows?q=girls
+// ...is equivalent to this fetch call:
+fetch("https://api.tvmaze.com/search/shows?q=girls")
+  .then(res => res.json())
+  .then(data => console.log(data));
+
+// Postman: POST https://example.com/api/users, Body(raw JSON): {"name":"Sam"}
+// ...is equivalent to:
+fetch("https://example.com/api/users", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ name: "Sam" })
+});</code></pre>
+  </div>
+  <div class="practice" data-id="16">
+    <h3>Practice Question</h3>
+    <p>As a comment, describe the exact steps you'd take in Postman to test a <code>POST</code> request to <code>/api/comments</code> sending <code>{"text": "hi"}</code>.</p>
+    <button class="hint-toggle">Show Hint</button>
+    <p class="hint">Set method to POST, paste the URL, go to Body tab, choose raw + JSON, type the object, click Send, then check the status code and response body.</p>
+    <textarea class="practice-code" rows="6">// describe the steps here
+</textarea>
+    <button class="run-practice">▶ Check</button>
+    <div class="output"></div>
+  </div>
+</section>
+
+<!-- ============ TOPIC 17: QUERY STRINGS ============ -->
+<section id="topic-17" class="topic">
+  <h2>17. Understanding Query Strings</h2>
+  <div class="explain">
+    <ul>
+      <li>A query string is the part of a URL after <code>?</code> — used to send extra parameters to the server.</li>
+      <li>Format: <code>key=value</code> pairs, joined by <code>&amp;</code>. Example: <code>?q=girls&amp;page=2</code>.</li>
+      <li>Common uses: search terms, pagination, filters, sorting.</li>
+      <li>In JS, <code>URLSearchParams</code> makes building/reading them easy, instead of hand-concatenating strings.</li>
+    </ul>
+  </div>
+  <div class="example">
+    <h3>Example</h3>
+    <pre><code>const params = new URLSearchParams({ q: "the office", page: "1" });
+console.log(params.toString()); // "q=the+office&page=1"
+
+const url = "https://api.tvmaze.com/search/shows?" + params.toString();
+console.log(url);
+
+// Reading params from an existing URL:
+const parsed = new URLSearchParams("?q=girls&page=2");
+console.log(parsed.get("q"));    // "girls"
+console.log(parsed.get("page")); // "2"</code></pre>
+    <button class="run-demo" data-demo="querystring1">▶ Run Example</button>
+    <div class="output" id="out-demo-querystring1"></div>
+  </div>
+  <div class="practice" data-id="17">
+    <h3>Practice Question</h3>
+    <p>Build a query string from an object <code>{ category: "shoes", sort: "price", inStock: "true" }</code> using <code>URLSearchParams</code>, and log the final string.</p>
+    <button class="hint-toggle">Show Hint</button>
+    <p class="hint">const params = new URLSearchParams({ category: "shoes", sort: "price", inStock: "true" }); console.log(params.toString());</p>
+    <textarea class="practice-code" rows="5">const filters = { category: "shoes", sort: "price", inStock: "true" };
+</textarea>
+    <button class="run-practice">▶ Run My Code</button>
+    <div class="output"></div>
+  </div>
+</section>
+
+<!-- ============ TOPIC 18: HTTP HEADERS ============ -->
+<section id="topic-18" class="topic">
+  <h2>18. HTTP Headers</h2>
+  <div class="explain">
+    <ul>
+      <li>Headers are metadata sent along with every HTTP request and response — extra information that isn't part of the main body.</li>
+      <li>Common request headers: <code>Content-Type</code> (what format the body is in), <code>Authorization</code> (auth tokens), <code>Accept</code> (what format you want back).</li>
+      <li>Common response headers: <code>Content-Type</code>, <code>Content-Length</code>, <code>Cache-Control</code>.</li>
+      <li>In <code>fetch</code>, you set request headers with the <code>headers</code> option; you can read response headers via <code>res.headers.get(...)</code>.</li>
+    </ul>
+  </div>
+  <div class="example">
+    <h3>Example</h3>
+    <pre><code>fetch("https://api.tvmaze.com/shows/1", {
+  headers: { "Accept": "application/json" }
+}).then((res) => {
+  console.log("Content-Type header:", res.headers.get("content-type"));
+  return res.json();
+}).then((data) => console.log("Show:", data.name));</code></pre>
+    <button class="run-demo" data-demo="headers1">▶ Run Example</button>
+    <div class="output" id="out-demo-headers1"></div>
+  </div>
+  <div class="practice" data-id="18">
+    <h3>Practice Question</h3>
+    <p>Write a <code>fetch</code> call to <code>https://api.tvmaze.com/shows/2</code> that sends an <code>Accept: application/json</code> header, then logs the <code>content-type</code> response header.</p>
+    <button class="hint-toggle">Show Hint</button>
+    <p class="hint">fetch(url, { headers: { Accept: "application/json" } }).then(res =&gt; console.log(res.headers.get("content-type")));</p>
+    <textarea class="practice-code" rows="5">fetch("https://api.tvmaze.com/shows/2", {
+  // headers here
+})
+</textarea>
+    <button class="run-practice">▶ Run My Code</button>
+    <div class="output"></div>
+  </div>
+</section>
+
+<!-- ============ TOPIC 19: XHR & FETCH ============ -->
+<section id="topic-19" class="topic">
+  <h2>19. XHR &amp; The Fetch API</h2>
+  <div class="explain">
+    <ul>
+      <li><code>XMLHttpRequest</code> (XHR) is the original, older way to make HTTP requests in JS — callback-based and verbose.</li>
+      <li><code>fetch()</code> is the modern replacement — promise-based, cleaner, built into every modern browser.</li>
+      <li><code>fetch(url)</code> resolves with a <code>Response</code> object — you usually then call <code>.json()</code> (also a promise!) to get the actual data.</li>
+      <li>Two <code>await</code>s are typical: one for the response, one for parsing its body.</li>
+    </ul>
+  </div>
+  <div class="example">
+    <h3>XHR (old way)</h3>
+    <pre><code>const xhr = new XMLHttpRequest();
+xhr.open("GET", "https://api.tvmaze.com/shows/1");
+xhr.onload = () => console.log(JSON.parse(xhr.responseText).name);
+xhr.onerror = () => console.log("Request failed");
+xhr.send();</code></pre>
+    <button class="run-demo" data-demo="xhr1">▶ Run XHR Example</button>
+    <div class="output" id="out-demo-xhr1"></div>
+  </div>
+  <div class="example">
+    <h3>fetch (modern way)</h3>
+    <pre><code>async function loadShow() {
+  const res = await fetch("https://api.tvmaze.com/shows/1");
+  const data = await res.json();
+  console.log(data.name);
+}
+loadShow();</code></pre>
+    <button class="run-demo" data-demo="fetch1">▶ Run Fetch Example</button>
+    <div class="output" id="out-demo-fetch1"></div>
+  </div>
+  <div class="practice" data-id="19">
+    <h3>Practice Question</h3>
+    <p>Write an <code>async function</code> that fetches <code>https://api.tvmaze.com/shows/3</code> and logs the show's <code>summary</code> field (it'll contain HTML tags — that's fine).</p>
+    <button class="hint-toggle">Show Hint</button>
+    <p class="hint">const res = await fetch(url); const data = await res.json(); console.log(data.summary);</p>
+    <textarea class="practice-code" rows="6">async function loadSummary() {
+  // fetch + await here
+}
+loadSummary();
+</textarea>
+    <button class="run-practice">▶ Run My Code</button>
+    <div class="output"></div>
+  </div>
+</section>
+
+<!-- ============ TOPIC 20: INTRODUCING AXIOS ============ -->
+<section id="topic-20" class="topic">
+  <h2>20. Introducing Axios</h2>
+  <div class="explain">
+    <ul>
+      <li><strong>Axios</strong> is a popular third-party library for making HTTP requests — an alternative to <code>fetch</code>.</li>
+      <li>Key differences from fetch: Axios automatically parses JSON (no manual <code>.json()</code> call), and it rejects the promise automatically on 4xx/5xx status codes.</li>
+      <li>Load it via CDN: <code>&lt;script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"&gt;&lt;/script&gt;</code> (already loaded on this page).</li>
+      <li>The actual data is on <code>response.data</code> (fetch calls it "the body", axios calls it "data").</li>
+    </ul>
+  </div>
+  <div class="example">
+    <h3>Example: fetch vs axios, side by side</h3>
+    <pre><code>// fetch — two awaits needed
+const res = await fetch(url);
+const data = await res.json();
+
+// axios — one await, JSON parsed automatically
+const response = await axios.get(url);
+console.log(response.data);</code></pre>
+    <button class="run-demo" data-demo="axios1">▶ Run Axios Example</button>
+    <div class="output" id="out-demo-axios1"></div>
+  </div>
+  <div class="practice" data-id="20">
+    <h3>Practice Question</h3>
+    <p>Use <code>axios.get()</code> to fetch <code>https://api.tvmaze.com/shows/4</code> and log <code>response.data.name</code>.</p>
+    <button class="hint-toggle">Show Hint</button>
+    <p class="hint">const response = await axios.get(url); console.log(response.data.name);</p>
+    <textarea class="practice-code" rows="6">async function getShow4() {
+  // axios.get here
+}
+getShow4();
+</textarea>
+    <button class="run-practice">▶ Run My Code</button>
+    <div class="output"></div>
+  </div>
+</section>
+
+<!-- ============ TOPIC 21: HEADERS WITH AXIOS ============ -->
+<section id="topic-21" class="topic">
+  <h2>21. Setting Headers with Axios</h2>
+  <div class="explain">
+    <ul>
+      <li>Pass a config object as the last argument to any axios method, with a <code>headers</code> key.</li>
+      <li>Same idea for query params — axios has a dedicated <code>params</code> option that auto-builds the query string for you.</li>
+      <li>You can also set default headers for EVERY request axios makes, via <code>axios.defaults.headers.common</code>.</li>
+    </ul>
+  </div>
+  <div class="example">
+    <h3>Example</h3>
+    <pre><code>axios.get("https://api.tvmaze.com/search/shows", {
+  params: { q: "girls" },              // becomes ?q=girls automatically
+  headers: { "Accept": "application/json" }
+}).then((response) => {
+  console.log("First result:", response.data[0].show.name);
+});</code></pre>
+    <button class="run-demo" data-demo="axiosheaders1">▶ Run Example</button>
+    <div class="output" id="out-demo-axiosheaders1"></div>
+  </div>
+  <div class="practice" data-id="21">
+    <h3>Practice Question</h3>
+    <p>Use <code>axios.get</code> on <code>https://api.tvmaze.com/search/shows</code> with a <code>params</code> object <code>{ q: "office" }</code> and an <code>Accept: application/json</code> header. Log the number of results with <code>response.data.length</code>.</p>
+    <button class="hint-toggle">Show Hint</button>
+    <p class="hint">axios.get(url, { params: { q: "office" }, headers: { Accept: "application/json" } }).then(r =&gt; console.log(r.data.length));</p>
+    <textarea class="practice-code" rows="6">axios.get("https://api.tvmaze.com/search/shows", {
+  // params + headers here
+})
+</textarea>
+    <button class="run-practice">▶ Run My Code</button>
+    <div class="output"></div>
+  </div>
+</section>
+
+<!-- ============ TOPIC 22: PROJECT - TV SHOW SEARCH ============ -->
+<section id="topic-22" class="topic">
+  <h2>22. Mini Project: TV Show Search App</h2>
+  <div class="explain">
+    <ul>
+      <li>Puts everything together: a form, <code>preventDefault</code>, axios, query params, JSON data, and updating the DOM with results.</li>
+      <li>Uses the free <a href="https://www.tvmaze.com/api" target="_blank" rel="noopener">TVmaze API</a> — no API key required.</li>
+      <li>Try searching for a show below — this is a fully working live demo, not just a code sample.</li>
+    </ul>
+  </div>
+  <div class="example">
+    <h3>Live App</h3>
+    <form id="tvSearchForm">
+      <input type="text" id="tvSearchInput" placeholder="Search a TV show e.g. 'friends'" autocomplete="off">
+      <button type="submit">Search</button>
+    </form>
+    <div id="tvResults" class="tv-results"></div>
+  </div>
+  <div class="example">
+    <h3>The Code Behind It</h3>
+    <pre><code>const form = document.querySelector("#tvSearchForm");
+const input = document.querySelector("#tvSearchInput");
+const resultsDiv = document.querySelector("#tvResults");
+
+form.addEventListener("submit", async (e) => {
+  e.preventDefault(); // stop the page from reloading
+  const query = input.value;
+  const response = await axios.get("https://api.tvmaze.com/search/shows", {
+    params: { q: query }
+  });
+  resultsDiv.innerHTML = response.data.map((result) => `
+    &lt;div class="tv-card"&gt;
+      &lt;img src="${result.show.image ? result.show.image.medium : ""}"&gt;
+      &lt;h4&gt;${result.show.name}&lt;/h4&gt;
+    &lt;/div&gt;
+  `).join("");
+});</code></pre>
+  </div>
+  <div class="practice" data-id="22">
+    <h3>Practice Question</h3>
+    <p>Extend the idea: write an <code>async function</code> that searches TVmaze for a show name (parameter <code>title</code>), and logs just the <strong>rating</strong> (<code>result[0].show.rating.average</code>) of the top result.</p>
+    <button class="hint-toggle">Show Hint</button>
+    <p class="hint">const response = await axios.get(url, { params: { q: title } }); console.log(response.data[0].show.rating.average);</p>
+    <textarea class="practice-code" rows="7">async function getRating(title) {
+  // axios.get with params: { q: title }
+}
+getRating("breaking bad");
+</textarea>
+    <button class="run-practice">▶ Run My Code</button>
+    <div class="output"></div>
+  </div>
+</section>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="/FULL STACK COLT STEELE/JAVASCRIPT/2.Js_to_Learn/Async_Apax_APIS.js"></script>
+</body>
+</html>

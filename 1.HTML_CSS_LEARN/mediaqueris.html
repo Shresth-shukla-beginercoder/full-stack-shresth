@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        background: #f4f4f4;
+        color: #222;
+      }
+      header {
+        background: #1e3a8a;
+        color: #fff;
+        padding: 1rem 1.5rem;
+        text-align: center;
+      }
+      nav.main-nav {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+        padding: 1rem;
+        background: #2563eb;
+      }
+      nav.main-nav a {
+        color: #fff;
+        text-decoration: none;
+        padding: 0.6rem 1rem;
+        border-radius: 4px;
+        background: rgba(255, 255, 255, 0.15);
+      }
+      nav.main-nav a:hover {
+        background: rgba(255, 255, 255, 0.3);
+      }
+      main {
+        max-width: 1000px;
+        margin: 1.5rem auto;
+        padding: 0 1rem;
+      }
+      section {
+        background: #fff;
+        margin-bottom: 1.5rem;
+        padding: 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      }
+      h1,
+      h2 {
+        margin-top: 0;
+      }
+      pre {
+        background: #0f172a;
+        color: #e2e8f0;
+        padding: 1rem;
+        overflow-x: auto;
+        border-radius: 6px;
+      }
+      code {
+        font-family: Consolas, Monaco, "Andale Mono", monospace;
+      }
+      .example {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin-top: 1rem;
+      }
+      .box-row {
+        display: flex;
+        gap: 0.8rem;
+        flex-wrap: wrap;
+        padding: 1rem;
+        border: 1px dashed #94a3b8;
+        border-radius: 6px;
+        background: #f8fafc;
+      }
+      .box {
+        background: #2563eb;
+        color: #fff;
+        padding: 1rem;
+        min-width: 120px;
+        text-align: center;
+        border-radius: 6px;
+        flex: 1 1 120px;
+      }
+      .responsive-nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #1f2937;
+        color: #fff;
+        padding: 1rem;
+        border-radius: 8px;
+      }
+      .responsive-nav .logo {
+        font-weight: bold;
+      }
+      .menu {
+        display: flex;
+        gap: 1rem;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .menu li a {
+        color: #fff;
+        text-decoration: none;
+      }
+      .note {
+        background: #e2e8f0;
+        padding: 1rem;
+        border-radius: 6px;
+      }
+      @media (max-width: 720px) {
+        .responsive-nav {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 0.75rem;
+        }
+        .menu {
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+      }
+      @media (max-width: 480px) {
+        header {
+          padding: 0.75rem 1rem;
+        }
+        nav.main-nav {
+          padding: 0.75rem;
+        }
+        .box {
+          min-width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Flexbox and Responsive Design</h1>
+      <p>Understand key flexbox properties and media queries with examples.</p>
+    </header>
+    <nav class="main-nav">
+      <a href="#flexbox">Flexbox</a>
+      <a href="#properties">Properties</a>
+      <a href="#responsive">Responsive Design</a>
+      <a href="#nav-example">Responsive Nav</a>
+    </nav>
+    <main>
+      <section id="flexbox">
+        <h2>What is Flexbox?</h2>
+        <p>
+          Flexbox is a CSS layout mode that makes it easier to design flexible
+          and responsive layouts. It works by turning a container into a
+          <strong>flex container</strong> and its children into
+          <strong>flex items</strong>.
+        </p>
+        <p>Example:</p>
+        <pre><code> .container {
+    display: flex;
+}
+</code></pre>
+        <div class="example">
+          <div class="box-row">
+            <div class="box">Item 1</div>
+            <div class="box">Item 2</div>
+            <div class="box">Item 3</div>
+          </div>
+        </div>
+      </section>
+      <section id="properties">
+        <h2>Key Flexbox Properties</h2>
+        <h3>flex-direction</h3>
+        <p>Controls the direction of the main axis.</p>
+        <pre><code> .container {
+    display: flex;
+    flex-direction: row; /* row, row-reverse, column, column-reverse */
+}
+</code></pre>
+        <h3>justify-content</h3>
+        <p>Aligns items along the main axis.</p>
+        <pre><code> .container {
+    justify-content: center; /* flex-start, center, flex-end, space-between, space-around, space-evenly */
+}
+</code></pre>
+        <h3>flex-wrap</h3>
+        <p>
+          Allows items to wrap to the next line if there is not enough space.
+        </p>
+        <pre><code> .container {
+    flex-wrap: wrap; /* nowrap, wrap, wrap-reverse */
+}
+</code></pre>
+        <h3>align-items</h3>
+        <p>Aligns items along the cross axis.</p>
+        <pre><code> .container {
+    align-items: center; /* flex-start, center, flex-end, stretch, baseline */
+}
+</code></pre>
+        <h3>align-content</h3>
+        <p>Aligns wrapped rows within the flex container.</p>
+        <pre><code> .container {
+    align-content: space-between; /* flex-start, center, flex-end, stretch, space-between, space-around */
+}
+</code></pre>
+        <h3>align-self</h3>
+        <p>Overrides align-items for a single flex item.</p>
+        <pre><code> .item-special {
+    align-self: flex-end; /* auto, flex-start, center, flex-end, stretch, baseline */
+}
+</code></pre>
+        <h3>flex-basis</h3>
+        <p>
+          Defines the initial main size of a flex item before free space is
+          distributed.
+        </p>
+        <pre><code> .item {
+    flex-basis: 200px;
+}
+</code></pre>
+        <h3>flex-grow and flex-shrink</h3>
+        <p>Control how items grow or shrink relative to others.</p>
+        <pre><code> .item {
+    flex-grow: 1;   /* grow factor */
+    flex-shrink: 1; /* shrink factor */
+}
+</code></pre>
+        <h3>flex shorthand</h3>
+        <p>Shorthand for flex-grow, flex-shrink, and flex-basis.</p>
+        <pre><code> .item {
+    flex: 1 1 200px; /* grow shrink basis */
+}
+</code></pre>
+        <div class="note">
+          <strong>Tip:</strong> Use <code>flex: 1</code> as shorthand for
+          <code>flex: 1 1 0%</code> when you want equal flexible items.
+        </div>
+      </section>
+      <section id="responsive">
+        <h2>Responsive Design and Media Queries</h2>
+        <p>
+          Responsive design adapts the layout to different screen sizes. Media
+          queries apply CSS only when a condition is met.
+        </p>
+        <pre><code> @media (max-width: 600px) {
+    .container {
+        flex-direction: column;
+    }
+}
+</code></pre>
+        <p>
+          This example changes the layout on narrow screens, making the flex
+          container stack vertically.
+        </p>
+      </section>
+      <section id="nav-example">
+        <h2>Building a Responsive Navigation</h2>
+        <p>
+          Use a flex container and media queries to change the navigation layout
+          on smaller devices.
+        </p>
+        <div class="responsive-nav">
+          <div class="logo">My Site</div>
+          <ul class="menu">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <pre><code> .responsive-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu {
+    display: flex;
+    gap: 1rem;
+}
+
+@media (max-width: 720px) {
+    .responsive-nav {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .menu {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}
+</code></pre>
+        <p>
+          The nav switches from a horizontal menu to a vertical stacked menu on
+          screens smaller than 720px.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>

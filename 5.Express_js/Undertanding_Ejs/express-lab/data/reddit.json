@@ -1,0 +1,6 @@
+{ "cats": { "subscribers": 4500000, "description": "Pictures and stories about cats.", "posts": [
+    { "title": "My cat sits in every box", "author": "boxlover", "votes": 8200 },
+    { "title": "Adopted a stray today", "author": "kind_human", "votes": 5400 } ] },
+  "dogs": { "subscribers": 82000, "description": "Good dogs only.", "posts": [
+    { "title": "Puppy's first snow", "author": "snowpup", "votes": 3100 } ] },
+  "webdev": { "subscribers": 1200000, "description": "News and discussion about web development.", "posts": [] } }

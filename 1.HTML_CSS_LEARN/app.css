@@ -1,0 +1,203 @@
+*{
+  box-sizing: border-box;
+}
+
+html{
+  font-family: "Oswald", sans-serif;
+}
+body{
+  background-color: #60aff6;
+  display: flex;
+justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  
+ 
+  
+}
+.panel{
+  background-color: white;
+display: flex;
+border-radius: 1rem;
+  flex-direction: column;  
+  text-align: center;
+  align-items: center;
+
+
+ 
+
+  
+}
+
+#small{
+  border-left:1px solid rgb(141 141 141 /0.5)  ;
+  border-right:1px solid rgb(141 141 141 /0.5)  ;
+}
+
+.pricing-plan{
+  margin: 1.5em;
+  text-align: center;
+}
+
+ul,li,a{
+  text-decoration: none;
+  list-style: none;
+  text-align: center;
+}
+.pricing-header{
+  color: rgba(141 141 141 /0.8);
+  text-transform: uppercase;
+  font-size: medium;
+text-align: center;
+  padding: 2.5em;
+  margin: 0 2em;
+  letter-spacing: 0.1rem;
+}
+
+.pricing-img{
+max-width: 100%;
+  max-width: 150px;
+  height: auto;
+}
+
+.pricing-price{
+  display: block;
+  margin: 0.7em 2em;
+  font-size: 2rem;
+  font-weight: 700;
+  color: rgb(17, 17, 245);
+  text-transform: uppercase;
+}
+
+.pricing-button{
+  border:1px solid lightblue ;
+  padding: 0.3rem 2rem;
+  text-transform: uppercase;
+  border-radius: 10px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+  display: inline-block;
+  cursor: pointer;
+  outline: none;
+ 
+}
+
+.pricing-button:hover{
+  background-color: rgb(17, 17, 245);
+  color: white;
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.7);
+}
+
+.pricing-features-item{
+  margin: 0 2em;
+  padding: 1rem;
+border-bottom: 1px solid rgb(141 141 141 /0.5) ;
+padding: 1rem;
+text-transform: uppercase;
+color: #086fca;
+font-family: "Oswald", sans-serif,monospace;
+
+}
+.pricing-features-item1{
+    border-top:1px solid rgb(141 141 141 /0.5);
+      margin: 0 2em;
+  padding: 1rem;
+border-bottom: 1px solid rgb(141 141 141 /0.5) ;
+padding: 1rem;
+text-transform: uppercase;
+color: #086fca;
+font-family: "Oswald", sans-serif,monospace;
+}
+
+/* Extra small devices (phones, < 576px) */
+/* No media query needed — this is your default/base CSS */
+
+/* Small devices (large phones, landscape phones) */
+@media (min-width: 392px) {
+  .pricing-header{
+    font-size: 1.1rem;
+  }
+
+  .pricing-price{
+    font-size: 1.75rem;
+  }
+
+  .pricing-button{
+    width: auto; /* no longer needs to be full-width */
+  }
+  #small {
+  border-top: 1px solid rgb(141 141 141 /0.5);
+  border-bottom: 1px solid rgb(141 141 141 /0.5);
+  padding: 1rem 0;
+  border-left: none;
+  border-right: none;
+}
+
+}
+
+/* Medium devices (tablets) */
+@media (min-width: 829px) {
+  .panel{
+    flex-direction: row;   /* back to side-by-side */
+    width: 90%;
+    max-width: 900px;
+  }
+
+  #small{
+    border-left: 1px solid rgb(141 141 141 / 0.5);
+    border-right: 1px solid rgb(141 141 141 / 0.5);
+    border-top: none;
+    border-bottom: none;
+  }
+
+  .pricing-plan{
+    margin: 1.5em;
+  }
+
+  .pricing-header{
+    font-size: medium;
+    padding: 2.5em;
+    margin: 0 2em;
+  }
+
+  .pricing-price{
+    font-size: 2rem;
+    margin: 0.7em 2em;
+  }
+
+  .pricing-button{
+    padding: 0.3rem 2rem;
+  }
+
+  .pricing-features-item,
+  .pricing-features-item1{
+    margin: 0 2em;
+    padding: 1rem;
+    font-size: 1rem;
+  }
+}
+
+/* Large devices (small laptops/desktops) */
+@media (min-width: 992px) {
+  .panel{
+    max-width: 960px;
+  }
+
+  .pricing-price{
+    font-size: 2.25rem;
+  }
+}
+
+/* Extra large devices (large desktops) */
+@media (min-width: 1200px) {
+  .panel{
+    max-width: 1000px;
+  }
+}
+
+/* Extra extra large devices (very large screens) */
+@media (min-width: 1400px) {
+  .panel{
+    max-width: 1100px;
+  }
+}

@@ -1,0 +1,161 @@
+   /* Universal Selector - applies to all elements */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        /* Element Selector - targets specific HTML elements */
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            color: #555;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        /* ID Selector - targets a unique element with specific ID */
+        #main-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Class Selector - targets elements with specific class */
+        .example {
+            background-color: #e7f3ff;
+            border-left: 4px solid #007bff;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .code-block {
+            background-color: #272822;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+        }
+
+        .selector-title {
+            color: #007bff;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        /* Descendant Selector - targets elements that are descendants */
+        #main-content p {
+            line-height: 1.8;
+        }
+
+        .example p {
+            margin-bottom: 5px;
+        }
+
+        /* Adjacent Sibling Selector - targets element immediately after another */
+        h2 + p {
+            font-weight: bold;
+            color: #222;
+        }
+
+        /* Direct Child Selector - targets direct children only */
+        .example > p {
+            color: #0056b3;
+        }
+
+        /* Attribute Selector - targets elements based on attributes */
+        input[type="text"] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 200px;
+        }
+
+        a[href^="https"] {
+            color: #28a745;
+        }
+
+        a[href$=".pdf"] {
+            color: #dc3545;
+        }
+
+        a[href*="example"] {
+            text-decoration: underline;
+        }
+
+        /* Pseudo-classes - targets specific element states */
+        a:link {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:visited {
+            color: #6610f2;
+        }
+
+        a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        a:active {
+            color: #ffc107;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            cursor: pointer;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        li:first-child {
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        li:last-child {
+            color: #dc3545;
+        }
+
+        li:nth-child(odd) {
+            background-color: #f9f9f9;
+        }
+
+        input:focus {
+            outline: none;
+            border: 2px solid #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            margin-top: 10px;
+        }

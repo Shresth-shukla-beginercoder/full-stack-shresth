@@ -1,0 +1,16 @@
+<%- include('partials/head', { title: t.title }) %>
+<article>
+  <span class="tag"><%= t.group %></span>
+  <h1><%= t.title %></h1>
+  <p class="lead"><%= t.lead %></p>
+  <ol class="points"><% t.points.forEach(p => { %><li><%- p %></li><% }) %></ol>
+  <% if (t.code) { %>
+    <div class="code"><div class="bar"><span><%= t.code[0] %></span><button class="copy">Copy</button></div><pre><code><%= t.code[1] %></code></pre></div>
+  <% } %>
+  <% if (t.demo) { %><a class="btn" target="_blank" href="<%= t.demo.href %>">▶ <%= t.demo.label %></a><% } %>
+  <div class="pager">
+    <% if (prev) { %><a href="/topic/<%= prev.slug %>">← <%= prev.title %></a><% } else { %><span></span><% } %>
+    <% if (next) { %><a href="/topic/<%= next.slug %>"><%= next.title %> →</a><% } %>
+  </div>
+</article>
+<%- include('partials/foot') %>

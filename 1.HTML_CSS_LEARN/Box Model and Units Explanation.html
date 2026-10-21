@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS3 Box Model and Units Explanation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 20px;
+      background: #f7f7f7;
+      color: #333;
+    }
+    h1, h2 {
+      color: #2c3e50;
+    }
+    .example {
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 24px;
+    }
+    .box-example {
+      width: 200px;
+      height: 120px;
+      border: 4px solid #2980b9;
+      border-radius: 12px;
+      margin: 16px;
+      padding: 12px;
+      background: #d6eaf8;
+      display: inline-block;
+    }
+    .inline-box {
+      display: inline-block;
+      width: 120px;
+      height: 80px;
+      border: 2px dashed #27ae60;
+      margin: 10px;
+      padding: 8px;
+      background: #e9f7ef;
+    }
+    .block-box {
+      display: block;
+      width: 100%;
+      background: #f0f3f4;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+    .unit-example {
+      font-size: 1rem;
+      margin-top: 12px;
+    }
+  </style>
+</head>
+<body>
+  <h1>CSS3 Box Model and Units</h1>
+  <div class="example">
+    <h2>Box Model: width, height, border, border-radius</h2>
+    <p>The CSS box model defines how elements are sized and spaced. The main properties are:</p>
+    <ul>
+      <li><strong>width</strong>: the content width of the element.</li>
+      <li><strong>height</strong>: the content height of the element.</li>
+      <li><strong>border</strong>: the line around the padding and content.</li>
+      <li><strong>border-radius</strong>: rounds the corners of the border.</li>
+    </ul>
+    <div class="box-example">
+      Box model example
+    </div>
+    <p>This box has width 200px, height 120px, border 4px solid, and border-radius 12px.</p>
+  </div>
+
+  <div class="example">
+    <h2>Margin and Padding</h2>
+    <p>Margin creates space outside the element. Padding creates space inside the element, between the content and the border.</p>
+    <div style="background:#fdebd0; padding:20px; border:1px solid #f39c12; margin:20px 0;">
+      This element has padding 20px and margin 20px.
+    </div>
+    <p>In the example above, the orange area is the border and inside it is the padding space.</p>
+  </div>
+
+  <div class="example">
+    <h2>Display Property</h2>
+    <p>The <code>display</code> property controls how an element is laid out.</p>
+    <ul>
+      <li><strong>block</strong>: element takes the full width available and starts on a new line.</li>
+      <li><strong>inline</strong>: element takes only the width it needs and flows within text.</li>
+      <li><strong>inline-block</strong>: behaves like inline but can have width and height.</li>
+    </ul>
+    <div class="block-box">This is <strong>display: block;</strong></div>
+    <div class="inline-box">inline-block 1</div>
+    <div class="inline-box">inline-block 2</div>
+  </div>
+
+  <div class="example">
+    <h2>CSS Units: em and rem</h2>
+    <p>Relative units help create scalable layouts.</p>
+    <ul>
+      <li><strong>em</strong>: relative to the font-size of the element itself.</li>
+      <li><strong>rem</strong>: relative to the font-size of the root element (<code>&lt;html&gt;</code>).</li>
+    </ul>
+    <p class="unit-example" style="font-size: 1.25rem;">This text is 1.25rem.</p>
+    <p class="unit-example" style="font-size: 1.2em;">This text is 1.2em relative to its parent.</p>
+    <p>Companies use <strong>em</strong> and <strong>rem</strong> for responsive typography and consistent spacing. For example, buttons and cards may use <code>padding: 1rem;</code> and <code>font-size: 1.1rem;</code> so the design scales with user preferences.</p>
+  </div>
+
+  <div class="example">
+    <h2>How Companies Use These Concepts</h2>
+    <p>In production CSS, teams use these rules to build consistent and responsive layouts:</p>
+    <ul>
+      <li>Set base font sizes on the root element and use <code>rem</code> for spacing and typography.</li>
+      <li>Use <code>box-sizing: border-box;</code> so width and height include padding and border.</li>
+      <li>Use margin for spacing between components and padding for internal spacing.</li>
+      <li>Choose <code>display</code> values carefully for layout: block, inline-block, flex, grid, etc.</li>
+    </ul>
+  </div>
+</body>
+</html>

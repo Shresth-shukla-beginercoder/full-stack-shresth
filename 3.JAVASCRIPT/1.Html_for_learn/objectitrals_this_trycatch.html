@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>JS: Object Literals & Loops</title>
+<link rel="stylesheet" href="/FULL STACK COLT STEELE/3.JAVASCRIPT/CSS_to_Learn/objectlitrals.css">
+</head>
+<body>
+<header>
+  <h1>🧩 JavaScript Objects & Loops</h1>
+  <nav>
+    <a href="#intro">Intro</a><a href="#create">Create</a><a href="#access">Access</a>
+    <a href="#modify">Modify</a><a href="#nest">Nesting</a><a href="#for">for</a>
+    <a href="#arrays">Arrays</a><a href="#nested-loops">Nested</a><a href="#while">while</a>
+    <a href="#break">break</a><a href="#forof">for...of</a><a href="#forin">for...in</a>
+    <a href="#this">this</a><a href="#trycatch">try/catch</a><a href="#methods">Methods</a>
+  </nav>
+</header>
+
+<main>
+
+<section id="intro">
+<span class="tag">1 · Introducing object literals</span>
+<h2>What is an object literal?</h2>
+<p>An object literal is a comma-separated set of <b>key: value</b> pairs wrapped in <code>{ }</code>. It's the simplest way to group related data and behavior together, without needing a class or constructor.</p>
+<pre><code>// A plain object literal
+const student = {
+  name: "Shresth",
+  age: 20,
+  branch: "CSE"
+};
+console.log(typeof student); // "object"</code></pre>
+<div class="out">Keys are always strings (or Symbols) under the hood; values can be <b>anything</b> — numbers, strings, arrays, functions, even other objects.</div>
+</section>
+
+<section id="create">
+<span class="tag">2 · Creating object literals</span>
+<h2>Ways to create one</h2>
+<pre><code>// 1. Directly with key:value pairs
+const car = { brand: "Tata", model: "Nexon", year: 2024 };
+
+// 2. Shorthand property names (when variable name = key name)
+const brand = "Tata", year = 2024;
+const car2 = { brand, year };          // same as { brand: brand, year: year }
+
+// 3. Computed property names
+const field = "color";
+const car3 = { [field]: "red" };       // { color: "red" }
+
+// 4. Empty object, filled later
+const empty = {};
+empty.city = "Gorakhpur";</code></pre>
+</section>
+
+<section id="access">
+<span class="tag">3 · Accessing data out of an object</span>
+<h2>Dot vs bracket notation</h2>
+<pre><code>const car = { brand: "Tata", model: "Nexon", "fuel type": "petrol" };
+
+console.log(car.brand);            // "Tata"        (dot notation)
+console.log(car["model"]);         // "Nexon"       (bracket notation)
+console.log(car["fuel type"]);     // needed when key has a space
+
+// Dynamic key access
+const key = "brand";
+console.log(car[key]);             // "Tata"
+
+// Accessing a missing property
+console.log(car.color);            // undefined (no error)</code></pre>
+<div class="out">Use <b>dot notation</b> when the key is a valid identifier. Use <b>bracket notation</b> when the key has spaces, is dynamic, or comes from a variable.</div>
+</section>
+
+<section id="modify">
+<span class="tag">4 · Modifying an object</span>
+<h2>Add, update, delete</h2>
+<pre><code>const car = { brand: "Tata", year: 2024 };
+
+car.year = 2025;          // update existing property
+car.color = "white";      // add a new property
+delete car.color;         // remove a property
+
+// Freezing (prevents any further changes)
+Object.freeze(car);
+car.year = 2099;          // silently fails (or throws in strict mode)
+console.log(car.year);    // still 2025</code></pre>
+</section>
+
+<section id="nest">
+<span class="tag">5 · Nesting arrays and objects</span>
+<h2>Objects inside objects, arrays inside objects</h2>
+<pre><code>const student = {
+  name: "Shresth",
+  marks: [88, 92, 79],              // array nested in object
+  address: {                         // object nested in object
+    city: "Gorakhpur",
+    state: "UP"
+  },
+  friends: [
+    { name: "Aman", age: 20 },       // array of objects
+    { name: "Riya", age: 21 }
+  ]
+};
+
+console.log(student.address.city);   // "Gorakhpur"
+console.log(student.marks[1]);       // 92
+console.log(student.friends[0].name);// "Aman"</code></pre>
+<div class="out">Chain <code>.</code> and <code>[]</code> together to dig deeper into nested structures — read it left to right, one level at a time.</div>
+</section>
+
+<section id="for">
+<span class="tag">6 · The for loop</span>
+<h2>Syntax & examples</h2>
+<pre><code>// for (initialization; condition; increment)
+for (let i = 0; i &lt; 5; i++) {
+  console.log("Iteration:", i);
+}
+
+// Counting down
+for (let i = 10; i &gt; 0; i--) {
+  console.log(i);
+}
+
+// Skipping by 2
+for (let i = 0; i &lt; 10; i += 2) {
+  console.log(i); // 0,2,4,6,8
+}</code></pre>
+</section>
+
+<section id="arrays">
+<span class="tag">7 · Looping over arrays</span>
+<h2>for, forEach, and for...of on arrays</h2>
+<pre><code>const fruits = ["apple", "banana", "mango"];
+
+// classic for loop (index-based)
+for (let i = 0; i &lt; fruits.length; i++) {
+  console.log(i, fruits[i]);
+}
+
+// .forEach — array method, no index management needed
+fruits.forEach((fruit, index) => {
+  console.log(index, fruit);
+});
+
+// for...of — cleanest for values only
+for (const fruit of fruits) {
+  console.log(fruit);
+}</code></pre>
+</section>
+
+<section id="nested-loops">
+<span class="tag">8 · Nested loops</span>
+<h2>A loop inside a loop</h2>
+<pre><code>// Multiplication table 1-3
+for (let i = 1; i &lt;= 3; i++) {
+  for (let j = 1; j &lt;= 3; j++) {
+    console.log(`${i} x ${j} = ${i * j}`);
+  }
+}
+
+// Looping a 2D array (matrix)
+const grid = [[1, 2], [3, 4], [5, 6]];
+for (let row = 0; row &lt; grid.length; row++) {
+  for (let col = 0; col &lt; grid[row].length; col++) {
+    console.log(grid[row][col]);
+  }
+}</code></pre>
+<div class="out">The outer loop runs once per row; the inner loop runs fully for <b>every single</b> iteration of the outer loop.</div>
+</section>
+
+<section id="while">
+<span class="tag">9 · while loops</span>
+<h2>while vs do...while</h2>
+<pre><code>// while — checks condition BEFORE running
+let i = 0;
+while (i &lt; 5) {
+  console.log(i);
+  i++;
+}
+
+// do...while — runs body ONCE, then checks condition
+let j = 0;
+do {
+  console.log(j);
+  j++;
+} while (j &lt; 5);
+
+// do...while always runs at least once, even if condition is false:
+let k = 10;
+do {
+  console.log("runs once:", k);
+} while (k &lt; 5);</code></pre>
+</section>
+
+<section id="break">
+<span class="tag">10 · The break keyword</span>
+<h2>Exiting a loop early</h2>
+<pre><code>for (let i = 0; i &lt; 10; i++) {
+  if (i === 5) break;   // stops the loop entirely
+  console.log(i);        // prints 0,1,2,3,4
+}
+
+// continue — skips just this iteration, loop keeps going
+for (let i = 0; i &lt; 5; i++) {
+  if (i === 2) continue;
+  console.log(i);        // prints 0,1,3,4 (2 is skipped)
+}
+
+// break inside nested loops only exits the INNERMOST loop
+outer: for (let i = 0; i &lt; 3; i++) {
+  for (let j = 0; j &lt; 3; j++) {
+    if (j === 1) break outer; // labeled break exits BOTH loops
+    console.log(i, j);
+  }
+}</code></pre>
+</section>
+
+<section id="forof">
+<span class="tag">11 · The for...of loop</span>
+<h2>Iterating any "iterable"</h2>
+<pre><code>// Works on arrays, strings, Maps, Sets — NOT plain objects
+for (const char of "Hi") console.log(char);      // "H" then "i"
+
+const nums = [10, 20, 30];
+for (const n of nums) console.log(n);
+
+// With entries() to get index + value together
+for (const [index, value] of nums.entries()) {
+  console.log(index, value);
+}</code></pre>
+<div class="out">for...of gives you the <b>values</b> directly — no index bookkeeping, no <code>.length</code> checks. It's the most readable loop for arrays and strings.</div>
+</section>
+
+<section id="forin">
+<span class="tag">12 · Iterating over objects (for...in)</span>
+<h2>Looping through keys</h2>
+<pre><code>const car = { brand: "Tata", model: "Nexon", year: 2024 };
+
+// for...in gives you the KEYS of an object
+for (const key in car) {
+  console.log(key, "=", car[key]);
+}
+
+// Common alternatives using Object methods + for...of
+for (const key of Object.keys(car)) console.log(key);
+for (const value of Object.values(car)) console.log(value);
+for (const [key, value] of Object.entries(car)) {
+  console.log(`${key}: ${value}`);
+}</code></pre>
+<div class="out"><b>Rule of thumb:</b> use <code>for...of</code> for arrays/strings (values), use <code>for...in</code> or <code>Object.entries()</code> for plain objects (keys).</div>
+</section>
+
+<section id="this">
+<span class="tag">13 · The mysterious 'this' keyword</span>
+<h2>What does 'this' refer to?</h2>
+<p><code>this</code> refers to the object that is currently "calling" the function — its value depends on <b>how</b> a function is invoked, not where it's written.</p>
+<pre><code>const car = {
+  brand: "Tata",
+  showBrand: function () {
+    console.log(this.brand);   // 'this' = car, because car.showBrand() called it
+  }
+};
+car.showBrand();               // "Tata"
+
+// Losing 'this' — a common bug
+const grabbed = car.showBrand;
+grabbed();                     // undefined ('this' is no longer car)
+
+// Arrow functions do NOT have their own 'this' —
+// they inherit 'this' from the surrounding (enclosing) scope
+const car2 = {
+  brand: "Tata",
+  showBrand: () => {
+    console.log(this.brand);   // 'this' here is NOT car2 (arrow fn) → undefined
+  }
+};
+
+// 'this' inside a regular method's callback needs care:
+const car3 = {
+  brand: "Tata",
+  items: ["seat", "wheel"],
+  list() {
+    this.items.forEach((item) => {
+      // arrow function here correctly keeps 'this' = car3
+      console.log(this.brand, item);
+    });
+  }
+};
+car3.list();</code></pre>
+<div class="out">Quick rule: <b>regular function</b> → <code>this</code> = whatever called it. <b>Arrow function</b> → <code>this</code> = inherited from where it was defined.</div>
+</section>
+
+<section id="trycatch">
+<span class="tag">14 · try...catch</span>
+<h2>Handling errors gracefully</h2>
+<pre><code>try {
+  const car = { brand: "Tata" };
+  console.log(car.engine.type);   // engine is undefined → error!
+} catch (error) {
+  console.log("Something went wrong:", error.message);
+} finally {
+  console.log("This always runs, error or not.");
+}
+
+// Throwing your own errors
+function getAge(age) {
+  try {
+    if (age &lt; 0) throw new Error("Age cannot be negative");
+    return age;
+  } catch (err) {
+    console.log("Caught:", err.message);
+    return null;
+  }
+}
+getAge(-5);   // "Caught: Age cannot be negative"</code></pre>
+<div class="out">Use try/catch around code that might fail at runtime — accessing deep/uncertain object properties, parsing JSON, network calls, user input — so one error doesn't crash the whole script.</div>
+</section>
+
+<section id="methods">
+<span class="tag">15 · Defining methods & their uses</span>
+<h2>Functions that live inside objects</h2>
+<pre><code>const car = {
+  brand: "Tata",
+  speed: 0,
+
+  // method — full function syntax
+  accelerate: function (amount) {
+    this.speed += amount;
+    console.log(`${this.brand} is now at ${this.speed} km/h`);
+  },
+
+  // method — ES6 shorthand (preferred, same result)
+  brake(amount) {
+    this.speed = Math.max(0, this.speed - amount);
+  }
+};
+
+car.accelerate(40);   // "Tata is now at 40 km/h"
+car.brake(10);
+console.log(car.speed); // 30</code></pre>
+<div class="out"><b>Why use methods?</b> They bundle behavior with the data it acts on — instead of a separate function taking the object as a parameter, the object "knows how" to do things to itself via <code>this</code>. This is the core idea behind object-oriented code.</div>
+</section>
+
+</main>
+<footer>Quick reference · JS Object Literals & Loops</footer>
+
+<script src="/FULL STACK COLT STEELE/3.JAVASCRIPT/2.Js_to_Learn/objectlitral.js"></script>
+</body>
+</html>

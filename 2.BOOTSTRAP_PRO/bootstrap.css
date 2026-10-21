@@ -1,0 +1,116 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #f5d9f5;
+    
+    
+}
+
+#link{
+    font-size: 1.3em;
+    color: white;
+}
+#link:hover{
+    color: rgb(247, 23, 23);
+}
+.custom-scroll-nav {
+  background-color: transparent; /* safe default for unsupported browsers */
+  padding: 2px 16px;
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+  transition: background-color 1s ease;
+}
+
+@supports (animation-timeline: scroll()) {
+  .custom-scroll-nav {
+    animation: navColorChange linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0px 100px;
+  }
+}
+
+@keyframes navColorChange {
+  from {
+    background-color: transparent;
+    box-shadow: none;
+  }
+  to {
+    background-color: #f57fed;
+  }
+}
+
+#candy{
+    font-size: 2.2em;
+    color: rgb(247, 23, 23);
+}
+.row {
+  margin: 4em 0;
+}
+.row:first-child {
+  margin-top: 0;
+}
+
+.museum-row {
+  min-height: 60vh;
+}
+
+@media (min-width: 768px) {
+  .museum-row {
+    height: 100vh;
+  }
+}
+
+.museum-text {
+  padding: 2rem 1.5rem;
+  color: white;
+  overflow: hidden;
+}
+
+.museum-text h1 {
+  font-size: clamp(1.5rem, 4vw, 3.5rem);
+}
+
+.slash {
+  color: #e63946;
+  margin: 0 0.25rem;
+}
+
+.museum-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.mesumhead {
+  color: #e63946;
+  font-family: 'Nunito';
+  font-weight: 100;
+  text-align: center;
+}
+
+/* small fixed icon — NOT img-fluid, so it never scales up */
+.meseum-img2 {
+  width: 90px;
+  height: auto;
+  margin: 1rem auto;
+  display: block;
+}
+
+@media (max-width: 689px) {
+  .meseum-img2 {
+    display: none;
+  }
+}
+
+.meuseum-text2 p {
+  text-align: center;
+  font-family: 'Nunito';
+  font-weight: 400;
+  color: #a920d7;
+}

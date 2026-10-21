@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show
+    </title>
+</head>
+<body>
+    <h1>Comments Detaile -: <%= com.id %> </h1>    
+    <h1>Comments -:<%= com.comments %> - <%= com.username %> </h1>   
+    <a href="/comment">Back</a> 
+    <a href="/comment/<%= com.id %>/edit">Edit page</a> 
+    <form method="post" action="/comment/<%= com.id %>?_method=DELETE">
+        <button>Delete</button>
+    </form>
+</body>
+</html>

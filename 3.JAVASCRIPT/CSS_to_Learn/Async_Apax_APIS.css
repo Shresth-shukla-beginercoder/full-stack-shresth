@@ -1,0 +1,275 @@
+* { box-sizing: border-box; }
+
+:root {
+  --bg: #0f172a;
+  --panel: #1e293b;
+  --panel-light: #273449;
+  --border: #334155;
+  --text: #e2e8f0;
+  --text-dim: #94a3b8;
+  --accent: #38bdf8;
+  --accent2: #a78bfa;
+  --ok: #4ade80;
+  --err: #f87171;
+  --code-bg: #0b1120;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Roboto, system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  min-height: 100vh;
+}
+
+/* ---------- Sidebar ---------- */
+#sidebar {
+  flex: 0 1 260px;
+  min-width: min(260px, 100%);
+  background: var(--panel);
+  border-right: 1px solid var(--border);
+  padding: clamp(0.75rem, 3vw, 1.5rem);
+  position: sticky;
+  top: 0;
+  max-height: 100vh;
+  overflow-y: auto;
+}
+
+#sidebar h1 {
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+  margin: 0 0 1rem;
+  color: var(--accent);
+}
+
+.group-label {
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+  margin: 1.1rem 0 0.4rem;
+}
+
+.nav-link {
+  display: block;
+  padding: 0.4rem 0.5rem;
+  color: var(--text);
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 0.92rem;
+  line-height: 1.3;
+}
+
+.nav-link:hover {
+  background: var(--panel-light);
+  color: var(--accent);
+}
+
+#menuToggle {
+  display: none;
+  position: fixed;
+  top: 0.6rem;
+  left: 0.6rem;
+  z-index: 20;
+  background: var(--accent);
+  color: #0b1120;
+  border: none;
+  padding: 0.5rem 0.8rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* ---------- Main content ---------- */
+#content {
+  flex: 1 1 min(700px, 100%);
+  padding: clamp(1rem, 4vw, 2.5rem);
+  max-width: 900px;
+}
+
+.topic {
+  margin-bottom: clamp(2.5rem, 6vw, 4rem);
+  padding-bottom: clamp(1.5rem, 4vw, 2.5rem);
+  border-bottom: 1px solid var(--border);
+}
+
+.topic h2 {
+  font-size: clamp(1.25rem, 3vw, 1.7rem);
+  color: var(--accent2);
+  margin-bottom: 0.9rem;
+}
+
+.topic h3 {
+  font-size: 1rem;
+  color: var(--text-dim);
+  margin: 1.2rem 0 0.5rem;
+}
+
+.explain ul, .explain ol { padding-left: 1.2rem; }
+.explain li { margin-bottom: 0.5rem; line-height: 1.5; }
+.explain p { line-height: 1.55; }
+
+.ref-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.7rem 0;
+  font-size: 0.9rem;
+}
+.ref-table th, .ref-table td {
+  border: 1px solid var(--border);
+  padding: 0.5rem 0.6rem;
+  text-align: left;
+}
+.ref-table th {
+  background: var(--panel-light);
+  color: var(--accent);
+}
+
+pre {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  overflow-x: auto;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+code {
+  font-family: "Fira Code", Consolas, monospace;
+  color: #fbbf24;
+}
+
+pre code { color: inherit; }
+
+.example, .practice {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: clamp(0.8rem, 3vw, 1.2rem);
+  margin-top: 1rem;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  padding: 0.55rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-top: 0.6rem;
+}
+
+.run-demo, .run-practice {
+  background: var(--accent);
+  color: #0b1120;
+}
+.run-demo:hover, .run-practice:hover { background: #7dd3fc; }
+
+.hint-toggle {
+  background: var(--panel-light);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+.hint-toggle:hover { background: var(--border); }
+
+.hint {
+  display: none;
+  background: rgba(167, 139, 250, 0.12);
+  border-left: 3px solid var(--accent2);
+  padding: 0.6rem 0.8rem;
+  margin: 0.5rem 0;
+  font-size: 0.88rem;
+  border-radius: 4px;
+}
+.hint.show { display: block; }
+
+.practice-code {
+  width: 100%;
+  background: var(--code-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.7rem;
+  font-family: "Fira Code", Consolas, monospace;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  resize: vertical;
+}
+
+.output {
+  margin-top: 0.7rem;
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.7rem;
+  font-family: "Fira Code", Consolas, monospace;
+  font-size: 0.85rem;
+  min-height: 1.5rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.output .log-line { color: var(--text); }
+.output .err-line { color: var(--err); }
+.output .ok-line { color: var(--ok); }
+
+/* ---------- TV search project ---------- */
+#tvSearchForm {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+#tvSearchInput {
+  flex: 1 1 200px;
+  padding: 0.6rem 0.8rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--code-bg);
+  color: var(--text);
+  font-size: 0.9rem;
+}
+#tvSearchForm button {
+  margin-top: 0;
+  background: var(--accent2);
+  color: #0b1120;
+}
+
+.tv-results {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+.tv-card {
+  flex: 0 1 min(140px, 100%);
+  background: var(--panel-light);
+  border-radius: 8px;
+  padding: 0.5rem;
+  text-align: center;
+  font-size: 0.8rem;
+}
+.tv-card img {
+  width: 100%;
+  border-radius: 6px;
+  margin-bottom: 0.4rem;
+}
+
+/* ---------- Small screens: collapse sidebar behind toggle ---------- */
+@media (max-width: 720px) {
+  #menuToggle { display: block; }
+  #sidebar {
+    position: fixed;
+    left: -100%;
+    top: 0;
+    width: min(80vw, 300px);
+    height: 100vh;
+    z-index: 15;
+    transition: left 0.25s ease;
+    box-shadow: 4px 0 20px rgba(0,0,0,0.4);
+  }
+  #sidebar.open { left: 0; }
+  #content { padding-top: 3.5rem; }
+}

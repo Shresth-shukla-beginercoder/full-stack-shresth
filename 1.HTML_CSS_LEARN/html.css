@@ -1,0 +1,47 @@
+   body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: rgb(240, 248, 255);
+      color: #333333;
+      margin: 20px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      color: navy;
+    }
+
+    p,
+    li {
+      font-size: 1.1rem;
+    }
+
+    section {
+      background: #f4f4f4;
+      border: 1px solid #ddd;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 0.5rem;
+    }
+
+    .note {
+      color: tomato;
+      background: rgb(255, 240, 240);
+      padding: 0.75rem;
+    }
+
+    ul {
+      list-style: disc inside;
+    }
+
+    .code {
+      font-family: "Courier New", monospace;
+      background: #ffffff;
+      color: #005500;
+      padding: 0.25rem 0.4rem;
+      border-radius: 0.25rem;
+    }
