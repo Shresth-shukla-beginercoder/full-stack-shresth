@@ -10,6 +10,7 @@ Learning projects from the Colt Steele Full Stack course. Each folder is one pro
 | 5. Express + EJS (EJS.Learn) | https://shresth-express.vercel.app |
 | 5b. Express Lab | https://shresth-express-lab.vercel.app |
 | 8. React Basics | https://shresth-react.vercel.app |
+| 7. CRUD + PostgreSQL (6 & 7) | https://crud-project-chi-wine.vercel.app |
 
 Static examples (projects 1–4) are also served from the hub site:
 
@@ -28,7 +29,7 @@ Static examples (projects 1–4) are also served from the hub site:
 | 4 | `4.Node` | “Node.js — First Brush” study page (concepts + practice tests) |
 | 5 | `5.Express_js` | Express + EJS apps: the EJS.Learn app (root) and the full Express Lab (`Undertanding_Ejs/express-lab`) |
 | 6 | `6.RestFul_CRUD` | REST CRUD learning notes + example API |
-| 7 | `7.CURD_SQL_PROJECT` | CRUD with PostgreSQL (`pg`). Needs a `.env` with DB credentials — private, not in git |
+| 7 | `7.CURD_SQL_PROJECT` | CRUD with PostgreSQL (`pg`). Live: https://crud-project-chi-wine.vercel.app — needs a `.env` with DB credentials (private, not in git) |
 | 8 | `8.React` | React basics — every lesson demo on one page (Vite) |
 
 ## Running locally
