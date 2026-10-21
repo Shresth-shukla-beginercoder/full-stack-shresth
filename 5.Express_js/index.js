@@ -4,7 +4,7 @@ const app = express();
 
 
 app.set('view engine', 'ejs');
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'Public')));
 app.set('views', path.join(__dirname, '/views'));
 // app.use((req,res)=>{
 //     console.log('We got a new request');
