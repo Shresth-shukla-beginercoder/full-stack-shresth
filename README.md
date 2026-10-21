@@ -9,7 +9,7 @@ Learning projects from the Colt Steele Full Stack course. Each folder is one pro
 | Project hub (static) | https://shresth-static.vercel.app |
 | 5. Express + EJS (EJS.Learn) | https://shresth-express.vercel.app |
 | 5b. Express Lab | https://shresth-express-lab.vercel.app |
-| 8. React Basics | https://shresth-react.vercel.app |
+| 8. React Basics | https://colt-react.vercel.app |
 | 7. CRUD + PostgreSQL (6 & 7) | https://crud-project-chi-wine.vercel.app |
 
 Static examples (projects 1–4) are also served from the hub site:
