@@ -76,6 +76,15 @@ function App() {
       <header className="page-header">
         <h1>React Basics — Every Lesson, One Page</h1>
         <p>Props · State · Events · Forms · Effects · MUI · Todos — click around!</p>
+        <p style={{ margin: '0.25rem 0 0' }}>
+          <a
+            href="https://github.com/Shresth-shukla-beginercoder/full-stack-shresth"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            📦 GitHub — full-stack-shresth
+          </a>
+        </p>
       </header>
 
       {/* 638 refresher: render the whole demo list with .map() */}
